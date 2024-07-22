@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+@import "@fontsource/space-grotesk/300.css";
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
+
+html,
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.nav_menu_item {
+  position: relative;
+}
+.nav_menu_item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.4s ease-out;
+}
+
+.nav_menu_item:hover::before {
+  width: 100%;
+}

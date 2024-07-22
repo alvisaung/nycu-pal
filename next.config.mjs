@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+import createNextIntlPlugin from "next-intl/plugin";
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin();
+const nextConfig = {
+  images: {
+    path: "/",
+  },
+};
+
+export default withNextIntl(nextConfig);
