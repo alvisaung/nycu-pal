@@ -1,0 +1,60 @@
+.arrow_box {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 5px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  transition: 1.6s ease;
+  border-radius: 2px;
+  background-color: #fcfcfc;
+  opacity: 39%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.slide_img {
+  /* max-height: 450px; */
+  background-color: black;
+  object-fit: cover;
+  /* object-position: left 50%; */
+  width: 100%;
+}
+.dots {
+  display: flex;
+  justify-content: center;
+
+  position: absolute;
+  transform: translateX(-50%) translateY(-25px);
+  left: 50%;
+}
+.arrow {
+  width: 20px;
+  /* height: 50px; */
+  fill: #000;
+}
+.dot {
+  border: 2px solid #d9d9d9;
+  width: 10px;
+  height: 10px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  margin: 0 5px;
+  padding: 5px;
+}
+
+.dot:focus {
+  outline: none;
+}
+
+.dot.active {
+  background: #000;
+}
+.img_carousal_gp {
+  position: relative;
+  margin: auto;
+}
+
+.arrow_right {
+  left: auto;
+  right: 0px;
+}
