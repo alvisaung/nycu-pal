@@ -1,0 +1,12 @@
+{
+  "HomePage": {
+    "Home": "首頁"
+  },
+  "Layout": {
+    "Home": "首頁",
+    "Research": "研究項目",
+    "Members": "實驗室成員",
+    "Publications": "論文發表",
+    "Events": "活動"
+  }
+}

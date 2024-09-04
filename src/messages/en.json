@@ -1,0 +1,12 @@
+{
+  "HomePage": {
+    "Home": "Home"
+  },
+  "Layout": {
+    "Home": "Home",
+    "Research": "Research",
+    "Members": "Members",
+    "Publications": "Publications",
+    "Events": "Events"
+  }
+}
