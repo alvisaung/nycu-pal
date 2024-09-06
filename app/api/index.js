@@ -1,5 +1,5 @@
 import axios from "axios";
-const devUrl = "https://www.nycu-pal.com/api/";
+const devUrl = "https://api.nycu-pal.com/api/";
 
 const api = axios.create({
   baseURL: devUrl,
