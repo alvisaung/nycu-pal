@@ -25,6 +25,6 @@
       "style/*": ["app/ui/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Carousel/index.tsx", "src/hooks/useFetchData.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Carousel/index.tsx", "src/hooks/useFetchData.js", "app/[lang]/events/[id]/page.jsx", "app/components/Activities/AdminAddActivity.jsx", "app/components/AdminGeneral/AdminGeneral.js", "app/components/Member/AdminMember.jsx", "app/components/Publications/AdminPublications.jsx", "app/components/Research/AdminResearch.jsx"],
   "exclude": ["node_modules"]
 }

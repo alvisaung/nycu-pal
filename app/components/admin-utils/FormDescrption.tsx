@@ -40,7 +40,7 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
         placeholder: `${placeholder}${isRequired ? "*" : ""}`,
       }),
       Heading.configure({
-        levels: [3, 4, 5, 6],
+        levels: [1, 2, 3, 4, 5, 6],
       }),
       ImageResize,
       Image,

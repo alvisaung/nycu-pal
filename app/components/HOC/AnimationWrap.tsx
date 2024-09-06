@@ -8,6 +8,7 @@ interface AnimationWrapProps extends MotionProps {
   threshold?: number;
   delay?: number;
   inViewDouble?: boolean;
+  className?: string;
 }
 const defaultInitial = { opacity: 0, y: 25 };
 const defaultAnimate = { opacity: 1, y: 0 };

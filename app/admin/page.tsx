@@ -28,7 +28,7 @@ const Dashboard = () => {
     <div>
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Banner</h2>
-        <UploadImgComponent />
+        <UploadImgComponent setImages={() => {}} />
       </div>
       <nav className="mb-8">
         <ul className="flex space-x-6">

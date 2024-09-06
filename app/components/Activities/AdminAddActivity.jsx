@@ -5,17 +5,18 @@ import FormSubmit from "@/app/components/admin-utils/FormSubmit";
 import UploadImgComponent from "@/app/components/AdminHome/UploadImgComponent";
 import { useFetchData } from "@/src/hooks/useFetchData";
 import { useEffect, useState } from "react";
+import { ActivityData } from ".";
 
-interface AdminAddActivityProps {
-  imgs_arr: string[];
-  title_edit: string;
-  description_edit: "";
-  selected_edit: "";
-  id: string;
-}
+// interface AdminAddActivityProps {
+//   imgs_arr?: string[];
+//   title_edit?: string;
+//   description_edit?: "";
+//   selected_edit?: "";
+//   id?: string;
+// }
 
-const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "", selected_edit = "", id = "" }: AdminAddActivityProps) => {
-  const [imgs, setImgs] = useState<string[]>(imgs_arr);
+const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "", selected_edit = "", id = "" }) => {
+  const [imgs, setImgs] = useState(imgs_arr);
   const [title, setTitle] = useState(title_edit);
   const [description, setDescription] = useState(description_edit);
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,14 +25,14 @@ const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "
   const { data: eventType } = useFetchData("events-type");
   useEffect(() => {
     if (id && event) {
-      setSelectedEvent(event.EventsType?.id);
+      setSelectedEvent(event?.EventsType?.id);
       setTitle(event.title);
       setDescription(event.desc);
       setImgs(event.img_url);
     }
   }, [id, event]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Reset error message

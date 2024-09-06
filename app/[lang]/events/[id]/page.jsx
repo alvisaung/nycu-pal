@@ -3,11 +3,12 @@ import { ActivityType } from "@/app/components/Activities";
 import Carousel from "@/app/components/Carousel";
 import HeaderBond from "@/app/components/HOC/HeaderBond";
 import { useFetchData } from "@/src/hooks/useFetchData";
+import { DateTimeFormatOptions } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FC } from "react";
 
-const Page: FC = () => {
+const Page = () => {
   const pathname = usePathname();
   const id = pathname.split("/").pop();
 
@@ -22,13 +23,17 @@ const Page: FC = () => {
   //   img_url: "/imgs/placeholder/ss.jpg",
   // };
 
-  const formatDate = (dateString: string): string => {
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const options = { year: "numeric", month: "long", day: "numeric" };
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
     return date.toLocaleDateString("en-US", options).replace(",", " in");
   };
 
-  if (!data || !data.img_url) return <div></div>;
+  if (!data) return <div></div>;
   const { title, createdAt, desc, type, img_url } = data;
 
   const img_url_trans = img_url ? img_url.map((item) => ({ url: item })) : [];

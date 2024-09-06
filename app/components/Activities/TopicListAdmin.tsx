@@ -60,7 +60,7 @@ const TopicList: React.FC<TopicListAdminProps> = ({ topic_type }) => {
         Topic
       </h2>
       <ul className="space-y-2 mb-4">
-        {data.map((topic) => (
+        {data.map((topic: Topic) => (
           <li key={topic.id} className="flex justify-between items-center">
             <span>{topic.title}</span>
             <div>

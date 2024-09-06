@@ -105,7 +105,7 @@ const index: FC = async () => {
                       </video>
                     </div>
                   )} */}
-                    <div style={{ height: 180 }} className="w-5/12  mb-4   relative" style={{ width: 180, height: 180 }}>
+                    <div className="w-5/12  mb-4   relative" style={{ width: 180, height: 180 }}>
                       <video loop autoPlay muted preload="auto" className="rounded  object-cover  w-full h-full top-0 bottom-0 absolute object-cover ">
                         <source src={"/vdo/placeholder/intelligent.mp4"} type="video/mp4" />
                       </video>

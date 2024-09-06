@@ -9,17 +9,17 @@ import { researchBranch, researchTopicType } from "@/app/[lang]/research/page";
 import { ImgType } from "@/src/hooks/useImageUpload";
 import { useFetchData } from "@/src/hooks/useFetchData";
 
-interface FormData {
-  id: number;
-  img: string | null;
-  title: string;
-  detail: string;
-}
+// interface FormData {
+//   id: number;
+//   img: string | null;
+//   title: string;
+//   detail: string;
+// }
 
 const AdminResearch = () => {
-  const [statementImg, setStatementMedia] = useState<string>();
+  const [statementImg, setStatementMedia] = useState();
   const [statement, setStatement] = useState("");
-  const [topics, setTopics] = useState<researchTopicType[]>([]);
+  const [topics, setTopics] = useState([]);
   const { data: research_statement, putData } = useFetchData("research");
   const { data: research_topic, putData: putResearchTopic } = useFetchData("research-topic");
 
@@ -33,18 +33,18 @@ const AdminResearch = () => {
 
   useEffect(() => {
     if (research_topic.length > 0) {
-      let _new_topic = research_topic.map((t: researchTopicType, id) => ({ ...t, tempId: id }));
+      let _new_topic = research_topic.map((t, id) => ({ ...t, tempId: id }));
       setTopics(_new_topic);
     }
   }, [research_topic]);
 
-  const onPublicTopic = async (e: React.FormEvent, tempId: number) => {
+  const onPublicTopic = async (e, tempId) => {
     e.preventDefault();
     const topic_edit = topics.filter((t) => t.tempId == tempId);
     const update = await putResearchTopic(topic_edit[0]);
   };
 
-  const onPublicStatement = async (e: React.FormEvent) => {
+  const onPublicStatement = async (e) => {
     e.preventDefault();
     if (!statement) {
       window.alert("Need Statement");
@@ -57,15 +57,15 @@ const AdminResearch = () => {
     }
   };
 
-  const addForm = (): void => {
+  const addForm = () => {
     setTopics([...topics, { media_url: "", title: "", description: "", is_img: true, tempId: new Date().getTime() }]);
   };
-  const addBranch = (topicId: number): void => {
-    const newBranch: researchBranch = { tempId: Date.now(), title: "", description: "", is_img: true, media_url: undefined };
+  const addBranch = (topicId) => {
+    const newBranch = { tempId: Date.now(), title: "", description: "", is_img: true, media_url: undefined };
     setTopics((prevTopics) => prevTopics.map((topic) => (topic.tempId === topicId ? { ...topic, ResearchBranches: [...(topic.ResearchBranches || []), newBranch] } : topic)));
     return;
   };
-  const deleteForm = (topicId: number, branchId?: number): void => {
+  const deleteForm = (topicId, branchId) => {
     const _topics = JSON.parse(JSON.stringify(topics));
     const targetTopicIndex = _topics.findIndex((topic) => topic.tempId == topicId);
 
@@ -81,7 +81,7 @@ const AdminResearch = () => {
     setTopics(_topics);
   };
 
-  const updateBranchForm = (value: string, name: string, branchId: number, topicId: number) => {
+  const updateBranchForm = (value, name, branchId, topicId) => {
     setTopics((prevTopics) =>
       prevTopics.map((topic) => {
         if (topic.tempId === topicId) {
@@ -95,7 +95,7 @@ const AdminResearch = () => {
     );
   };
 
-  const onUpdateTopicForm = (val: string, name: string, id: number) => {
+  const onUpdateTopicForm = (val, name, id) => {
     setTopics((prevTopics) => prevTopics.map((t) => (t.tempId === id ? { ...t, [name]: val } : t)));
   };
   // const myUpdater = ;

@@ -15,7 +15,7 @@ export interface PublicationProps {
 
 const Publication: React.FC<PublicationProps> = ({ title, author, conference_name, lastItem, publish_yr, img_url, id, handleEdit }) => {
   const handleClick = () => {
-    if (id) {
+    if (id && handleEdit) {
       handleEdit(id);
     } else {
       return "";

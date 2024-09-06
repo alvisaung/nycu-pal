@@ -7,7 +7,8 @@ import { GoTrash } from "react-icons/go";
 interface UploadImgComponentProps {
   initialImages?: string[];
   addButtonLabel?: string;
-  setImages: (res: string | string[]) => void;
+  setImages: (updater: (prevImages: string[]) => string[]) => void;
+
   multiple?: boolean;
 }
 
@@ -33,7 +34,7 @@ const UploadImgComponent: FC<UploadImgComponentProps> = ({ initialImages = [], a
           (url, index) =>
             url && (
               <div key={index} className="relative">
-                <img src={url} alt={`Image ${url}`} width={200} height={100} objectFit="cover" />
+                <img src={url} alt={`Image ${url}`} width={200} height={100} />
                 <button onClick={() => handleDelete(index)} className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full">
                   <GoTrash />
                 </button>

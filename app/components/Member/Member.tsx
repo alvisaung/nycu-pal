@@ -8,6 +8,8 @@ export interface MemberType {
   research_dir?: string;
   email?: string;
   handleClick?: () => void;
+  phone?: string;
+  experiences?: string;
 }
 const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClick }) => {
   return (

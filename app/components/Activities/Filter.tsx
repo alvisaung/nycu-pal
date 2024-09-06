@@ -1,5 +1,6 @@
 import { fetchData } from "@/src/services/dataService";
 import React, { Component, FC } from "react";
+import { ActivityData, ActivityType } from ".";
 
 const ActivityFilter: FC = async () => {
   const data = await fetchData("/events-type");
@@ -13,7 +14,7 @@ const ActivityFilter: FC = async () => {
         <input type="checkbox" style={{ width: "14px", height: "14px" }} />
         <p className="ml-2 text-sm  text-header-purple">All</p>
       </li>
-      {data.map((type, id) => (
+      {data.map((type: ActivityData, id: string) => (
         <li key={id} className="list-none my-2 flex flex-row items-center cursor-pointer">
           <input type="checkbox" style={{ width: "14px", height: "14px" }} />
           <p className="ml-2 text-sm  text-header-purple">{type.title}</p>

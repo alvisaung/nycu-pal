@@ -15,11 +15,15 @@ export type ActivityData = {
   id: string;
   title: string;
   desc: string;
-  img_url?: string;
+  img_url?: string[];
   createdAt: string;
   type: ActivityType;
   lastItem?: Boolean;
   admin?: Boolean;
+  EventsType?: EventsTypeData;
+};
+type EventsTypeData = {
+  id: string;
 };
 type ActivityProps = ActivityData & {
   onDelete?: (id: string) => void;
@@ -61,7 +65,7 @@ const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, 
       </Link>
       {admin && (
         <div className="gap-y-4">
-          <button onClick={() => onDelete(id)}>
+          <button onClick={() => onDelete && onDelete(id)}>
             <GoTrash size={"1.5em"} />
           </button>
           <button onClick={() => router.push(`/admin/add-activity/${id}`)}>

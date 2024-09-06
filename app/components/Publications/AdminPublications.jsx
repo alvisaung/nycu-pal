@@ -12,18 +12,18 @@ const AdminPublications = () => {
   const [id, setId] = useState(null);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [img, setImages] = useState<string>();
+  const [img, setImages] = useState();
   const [publication, setPublication] = useState("");
   const [year, setYr] = useState("");
   const [paperType, setPaperType] = useState("");
   const { data: pubType } = useFetchData("publication-type");
   const { data: publications, putData } = useFetchData("publication");
 
-  const onPublic = async (e: React.FormEvent) => {
+  const onPublic = async (e) => {
     e.preventDefault();
     let img_url;
     if (img) {
-      img_url = img.url;
+      img_url = img;
     }
     const res = await putData({
       author: author,
@@ -43,7 +43,7 @@ const AdminPublications = () => {
     setYr("");
     setPaperType("");
     setImages("");
-    setId("");
+    setId(null);
   };
   const handleEdit = (id) => {
     let publication;

@@ -6,15 +6,15 @@ import FormDescriptionInput from "../admin-utils/FormDescrption";
 import FormBox from "../HOC/FormBox";
 import { useFetchData } from "@/src/hooks/useFetchData";
 import { ImgType } from "@/src/hooks/useImageUpload";
-import { role } from "@/app/[lang]/members/page";
 import Member, { MemberType } from "./Member";
+import { role } from "@/src/types/constants";
 
 const AdminMember = () => {
   const { data, putData } = useFetchData("member");
-  const [profImg, setProfImages] = useState<string[]>([]);
+  const [profImg, setProfImages] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [memberImg, setMemberImg] = useState<string | null>(null);
+  const [memberImg, setMemberImg] = (useState < string) | (null > null);
 
   const [professor, setProfessor] = useState({
     name: "",
@@ -38,7 +38,7 @@ const AdminMember = () => {
     role: "",
   });
 
-  const onPublic = async (e: React.FormEvent, isProfessor: boolean) => {
+  const onPublic = async (e, isProfessor) => {
     e.preventDefault();
     let img_url;
     if ((profImg && isProfessor) || (!isProfessor && memberImg)) {
@@ -57,17 +57,15 @@ const AdminMember = () => {
     }
   };
 
-  const onChange =
-    (type: string) =>
-    (val: string, name?: string): void => {
-      if (!name) return;
-      if (type == "professor") {
-        setProfessor((prevProfessor) => ({ ...prevProfessor, [name]: val }));
-      } else {
-        setMember({ ...member, [name]: val });
-      }
-    };
-  const onEdit = (member: MemberType) => {
+  const onChange = (type) => (val, name) => {
+    if (!name) return;
+    if (type == "professor") {
+      setProfessor((prevProfessor) => ({ ...prevProfessor, [name]: val }));
+    } else {
+      setMember({ ...member, [name]: val });
+    }
+  };
+  const onEdit = (member) => {
     setMember(member);
     setSelectedRole(member.role);
     setIsEditing(true);

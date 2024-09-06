@@ -2,6 +2,8 @@
 
 import React, { ReactNode, useCallback } from "react";
 import { type Editor } from "@tiptap/react";
+import { Level } from "@tiptap/extension-heading";
+
 import { Bold, Strikethrough, Italic, List, ListOrdered, Heading2, Underline, Quote, Undo, Redo, Code, Icon, AlignLeft, AlignCenter, AlignRight, Heading3, Heading4, Heading5, Image, Link } from "lucide-react";
 import ColorPicker from "./ColorPicker";
 
@@ -23,7 +25,7 @@ const Toolbar = ({ editor, content }: Props) => {
     return null;
   }
   const handleClick = (type: string) => {
-    let headLvl = 2;
+    let headLvl: Level = 2;
     if (type == "heading3") {
       headLvl = 3;
     } else if (type == "heading4") {

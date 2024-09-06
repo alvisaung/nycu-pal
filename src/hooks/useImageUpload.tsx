@@ -7,9 +7,9 @@ export interface ImgType {
   url: string;
   multiple?: boolean;
 }
-type SetValueType = (res: string | string[]) => void;
+type SetValueType = (updater: (prevImages: string[]) => string[]) => void;
 
-export const useImageUpload = (imgs: string[], setImages: SetValueType, multiple?: string) => {
+export const useImageUpload = (imgs: string[], setImages: SetValueType, multiple?: boolean) => {
   // const [images, setImages] = useState<ImgType[]>(initialImages);
 
   const handleUpload = async (file: File) => {
@@ -24,7 +24,7 @@ export const useImageUpload = (imgs: string[], setImages: SetValueType, multiple
       if (res && !Boolean(multiple)) {
         setImages(res.data.image.url);
       } else if (res && Boolean(multiple)) {
-        setImages([...imgs, res.data.image.url]);
+        setImages((prevImages) => [...prevImages, res.data.image.url]);
       }
     } catch (err) {
       console.log(err);
@@ -32,12 +32,12 @@ export const useImageUpload = (imgs: string[], setImages: SetValueType, multiple
   };
 
   const handleDelete = (index: number) => {
-    const leftImg = imgs.filter((_, i) => i !== index);
-    setImages(leftImg);
+    const leftImg: string[] = imgs.filter((_, i) => i !== index);
+    setImages((prevImages) => leftImg);
   };
 
   const handleMove = (index: number, direction: "left" | "right") => {
-    setImages((prevImages) => {
+    setImages((prevImages: string[]) => {
       if ((direction === "left" && index > 0) || (direction === "right" && index < prevImages.length - 1)) {
         const newImages = [...prevImages];
         const swapIndex = direction === "left" ? index - 1 : index + 1;

@@ -8,14 +8,13 @@ import { getMessages } from "next-intl/server";
 import "style/globals.css";
 
 import { helveticaNeue } from "style/fonts";
-import { fetchData } from "@/src/services/dataService";
 
 export const metadata: Metadata = {
   title: "NYCU PAL",
   description: "Photonics Lab",
 };
 
-export default async function RootLayout({ children, params: { locale }, data }: { children: React.ReactNode; params: { locale: string }; data: any }) {
+export default async function RootLayout({ children, params: { locale } }: { children: React.ReactNode; params: { locale: string } }) {
   const messages = await getMessages();
   // const pathname = usePathname();
   return (

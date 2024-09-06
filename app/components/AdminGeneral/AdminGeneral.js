@@ -15,10 +15,16 @@ const AdminGeneral = () => {
   });
   useEffect(() => {
     if (data) {
-      setGeneralData({ ...data });
+      // Ensure data is not an array
+      setGeneralData({
+        about: data.about || "",
+        mobile: data.mobile || "",
+        email: data.email || "",
+        address: data.address || "",
+      });
     }
   }, [data]);
-  const onChange = (val: string, name?: string) => {
+  const onChange = (val, name) => {
     if (name) {
       setGeneralData((prevData) => ({
         ...prevData,

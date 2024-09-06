@@ -8,9 +8,8 @@ import { useFetchData } from "@/src/hooks/useFetchData";
 
 const AdminActivities = () => {
   const router = useRouter();
-  const { data: activitiesData, delData } = useFetchData("/events");
-  console.log(activitiesData);
-  const onDelete = (id) => {
+  const { data: activitiesData, delData }: { data: ActivityData[]; delData: (params: { id: string }) => void } = useFetchData("/events");
+  const onDelete = (id: string) => {
     delData({ id: id });
   };
 
