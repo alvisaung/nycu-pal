@@ -2,6 +2,7 @@
 import React from "react";
 import { fetchData } from "../../../src/services/dataService";
 import api from "api/index.js";
+import { Mail, MapPin, PhoneCall } from "lucide-react";
 
 const Footer = async (props) => {
   const data = await fetchData("/about-lab");
@@ -12,15 +13,16 @@ const Footer = async (props) => {
         <div className="w-full md:w-2/5">
           <h3 className="text-lg underline">Contact Us</h3>
           <div className="flex-row flex items-center gap-x-2 md:mt-4 mt-3">
-            <img src="/imgs/phone.png" alt="Phone" className="w-4 h-fit h-4" />
+            {/* <img src="/imgs/phone.png" alt="Phone" className="w-4 h-fit h-4" /> */}
+            <PhoneCall />
             <h5 className="text-base nav_menu_item  cursor-pointer">{data.mobile}</h5>
           </div>
           <div className="flex-row flex items-center gap-x-2 md:mt-3 mt-2">
-            <img src="/imgs/mail-white.png" alt="Phone" className="w-4 h-fit h-4" />
+            <Mail />
             <h5 className="text-base nav_menu_item  cursor-pointer">{data.email}</h5>
           </div>
           <div className="flex-row flex items-start gap-x-2 md:mt-3 mt-2">
-            <img src="/imgs/marker.png" alt="Phone" className="w-4 mt-1 h-fit h-4" />
+            <MapPin />
             <h5 className="text-base nav_menu_item  cursor-pointer">{data.address} </h5>
           </div>
         </div>
