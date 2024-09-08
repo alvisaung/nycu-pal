@@ -88,7 +88,7 @@ const Page: FC = async () => {
             </AnimationWrap>
           </div>
           <AnimationWrap delay={0.4} className="md:w-3/12 w-7/12 md:mt-0 m-auto">
-            <img src={professor?.img_url} className=" h-fit rounded self-center" />
+            <img src={professor?.img_url} className=" rounded self-center" />
           </AnimationWrap>
         </div>
       </div>
