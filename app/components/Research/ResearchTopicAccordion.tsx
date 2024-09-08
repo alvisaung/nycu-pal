@@ -23,7 +23,7 @@ const ResearchTopicAccordion: FC<AccordionProps> = ({ children, trigger }) => {
 
   return (
     <div className=" bg-[#F6F6F6] drop-shadow-md	rounded mb-5">
-      <div role="button" onClick={() => setOpen(!open)} style={{ borderBottom: "1px solid #DFDFDF" }} className="flex justify-between items-center font-normal p-5 pt-6 text-lg ">
+      <div role="button" onClick={() => setOpen(!open)} style={{ borderBottom: "1px solid #DFDFDF" }} className="flex justify-between items-center  font-medium p-5 pt-6 text-xl ">
         {trigger}
         <img src="/imgs/down-arrow.png" style={{ width: 24, height: 20 }} className={`transition-transform duration-500	 ${open ? "rotate-180" : ""}`} />
       </div>

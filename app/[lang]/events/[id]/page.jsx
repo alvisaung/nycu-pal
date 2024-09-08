@@ -34,7 +34,7 @@ const Page = () => {
   };
 
   if (!data) return <div></div>;
-  const { title, createdAt, desc, type, img_url } = data;
+  const { title, createdAt, desc, type, img_url, youtube_embed_url } = data;
 
   const img_url_trans = img_url ? img_url.map((item) => ({ url: item })) : [];
 
@@ -54,6 +54,7 @@ const Page = () => {
         <h3 className="text-xs font-medium mb-2 " style={{ color: "#565555" }}>
           {formatDate(createdAt)}
         </h3>
+        {youtube_embed_url && <div dangerouslySetInnerHTML={{ __html: youtube_embed_url }} />}
         {img_url_trans.length > 0 && (
           <div className=" max-h-[28rem] w-5/6 rounded-md overflow-hidden">
             <Carousel removeDot images={img_url_trans} />

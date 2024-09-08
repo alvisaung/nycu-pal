@@ -18,7 +18,7 @@ const AdminHeader = () => {
       {isHome() ? (
         <h1 className="text-2xl font-bold">Dashboard</h1>
       ) : (
-        <div className="flex flex-row items-center cursor-pointer" onClick={() => router.replace("/admin")}>
+        <div className="flex flex-row items-center cursor-pointer" onClick={() => router.back()}>
           <img src="/imgs/down-arrow.png" className="rotate-90 w-4 h-4  " />
           <h5 className="text-base font-medium ml-1 mt-1 underline">{`Back`}</h5>
         </div>

@@ -17,11 +17,13 @@ import { useFetchData } from "@/src/hooks/useFetchData";
 // }
 
 const AdminResearch = () => {
-  const [statementImg, setStatementMedia] = useState();
+  const [statementImg, setStatementMedia] = useState([]);
   const [statement, setStatement] = useState("");
   const [topics, setTopics] = useState([]);
   const { data: research_statement, putData } = useFetchData("research");
   const { data: research_topic, putData: putResearchTopic } = useFetchData("research-topic");
+  const [showYoutubeEmbed, setShowYoutubeEmbed] = useState(false); // Toggle state
+  const [youtubeEmbedUrl, setYoutubeEmbedUrl] = useState("");
 
   useEffect(() => {
     if (research_statement.length > 0) {
@@ -42,6 +44,10 @@ const AdminResearch = () => {
     e.preventDefault();
     const topic_edit = topics.filter((t) => t.tempId == tempId);
     const update = await putResearchTopic(topic_edit[0]);
+    console.log(topic_edit);
+    if (update) {
+      window.alert("Update Topic Success.");
+    }
   };
 
   const onPublicStatement = async (e) => {
@@ -51,17 +57,18 @@ const AdminResearch = () => {
       return;
     }
     const id = research_statement.length > 0 ? research_statement[0].id : null;
-    const res = await putData({ statement: statement, media_url: statementImg, is_img: true, id: id });
+    const res = await putData({ statement: statement, media_url: statementImg[0], id: id });
     if (res) {
       window.alert("Add Statement Success.");
     }
   };
 
-  const addForm = () => {
-    setTopics([...topics, { media_url: "", title: "", description: "", is_img: true, tempId: new Date().getTime() }]);
+  const addTopic = () => {
+    setTopics([...topics, { media_url: [], title: "", description: "", tempId: new Date().getTime() }]);
   };
+
   const addBranch = (topicId) => {
-    const newBranch = { tempId: Date.now(), title: "", description: "", is_img: true, media_url: undefined };
+    const newBranch = { tempId: Date.now(), title: "", description: "", media_url: [] };
     setTopics((prevTopics) => prevTopics.map((topic) => (topic.tempId === topicId ? { ...topic, ResearchBranches: [...(topic.ResearchBranches || []), newBranch] } : topic)));
     return;
   };
@@ -96,17 +103,25 @@ const AdminResearch = () => {
   };
 
   const onUpdateTopicForm = (val, name, id) => {
+    console.log(topics);
     setTopics((prevTopics) => prevTopics.map((t) => (t.tempId === id ? { ...t, [name]: val } : t)));
   };
   // const myUpdater = ;
   //
-
+  const handleToggle = () => {
+    if (showYoutubeEmbed) {
+      // Clear Youtube Embed data when switching to image upload
+      setYoutubeEmbedUrl("");
+    } else {
+      // Clear Image data when switching to Youtube embed
+      // setImgs([]);
+    }
+    setShowYoutubeEmbed(!showYoutubeEmbed);
+  };
   return (
     <div>
       <FormBox title="Edit Research Statement">
-        <div className="mb-4">
-          <UploadImgComponent initialImages={[statementImg]} setImages={(img_res) => setStatementMedia(img_res[0])} />
-        </div>
+        <UploadImgComponent initialImages={statementImg} setImages={setStatementMedia} />
 
         <form onSubmit={onPublicStatement} className="">
           <FormDescriptionInput required name="statement" placeholder="Research Statement" value={statement} onChange={(val) => setStatement(val)} />
@@ -116,14 +131,21 @@ const AdminResearch = () => {
 
       {topics.map((topic, id) => (
         <FormBox title={topic.title} key={id}>
-          <UploadImgComponent initialImages={[topic.media_url]} setImages={(res) => onUpdateTopicForm(res, "media_url", topic.tempId)} />
+          <div className="flex items-center space-x-4 mb-4">
+            <span className="text-sm font-medium text-gray-700">Youtube Embed</span>
+            <div className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer ${showYoutubeEmbed ? "bg-blue-500" : "bg-gray-300"}`} onClick={handleToggle}>
+              <div className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform duration-300 ${showYoutubeEmbed ? "translate-x-6" : "translate-x-0"}`}></div>
+            </div>
+          </div>
+          {showYoutubeEmbed ? <FormInput multi label="Youtube Embed" placeholder="Embed Youtube URL..." value={youtubeEmbedUrl} onChange={(e) => setYoutubeEmbedUrl(e)} /> : <UploadImgComponent multiple initialImages={topic.media_url} setImages={(res) => onUpdateTopicForm(res, "media_url", topic.tempId)} />}
+
           <button onClick={() => deleteForm(topic.tempId)} className="absolute top-2 right-2  bg-red-500 text-white rounded-full p-1 ">
             <GoTrash />
           </button>
 
           <form onSubmit={(e) => onPublicTopic(e, topic.tempId)} className="mt-4">
             <FormInput required placeholder="Title" name="title" value={topic.title} id={topic.tempId} onChange={onUpdateTopicForm} />
-            <FormDescriptionInput required placeholder="Research Statement" value={topic.description} onChange={(val, name) => onUpdateTopicForm(val, "description", topic.tempId)} />
+            <FormDescriptionInput required placeholder="Research Topic" value={topic.description} onChange={(val, name) => onUpdateTopicForm(val, "description", topic.tempId)} />
             <button className="underline mb-8 font-medium" onClick={() => addBranch(topic.tempId)}>
               Add Branch
             </button>
@@ -133,7 +155,7 @@ const AdminResearch = () => {
                   <button onClick={() => deleteForm(topic.tempId, branch.tempId)} className="absolute top-2 right-2  bg-red-500 text-white rounded-full p-1 ">
                     <GoTrash />
                   </button>
-                  <UploadImgComponent initialImages={[branch.media_url]} setImages={(res) => updateBranchForm(res[0], "media_url", branch.tempId, topic.tempId)} />
+                  <UploadImgComponent multiple initialImages={branch.media_url} setImages={(res) => updateBranchForm(res, "media_url", branch.tempId, topic.tempId)} />
                   <div className="mt-4">
                     <FormInput required placeholder="Title" name="title" id={branch.tempId} value={branch.title} onChange={(val, name, id) => updateBranchForm(val, name, id, topic.tempId)} />
                     <FormDescriptionInput required placeholder="Detail" value={branch.description} onChange={(val, name) => updateBranchForm(val, "description", branch.tempId, topic.tempId)} />
@@ -144,7 +166,7 @@ const AdminResearch = () => {
           </form>
         </FormBox>
       ))}
-      <button onClick={addForm} className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded text-base">
+      <button onClick={addTopic} className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded text-base">
         Add Research Topic
       </button>
     </div>

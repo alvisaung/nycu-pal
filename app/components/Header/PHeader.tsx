@@ -39,13 +39,15 @@ export default function Header() {
       return "Home";
     }
     const currentNav = navItems.find((item) => item.path !== "/" && currentPath.startsWith(item.path));
-    return currentNav ? currentNav.name : "Home";
+    return currentNav ? currentNav.name : "Nycu Pal";
   };
 
   const handleChangeLang = () => {
     const currentLang = pathname.startsWith("/en") ? "en" : "zh";
     const nextLocale = currentLang === "en" ? "zh" : "en";
-    router.push(`${nextLocale}${currentPath}`);
+    const pathWithoutLang = pathname.replace(/^\/(en|zh)/, "");
+
+    router.push(`/${nextLocale}${pathWithoutLang}`);
   };
 
   return (

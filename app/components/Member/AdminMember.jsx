@@ -14,7 +14,7 @@ const AdminMember = () => {
   const [profImg, setProfImages] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [memberImg, setMemberImg] = (useState < string) | (null > null);
+  const [memberImg, setMemberImg] = useState([]);
 
   const [professor, setProfessor] = useState({
     name: "",
@@ -28,6 +28,7 @@ const AdminMember = () => {
     if (_prof.length > 0) {
       let _prof_data = _prof[0].members_list[0];
       setProfessor(_prof_data);
+      setProfImages([_prof_data.img_url]);
     }
   }, [data]);
 
@@ -42,11 +43,13 @@ const AdminMember = () => {
     e.preventDefault();
     let img_url;
     if ((profImg && isProfessor) || (!isProfessor && memberImg)) {
-      img_url = isProfessor ? profImg.url : memberImg.url;
+      img_url = isProfessor ? profImg[0] : memberImg[0];
     }
     let spreadData = isProfessor ? professor : member;
     const res = await putData({ ...spreadData, img_url: img_url, role: isProfessor ? role.professor.key : selectedRole });
     if (res) {
+      window.alert("添加成功！");
+
       setMember({
         name: "",
         research_dir: "",
@@ -84,7 +87,7 @@ const AdminMember = () => {
       <FormBox title="Edit Professor">
         <div className="flex flex-row   ">
           <div className="w-2/12">
-            <UploadImgComponent initialImages={profImg} setImages={(res) => setProfImages(res)} />
+            <UploadImgComponent initialImages={profImg} setImages={setProfImages} />
           </div>
           <form onSubmit={(e) => onPublic(e, true)} className="w-10/12 ">
             <FormInput name="name" required placeholder="Name" value={professor.name} onChange={onChange("professor")} />
@@ -100,7 +103,7 @@ const AdminMember = () => {
       <FormBox title="Add Member">
         <div className="flex flex-row  gap-x-8  ">
           <div className="w-2/12">
-            <UploadImgComponent initialImages={[memberImg]} setImages={(res) => setMemberImg(res[0])} />
+            <UploadImgComponent initialImages={memberImg} setImages={(res) => setMemberImg(res)} />
           </div>
           <form onSubmit={(e) => onPublic(e, false)} className="w-10/12 ">
             <FormInput required placeholder="Name" name={"name"} value={member.name} onChange={onChange("member")} />

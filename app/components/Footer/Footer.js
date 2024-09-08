@@ -26,7 +26,8 @@ const Footer = async (props) => {
         </div>
         <div className="w-full  mt-8 md:w-3/5 md:mt-0">
           <h3 className="text-lg underline">Google Map Location</h3>
-          <img src="/imgs/map-fake.png" alt="map" className="mt-3 w-full" />
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d985.1767086437816!2d120.99557338298811!3d24.786939291709707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468360f0ca966fb%3A0xf06bae48eca3bbb3!2sTin%20Ka-Ping%20Photonic%20Bldg!5e0!3m2!1sen!2stw!4v1725801598430!5m2!1sen!2stw" width="100%" height="300" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          {/* <img src="/imgs/map-fake.png" alt="map" className="mt-3 w-full" /> */}
         </div>
       </div>
     </div>

@@ -21,6 +21,7 @@ export type ActivityData = {
   lastItem?: Boolean;
   admin?: Boolean;
   EventsType?: EventsTypeData;
+  youtube_embed_url?: string;
 };
 type EventsTypeData = {
   id: string;
@@ -30,7 +31,7 @@ type ActivityProps = ActivityData & {
   onEdit?: (id: string) => void;
 };
 
-const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, onDelete }: ActivityProps) => {
+const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, onDelete, youtube_embed_url }: ActivityProps) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
   const router = useRouter();
 
@@ -41,12 +42,12 @@ const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, 
     return `${month} ${yr}`;
   };
   let plainDesc = desc ? desc.replace(/<[^>]+>/g, "") : "";
-
+  const hasImg = Boolean(img_url[0]);
   return (
     <div className=" flex flex-row items-start">
       <Link href={`/events/${id}`} style={{ borderBottom: lastItem ? "" : "1px solid rgba(221, 221, 221,0.7)" }} className="mb-6 border-custom-light-grey cursor-pointer">
-        <div className="flex flex-row justify-between mb-6 gap-x-4">
-          <div className="w-full md:w-9/12 ">
+        <div className="flex flex-row justify-between items-start mb-6 gap-x-4">
+          <div className={`w-full md:w-9/12 ${!hasImg && "md:w-full"}`}>
             <h3 className="font-medium text-lg mb-1.5">{title}</h3>
             <h5 className="text-base font-light mb-2 overflow-hidden text-ellipsis line-clamp-2" style={{ color: "#555555" }}>
               {plainDesc}
@@ -59,8 +60,8 @@ const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, 
               <p className="font-normal text-custom-activity-award ">{`Learn more > `}</p>
             </div>
           </div>
-          {/* <img src={img_url} alt="img" className="w-48 h-40 object-cover rounded object-center " /> */}
-          <img src={"/imgs/placeholder/activity.jpg"} alt="img" className="md:block hidden w-48 h-40 object-cover rounded object-center " />
+          {img_url[0] && <img src={img_url[0]} alt="img" className="w-48 h-40 object-cover rounded md:block hidden " />}
+          {/* <img src={"/imgs/placeholder/activity.jpg"} alt="img" className="md:block hidden w-48 h-40 object-cover rounded object-center " /> */}
         </div>
       </Link>
       {admin && (

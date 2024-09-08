@@ -42,12 +42,15 @@ interface MemberProfType {
 
 const Page: FC = async () => {
   const memberGpData: MemberProfType[] = await fetchData("/member");
-  const professor: MemberType = memberGpData.filter((memberGp) => memberGp.role == role.professor.key)[0].members_list[0];
+  const prof = memberGpData.filter((memberGp) => memberGp.role == role.professor.key);
+  const professor: MemberType | null = prof.length > 0 ? prof[0].members_list[0] : null;
   const education = [
     { name: "University of Michigan, Ann Arbor, USA", url: "https://facebook.com/" },
     { name: "National Chiao-Tung University, Taiwan", url: "https://facebook.com/" },
     { name: "National Chiao-Tung University, Taiwan", url: "https://facebook.com/" },
   ];
+
+  console.log(professor);
 
   return (
     <div className="flex-grow bg-read-bg pb-20 font-space-grotesk ">
@@ -56,16 +59,16 @@ const Page: FC = async () => {
         <div className="mx-auto w-10/12 flex md:flex-row flex-col flex-col-reverse  justify-around pb-20">
           <div className="font-medium md:w-7/12 w-full md:mt-0 mt-8 ">
             <AnimationWrap>
-              <h3 className="md:text-2xl text-xl  font-medium mb-4 font-helvetica text-header-purple">Founder Professor, {professor.name}</h3>
+              <h3 className="md:text-2xl text-xl  font-medium mb-4 font-helvetica text-header-purple">Founder Professor, {professor?.name}</h3>
             </AnimationWrap>
             <AnimationWrap delay={0.4}>
               <div className="flex flex-row text-base items-center gap-x-2 mb-2">
                 <FiMail />
-                <h5 className="">{professor.email}</h5>
+                <h5 className="">{professor?.email}</h5>
               </div>
               <div className="flex flex-row  text-base items-center gap-x-2 mb-2">
                 <FiPhoneCall />
-                <h5>{professor.phone}</h5>
+                <h5>{professor?.phone}</h5>
               </div>
               <div className="flex flex-row  text-base items-center gap-x-2 mb-1">
                 <HiOutlineAcademicCap size={20} />
@@ -81,11 +84,11 @@ const Page: FC = async () => {
             </AnimationWrap>
             <AnimationWrap delay={0.8}>
               <h5 className=" mb-1">Experiences</h5>
-              <div className="font-normal leading-7 text-[#363636]">{professor.experiences && <div dangerouslySetInnerHTML={{ __html: professor.experiences }} />}</div>
+              <div className="font-normal leading-7 text-[#363636]">{professor?.experiences && <div dangerouslySetInnerHTML={{ __html: professor.experiences }} />}</div>
             </AnimationWrap>
           </div>
           <AnimationWrap delay={0.4} className="md:w-3/12 w-7/12 md:mt-0 m-auto">
-            <img src="/imgs/professor.png" className=" h-fit rounded self-center" />
+            <img src={professor?.img_url} className=" h-fit rounded self-center" />
           </AnimationWrap>
         </div>
       </div>

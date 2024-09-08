@@ -12,7 +12,7 @@ const AdminPublications = () => {
   const [id, setId] = useState(null);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [img, setImages] = useState();
+  const [img, setImages] = useState([]);
   const [publication, setPublication] = useState("");
   const [year, setYr] = useState("");
   const [paperType, setPaperType] = useState("");
@@ -75,7 +75,7 @@ const AdminPublications = () => {
       <FormBox title="Add Paper">
         <div className="flex flex-row ">
           <div className="w-2/12 ">
-            <UploadImgComponent initialImages={[img]} setImages={(res) => setImages(res[0])} />
+            <UploadImgComponent initialImages={img} setImages={setImages} />
           </div>
 
           <form onSubmit={onPublic} className="w-10/12 ">

@@ -59,11 +59,11 @@ const index: FC = async () => {
   //   vdo_url: "/vdo/bg-loop-lab.mp4",
   // };
   return (
-    <div className="flex-grow bg-read-bg">
+    <div className="flex-grow bg-read-bg text-black">
       <HeaderBond title="Research Themes" bg_img="/imgs/title-bond/research.png" />
       <div className="m-auto w-10/12 mb-24 mt-8 ">
         <AnimationWrap>
-          <h3 className="font-medium text-2xl text-header-purple mb-2">Research Statement</h3>
+          <h3 className="font-bold text-2xl text-header-purple mb-2">Research Statement</h3>
         </AnimationWrap>
         {/* {researchStatement[0].is_img ? (
           <img src={researchStatement[0].media_url} alt="Statement Img" className="rounded w-5/12 mb-4" />
@@ -78,25 +78,23 @@ const index: FC = async () => {
           </video>
         </AnimationWrap>
         <AnimationWrap delay={0.4}>
-          <div className="text-base font-light leading-7 mb-5" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
+          <div className="text-base font-medium leading-7 mb-5 text-black" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
         </AnimationWrap>
-        {researchTopic.map((research, id) => (
+        {researchTopic.map((topic, id) => (
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>
-            <ResearchTopicAccordion trigger={`${id + 1}. ${research.title}`}>
-              <div style={{ width: 180, height: 180 }} className="w-5/12  mb-4   relative">
-                <video loop autoPlay muted preload="auto" className="rounded  object-cover  w-full h-full top-0 bottom-0 absolute object-cover ">
-                  <source src={"/vdo/placeholder/intelligent.mp4"} type="video/mp4" />
-                </video>
-              </div>
+            <ResearchTopicAccordion trigger={`${id + 1}. ${topic.title}`}>
               {/* <h3 className="text-xl font-medium mb-1">{research.title}</h3> */}
-              <div className="font-light text-base leading-7" dangerouslySetInnerHTML={{ __html: research.description }} />
-              {research.ResearchBranches &&
-                research.ResearchBranches.map((branch) => (
+              <div className="flex flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url) => <img src={url} alt="Topic Img" className="rounded w-3/12 mb-4" />)}</div>
+
+              <div className="font-medium text-base  text-black leading-7" dangerouslySetInnerHTML={{ __html: topic.description }} />
+              {topic.ResearchBranches &&
+                topic.ResearchBranches.map((branch) => (
                   <>
                     <h3 className="text-lg font-medium mb-1 mt-3">{branch.title}</h3>
+                    <div className="flex flex-wrap gap-x-8">{branch.media_url && branch.media_url.map((url) => <img src={url} alt="Statement Img" className="rounded w-3/12 mb-4" />)}</div>
+
                     {/* {branch.is_img ? (
                     <>
-                      <img src={branch.media_url} alt="Statement Img" className="rounded w-5/12 mb-4" />
                     </>
                   ) : (
                     <div style={{ height: 180 }} className="w-5/12  mb-4   relative">
@@ -105,12 +103,12 @@ const index: FC = async () => {
                       </video>
                     </div>
                   )} */}
-                    <div className="w-5/12  mb-4   relative" style={{ width: 180, height: 180 }}>
+                    {/* <div className="w-5/12  mb-4   relative" style={{ width: 180, height: 180 }}>
                       <video loop autoPlay muted preload="auto" className="rounded  object-cover  w-full h-full top-0 bottom-0 absolute object-cover ">
                         <source src={"/vdo/placeholder/intelligent.mp4"} type="video/mp4" />
                       </video>
-                    </div>
-                    <div className=" leading-7" dangerouslySetInnerHTML={{ __html: branch.description }} />
+                    </div> */}
+                    <div className="text-black font-medium leading-7" dangerouslySetInnerHTML={{ __html: branch.description }} />
                   </>
                 ))}
             </ResearchTopicAccordion>

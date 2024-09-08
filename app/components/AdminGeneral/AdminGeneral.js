@@ -4,9 +4,11 @@ import FormDescriptionInput from "../admin-utils/FormDescrption";
 import FormInput from "../admin-utils/form-input";
 import FormSubmit from "../admin-utils/FormSubmit";
 import { useFetchData } from "@/src/hooks/useFetchData";
+import UploadImgComponent from "../AdminHome/UploadImgComponent";
 
 const AdminGeneral = () => {
   const { data, putData } = useFetchData("about-lab");
+  const [banner_urls, setBannerUrls] = useState([]);
   const [generalData, setGeneralData] = useState({
     about: "",
     mobile: "",
@@ -22,6 +24,9 @@ const AdminGeneral = () => {
         email: data.email || "",
         address: data.address || "",
       });
+      if (data.banner_urls) {
+        setBannerUrls(JSON.parse(data.banner_urls) ?? []);
+      }
     }
   }, [data]);
   const onChange = (val, name) => {
@@ -34,12 +39,15 @@ const AdminGeneral = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(generalData);
-    putData(generalData);
+    putData({ ...generalData, banner_urls: JSON.stringify(banner_urls) });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold mb-2">Banner</h2>
+        <UploadImgComponent multiple initialImages={banner_urls} setImages={(res) => setBannerUrls(res)} />
+      </div>
       <FormInput name="mobile" required placeholder="Mobile" value={generalData.mobile} onChange={onChange} />
       <FormInput name="email" required placeholder="Email" value={generalData.email} onChange={onChange} />
       <FormInput name="address" required placeholder="Address" value={generalData.address} onChange={onChange} />
