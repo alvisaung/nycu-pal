@@ -9,14 +9,14 @@ export interface researchBranch {
   tempId?: number;
   title: string;
   description: string;
-  media_url?: string;
+  media_url?: string[];
   is_img: boolean | null;
 }
 export interface researchTopicType {
   id?: number;
   title: string;
   ResearchBranches?: researchBranch[] | [];
-  media_url: string;
+  media_url: string[];
   description: string;
   is_img: boolean;
   tempId?: number;
@@ -84,7 +84,7 @@ const index: FC = async () => {
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>
             <ResearchTopicAccordion trigger={`${id + 1}. ${topic.title}`}>
               {/* <h3 className="text-xl font-medium mb-1">{research.title}</h3> */}
-              <div className="flex flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url) => <img src={url} alt="Topic Img" className="rounded w-3/12 mb-4" />)}</div>
+              <div className="flex flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string) => <img src={url} alt="Topic Img" className="rounded w-3/12 mb-4" />)}</div>
 
               <div className="font-medium text-base  text-black leading-7" dangerouslySetInnerHTML={{ __html: topic.description }} />
               {topic.ResearchBranches &&

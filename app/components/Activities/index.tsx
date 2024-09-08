@@ -42,7 +42,7 @@ const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, 
     return `${month} ${yr}`;
   };
   let plainDesc = desc ? desc.replace(/<[^>]+>/g, "") : "";
-  const hasImg = Boolean(img_url[0]);
+  const hasImg = Boolean(img_url && img_url[0]);
   return (
     <div className=" flex flex-row items-start">
       <Link href={`/events/${id}`} style={{ borderBottom: lastItem ? "" : "1px solid rgba(221, 221, 221,0.7)" }} className="mb-6 border-custom-light-grey cursor-pointer">
@@ -60,7 +60,7 @@ const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, 
               <p className="font-normal text-custom-activity-award ">{`Learn more > `}</p>
             </div>
           </div>
-          {img_url[0] && <img src={img_url[0]} alt="img" className="w-48 h-40 object-cover rounded md:block hidden " />}
+          {hasImg && <img src={img_url && img_url[0]} alt="img" className="w-48 h-40 object-cover rounded md:block hidden " />}
           {/* <img src={"/imgs/placeholder/activity.jpg"} alt="img" className="md:block hidden w-48 h-40 object-cover rounded object-center " /> */}
         </div>
       </Link>
