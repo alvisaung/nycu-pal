@@ -29,7 +29,7 @@ const ResearchTopicAccordion: FC<AccordionProps> = ({ children, trigger }) => {
       </div>
 
       <div className="overflow-y-hidden duration-300 transition-all " style={{ height }}>
-        <div ref={ref} className=" pt-5 p-4 pl-8 ">
+        <div ref={ref} className=" pt-5 p-4 md:pl-8 pl-4 ">
           {children}
         </div>
       </div>

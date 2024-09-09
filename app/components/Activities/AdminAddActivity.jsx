@@ -83,7 +83,7 @@ const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "
         </div>
       </div>
       {showYoutubeEmbed ? <FormInput multi label="Youtube Embed" placeholder="Embed Youtube URL..." value={youtubeEmbedUrl} onChange={(e) => setYoutubeEmbedUrl(e)} /> : <UploadImgComponent multiple initialImages={imgs} setImages={(res) => setImgs(res)} />}
-      <form onSubmit={handleSubmit} className="w-full mt-8 font-medium ">
+      <div className="w-full mt-8 font-medium ">
         <div className="mb-6">
           <select id="eventType" value={selectedEvent} onChange={(e) => setSelectedEvent(e.target.value)} className="shadow border rounded text-sm  py-2 pl-2 pr-12  pt-3    focus:shadow-outline">
             <option value="" disabled className="text-left text-sm">
@@ -103,8 +103,8 @@ const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "
 
         {errorMessage && <p className="text-red-500 text-xs italic mb-4">{errorMessage}</p>}
 
-        <FormSubmit title={id ? "Update" : `Publish`} />
-      </form>
+        <FormSubmit onClick={handleSubmit} title={id ? "Update" : `Publish`} />
+      </div>
     </div>
   );
 };

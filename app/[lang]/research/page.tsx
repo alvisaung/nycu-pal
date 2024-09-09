@@ -61,17 +61,11 @@ const index: FC = async () => {
   return (
     <div className="flex-grow bg-read-bg text-black">
       <HeaderBond title="Research Themes" bg_img="/imgs/title-bond/research.png" />
-      <div className="m-auto w-10/12 mb-24 mt-8 ">
+      <div className="m-auto w-11/12 md:w-10/12 mb-24 mt-8 ">
         <AnimationWrap>
           <h3 className="font-bold text-2xl text-header-purple mb-2">Research Statement</h3>
         </AnimationWrap>
-        {/* {researchStatement[0].is_img ? (
-          <img src={researchStatement[0].media_url} alt="Statement Img" className="rounded w-5/12 mb-4" />
-        ) : (
-          <video loop autoPlay muted preload="auto" className="rounded w-5/12 mb-4">
-            <source src={researchStatement[0].media_url} type="video/mp4" />
-          </video>
-        )} */}
+
         <AnimationWrap delay={0.2}>
           <video loop autoPlay muted preload="auto" className="rounded w-5/12 mb-4">
             <source src={"/vdo/bg-loop-lab.mp4"} type="video/mp4" />
@@ -84,14 +78,14 @@ const index: FC = async () => {
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>
             <ResearchTopicAccordion trigger={`${id + 1}. ${topic.title}`}>
               {/* <h3 className="text-xl font-medium mb-1">{research.title}</h3> */}
-              <div className="flex flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string) => <img src={url} alt="Topic Img" className="rounded w-3/12 mb-4" />)}</div>
+              <div className="flex flex-col md:flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string, id) => <img src={url} alt="Topic Img" className={`rounded w-full md:w-3/12 mb-4 ${id > 0 && "hidden"}`} />)}</div>
 
               <div className="font-medium text-base  text-black leading-7" dangerouslySetInnerHTML={{ __html: topic.description }} />
               {topic.ResearchBranches &&
                 topic.ResearchBranches.map((branch) => (
                   <>
                     <h3 className="text-lg font-medium mb-1 mt-3">{branch.title}</h3>
-                    <div className="flex flex-wrap gap-x-8">{branch.media_url && branch.media_url.map((url) => <img src={url} alt="Statement Img" className="rounded w-3/12 mb-4" />)}</div>
+                    <div className="flex flex-col md:flex-wrap gap-x-8">{branch.media_url && branch.media_url.map((url, id) => <img src={url} alt="Statement Img" className={`rounded w-full md:w-3/12 mb-4  ${id > 0 && "hidden"}`} />)}</div>
 
                     {/* {branch.is_img ? (
                     <>

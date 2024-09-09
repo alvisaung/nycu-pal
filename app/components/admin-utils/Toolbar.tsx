@@ -114,11 +114,6 @@ const Toolbar = ({ editor, content }: Props) => {
         {renderBtn("link", <Link className={commonIconStyle} />)}
         <ColorPicker editor={editor} />
       </div>
-      {/* {content && (
-        <button type="submit" className="px-4 bg-sky-700 text-white py-2 rounded-md">
-          Add
-        </button>
-      )} */}
     </div>
   );
 };

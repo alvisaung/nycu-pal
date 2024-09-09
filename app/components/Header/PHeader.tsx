@@ -93,7 +93,7 @@ export default function Header() {
                       toggleMenu();
                     }}
                   >
-                    {item.name}
+                    {t(item.name)}
                   </a>
                 </li>
               ))}
