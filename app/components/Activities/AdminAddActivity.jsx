@@ -5,15 +5,6 @@ import FormSubmit from "@/app/components/admin-utils/FormSubmit";
 import UploadImgComponent from "@/app/components/AdminHome/UploadImgComponent";
 import { useFetchData } from "@/src/hooks/useFetchData";
 import { useEffect, useState } from "react";
-import { ActivityData } from ".";
-
-// interface AdminAddActivityProps {
-//   imgs_arr?: string[];
-//   title_edit?: string;
-//   description_edit?: "";
-//   selected_edit?: "";
-//   id?: string;
-// }
 
 const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "", selected_edit = "", id = "" }) => {
   const [imgs, setImgs] = useState(imgs_arr);

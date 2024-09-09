@@ -10,7 +10,7 @@ import Member, { MemberType } from "./Member";
 import { role } from "@/src/types/constants";
 
 const AdminMember = () => {
-  const { data, putData } = useFetchData("member");
+  const { data, putData, delData } = useFetchData("member");
   const [profImg, setProfImages] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -49,7 +49,7 @@ const AdminMember = () => {
     const res = await putData({ ...spreadData, img_url: img_url, role: isProfessor ? role.professor.key : selectedRole });
     if (res) {
       window.alert("添加成功！");
-
+      setMemberImg([]);
       setMember({
         name: "",
         research_dir: "",
@@ -70,8 +70,13 @@ const AdminMember = () => {
   };
   const onEdit = (member) => {
     setMember(member);
+    setMemberImg([member.img_url]);
+
     setSelectedRole(member.role);
     setIsEditing(true);
+  };
+  const onDelete = (id) => {
+    delData({ id: id });
   };
   const onCancelEdit = () => {
     setMember({
@@ -80,6 +85,7 @@ const AdminMember = () => {
       email: "",
       role: "",
     });
+    setMemberImg([]);
     setIsEditing(false);
   };
   return (
@@ -103,7 +109,7 @@ const AdminMember = () => {
       <FormBox title="Add Member">
         <div className="flex flex-row  gap-x-8  ">
           <div className="w-2/12">
-            <UploadImgComponent initialImages={memberImg} setImages={(res) => setMemberImg(res)} />
+            <UploadImgComponent initialImages={memberImg} setImages={setMemberImg} />
           </div>
           <form onSubmit={(e) => onPublic(e, false)} className="w-10/12 ">
             <FormInput required placeholder="Name" name={"name"} value={member.name} onChange={onChange("member")} />
@@ -141,9 +147,9 @@ const AdminMember = () => {
           .map((memberGp, id) => (
             <div key={id} className="w-full  mb-8 mt-12 flex flex-col justify-center">
               <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{role[memberGp.role].value}</h4>
-              <div className=" flex flex-wrap justify-start max-w-[calc(4*(220px+30px))] gap-8 mx-auto" style={{ columnGap: 30 }}>
+              <div className=" flex flex-wrap justify-center max-w-[calc(4*(220px+20px))] gap-8 mx-auto" style={{ columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
-                  <Member {...member} key={idm} handleClick={() => onEdit(member)} />
+                  <Member {...member} key={idm} handleClick={() => onEdit(member)} handleDelete={() => onDelete(member.id)} />
                 ))}
               </div>
             </div>
