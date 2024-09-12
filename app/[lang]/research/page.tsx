@@ -78,7 +78,8 @@ const index: FC = async () => {
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>
             <ResearchTopicAccordion trigger={`${id + 1}. ${topic.title}`}>
               {/* <h3 className="text-xl font-medium mb-1">{research.title}</h3> */}
-              <div className="flex flex-col md:flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string, id) => <img src={url} alt="Topic Img" className={`rounded w-full md:w-3/12 mb-4 ${id > 0 && "hidden"}`} />)}</div>
+
+              <div className="flex flex-row md:flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string, id) => <img src={url} alt="Topic Img" className={`rounded w-full md:w-3/12 mb-4 ${id > 0 && " hidden md:flex"}`} />)}</div>
 
               <div className="font-light text-base  text-black leading-7" dangerouslySetInnerHTML={{ __html: topic.description }} />
               {topic.ResearchBranches &&
