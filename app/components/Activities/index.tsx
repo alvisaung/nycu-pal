@@ -35,7 +35,8 @@ const Activity = ({ id, title, desc, img_url, event_date, type, lastItem, admin,
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
   const router = useRouter();
 
-  const processTime = (date: string) => {
+  const processTime = (date: string | undefined) => {
+    if (!date) return;
     const instance = new Date(date);
     const month = months[instance.getMonth()];
     const yr = instance.getFullYear();
