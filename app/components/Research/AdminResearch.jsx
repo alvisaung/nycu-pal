@@ -17,11 +17,11 @@ import { useFetchData } from "@/src/hooks/useFetchData";
 // }
 
 const AdminResearch = () => {
-  const [statementImg, setStatementMedia] = useState([]);
+  const [statementImg, setStatementMedia] = useState("");
   const [statement, setStatement] = useState("");
   const [topics, setTopics] = useState([]);
   const { data: research_statement, putData } = useFetchData("research");
-  const { data: research_topic, putData: putResearchTopic } = useFetchData("research-topic");
+  const { data: research_topic, putData: putResearchTopic, delData } = useFetchData("research-topic");
   const [showYoutubeEmbed, setShowYoutubeEmbed] = useState(false); // Toggle state
   const [youtubeEmbedUrl, setYoutubeEmbedUrl] = useState("");
 
@@ -29,7 +29,7 @@ const AdminResearch = () => {
     if (research_statement.length > 0) {
       const research = research_statement[0];
       setStatement(research.statement);
-      setStatementMedia([research.media_url]);
+      setStatementMedia(research.media_url);
     }
   }, [research_statement]);
 
@@ -44,7 +44,6 @@ const AdminResearch = () => {
     e.preventDefault();
     const topic_edit = topics.filter((t) => t.tempId == tempId);
     const update = await putResearchTopic(topic_edit[0]);
-    console.log(topic_edit);
     if (update) {
       window.alert("Update Topic Success.");
     }
@@ -57,12 +56,11 @@ const AdminResearch = () => {
       return;
     }
     const id = research_statement.length > 0 ? research_statement[0].id : null;
-    const res = await putData({ statement: statement, media_url: statementImg[0], id: id });
+    const res = await putData({ statement: statement, media_url: statementImg ?? "", id: id });
     if (res) {
       window.alert("Add Statement Success.");
     }
   };
-
   const addTopic = () => {
     setTopics([...topics, { media_url: [], title: "", description: "", tempId: new Date().getTime() }]);
   };
@@ -72,18 +70,19 @@ const AdminResearch = () => {
     setTopics((prevTopics) => prevTopics.map((topic) => (topic.tempId === topicId ? { ...topic, ResearchBranches: [...(topic.ResearchBranches || []), newBranch] } : topic)));
     return;
   };
-  const deleteForm = (topicId, branchId) => {
+  const deleteForm = async (topicTempId, branchId, topicID) => {
     const _topics = JSON.parse(JSON.stringify(topics));
-    const targetTopicIndex = _topics.findIndex((topic) => topic.tempId == topicId);
-
-    if (targetTopicIndex === -1) return; // Exit if topic not found
+    // const targetTopicIndex = _topics.findIndex((topic) => topic.tempId == topicTempId);
+    // if (targetTopicIndex === -1) return; // Exit if topic not found
 
     if (branchId) {
       // Delete a specific branch from a topic
       _topics[targetTopicIndex].ResearchBranches = _topics[targetTopicIndex].ResearchBranches?.filter((branch) => branch.tempId !== branchId) || [];
-    } else {
+    } else if (topicTempId) {
       // Delete an entire topic
       _topics.splice(targetTopicIndex, 1);
+    } else if (topicID) {
+      await delData({ id: topicID });
     }
     setTopics(_topics);
   };
@@ -121,7 +120,9 @@ const AdminResearch = () => {
   return (
     <div>
       <FormBox title="Edit Research Statement">
-        <UploadImgComponent initialImages={statementImg} setImages={setStatementMedia} />
+        <div className="mb-4">
+          <UploadImgComponent initialImages={[statementImg]} setImages={(img) => setStatementMedia(img[0])} />
+        </div>
 
         <form onSubmit={onPublicStatement} className="">
           <FormDescriptionInput required name="statement" placeholder="Research Statement" value={statement} onChange={(val) => setStatement(val)} />
@@ -139,7 +140,7 @@ const AdminResearch = () => {
           </div>
           {showYoutubeEmbed ? <FormInput multi label="Youtube Embed" placeholder="Embed Youtube URL..." value={youtubeEmbedUrl} onChange={(e) => setYoutubeEmbedUrl(e)} /> : <UploadImgComponent multiple initialImages={topic.media_url} setImages={(res) => onUpdateTopicForm(res, "media_url", topic.tempId)} />}
 
-          <button onClick={() => deleteForm(topic.tempId)} className="absolute top-2 right-2  bg-red-500 text-white rounded-full p-1 ">
+          <button onClick={() => deleteForm(topic.id ? null : topic.tempId, null, topic.id)} className="absolute top-2 right-2  bg-red-500 text-white rounded-full p-1 ">
             <GoTrash />
           </button>
 

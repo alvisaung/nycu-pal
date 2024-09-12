@@ -10,12 +10,13 @@ export const useFetchData = (endpoint) => {
     setIsLoading(false);
   };
 
-  const putData = async (body) => {
+  const putData = async (body, method = "put") => {
     try {
-      await fetchData(endpoint, "put", body);
+      const res = await fetchData(endpoint, method, body);
       getData();
-      return "success";
+      return res ?? "success";
     } catch (err) {
+      console.log(err);
       throw err;
     }
   };

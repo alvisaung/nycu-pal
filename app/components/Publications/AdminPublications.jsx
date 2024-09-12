@@ -23,7 +23,7 @@ const AdminPublications = () => {
     e.preventDefault();
     let img_url;
     if (img) {
-      img_url = img;
+      img_url = img[0];
     }
     const res = await putData({
       author: author,
@@ -35,6 +35,10 @@ const AdminPublications = () => {
       id: id,
     });
     console.log(res);
+    if (res) {
+      onCancelEdit();
+      window.alert("添加成功。");
+    }
   };
   const onCancelEdit = () => {
     setTitle("");

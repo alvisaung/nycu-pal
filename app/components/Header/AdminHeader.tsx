@@ -1,14 +1,14 @@
 "use client";
+import { useFetchData } from "@/src/hooks/useFetchData";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const AdminHeader = () => {
   const router = useRouter();
-
   const pathname = usePathname();
   const isHome = (): boolean => {
     let currentPath = pathname;
-    return currentPath == "/admin";
+    return currentPath == "/admin" || currentPath == "/admin/login";
   };
   const handleLogout = () => {
     router.push("/login");
@@ -18,11 +18,12 @@ const AdminHeader = () => {
       {isHome() ? (
         <h1 className="text-2xl font-bold">Dashboard</h1>
       ) : (
-        <div className="flex flex-row items-center cursor-pointer" onClick={() => router.back()}>
-          <img src="/imgs/down-arrow.png" className="rotate-90 w-4 h-4  " />
+        <div className="flex flex-row items-center cursor-pointer" onClick={() => router.replace("/admin#Activities")}>
+          <img src="/imgs/down-arrow.png" className="rotate-90 w-4 h-4 " />
           <h5 className="text-base font-medium ml-1 mt-1 underline">{`Back`}</h5>
         </div>
       )}
+
       <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">
         Log Out
       </button>

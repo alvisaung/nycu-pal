@@ -16,12 +16,12 @@ export type ActivityData = {
   title: string;
   desc: string;
   img_url?: string[];
-  createdAt: string;
   type: ActivityType;
   lastItem?: Boolean;
   admin?: Boolean;
   EventsType?: EventsTypeData;
   youtube_embed_url?: string;
+  event_date?: string;
 };
 type EventsTypeData = {
   id: string;
@@ -31,7 +31,7 @@ type ActivityProps = ActivityData & {
   onEdit?: (id: string) => void;
 };
 
-const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, onDelete, youtube_embed_url }: ActivityProps) => {
+const Activity = ({ id, title, desc, img_url, event_date, type, lastItem, admin, onDelete, youtube_embed_url }: ActivityProps) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
   const router = useRouter();
 
@@ -39,7 +39,8 @@ const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, 
     const instance = new Date(date);
     const month = months[instance.getMonth()];
     const yr = instance.getFullYear();
-    return `${month} ${yr}`;
+    const day = instance.getDate();
+    return `${day} ${month} ${yr}`;
   };
   let plainDesc = desc ? desc.replace(/<[^>]+>/g, "") : "";
   const hasImg = Boolean(img_url && img_url[0]);
@@ -53,7 +54,7 @@ const Activity = ({ id, title, desc, img_url, createdAt, type, lastItem, admin, 
               {plainDesc}
             </h5>
             <div className="flex text-xs font-medium items-center   flex-row gap-x-4 mb-1 ">
-              <p className=" text-custom-grey">{processTime(createdAt)}</p>
+              <p className=" text-custom-grey">{processTime(event_date)}</p>
               <div style={{ width: "1px" }} className=" bg-custom-light-grey h-4"></div>
               <p className="text-custom-activity-award  font-medium">{type}</p>
               <div style={{ width: "1px" }} className=" bg-custom-light-grey h-4"></div>

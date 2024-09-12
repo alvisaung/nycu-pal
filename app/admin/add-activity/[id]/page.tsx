@@ -2,6 +2,7 @@
 import AdminAddActivity from "@/app/components/Activities/AdminAddActivity";
 import { usePathname } from "next/navigation";
 import React, { FC } from "react";
+import { withAuth } from "../../../components/HOC/withAuth";
 
 const Page: FC = () => {
   const pathname = usePathname();
@@ -12,4 +13,4 @@ const Page: FC = () => {
     </div>
   );
 };
-export default Page;
+export default withAuth(Page);

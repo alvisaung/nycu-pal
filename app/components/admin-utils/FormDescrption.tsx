@@ -13,6 +13,7 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import { Color } from "@tiptap/extension-color";
 import TextStyle from "@tiptap/extension-text-style";
+import UploadImgComponent from "../AdminHome/UploadImgComponent";
 
 interface FormDescProps {
   value: string;
@@ -27,7 +28,7 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
   const isRequired = Boolean(required);
   const contentRef = useRef(value);
   const [isInitialContentSet, setIsInitialContentSet] = useState(false);
-
+  const [imgs, setImgs] = useState<string[]>([]);
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -80,6 +81,8 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
       </label> */}
       {/* <textarea name={name} id="description" value={value} onChange={(e) => onChange(e.target.value)} rows={4} placeholder={`${placeholder}${isRequired ? "*" : ""}`} className="shadow font-sans  border rounded w-full py-2 px-3  tracking-wide  focus:shadow-outline" /> */}
       {/* <div className=""> */}
+      <UploadImgComponent multiple editor initialImages={imgs} setImages={setImgs} />
+
       <Toolbar editor={editor} content={value} />
 
       <EditorContent editor={editor} className=" focus:outline-none focus:shadow-outline" />

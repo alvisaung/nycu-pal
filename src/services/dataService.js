@@ -9,6 +9,8 @@ export const fetchData = async (endpoint, method = "get", body) => {
       response = await api.put(endpoint, body);
     } else if (method == "delete") {
       response = await api.delete(endpoint, { data: body });
+    } else if (method == "post") {
+      response = await api.post(endpoint, body);
     }
 
     return response.data;

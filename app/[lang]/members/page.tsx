@@ -101,7 +101,7 @@ const Page: FC = async () => {
                 <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{role[memberGp.role].value}</h4>
               </AnimationWrap>
 
-              <div className=" flex md:flex-row flex-col flex-wrap justify-start  gap-8 mx-auto" style={{ columnGap: 30 }}>
+              <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
                   <AnimationWrap threshold={0.6} key={idm} delay={0.4 * (idm / 2)} initial={{ opacity: 0 }}>
                     <Member {...member} />

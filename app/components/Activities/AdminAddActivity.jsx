@@ -5,11 +5,13 @@ import FormSubmit from "@/app/components/admin-utils/FormSubmit";
 import UploadImgComponent from "@/app/components/AdminHome/UploadImgComponent";
 import { useFetchData } from "@/src/hooks/useFetchData";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "", selected_edit = "", id = "" }) => {
   const [imgs, setImgs] = useState(imgs_arr);
   const [showYoutubeEmbed, setShowYoutubeEmbed] = useState(false); // Toggle state
   const [youtubeEmbedUrl, setYoutubeEmbedUrl] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const [title, setTitle] = useState(title_edit);
   const [description, setDescription] = useState(description_edit);
@@ -28,31 +30,31 @@ const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "
       setShowYoutubeEmbed(Boolean(event.youtube_embed_url));
       setYoutubeEmbedUrl(event.youtube_embed_url);
       setImgs(imgs);
+      const event_date = event.event_date && moment(event.event_date).format("YYYY-MM-DD");
+      setSelectedDate(event_date);
     }
   }, [id, event]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Reset error message
     setErrorMessage("");
     if (!selectedEvent || !title || !description) {
       setErrorMessage("All fields are required.");
       return;
     }
-    console.log(youtubeEmbedUrl);
-    const res = await putData({ event_type_id: selectedEvent, title, desc: description, img_url: imgs, id: event?.id, youtube_embed_url: youtubeEmbedUrl });
+    const event_date = selectedDate && new Date(selectedDate).toISOString().replace(/T/, " ").replace(/\..+/g, "");
+    const res = await putData({ event_type_id: selectedEvent, title, desc: description, img_url: imgs, id: event?.id, youtube_embed_url: youtubeEmbedUrl, event_date: event_date });
     if (res) {
       window.alert("添加成功！");
-      // setSelectedEvent('');
-      // setTitle("");
-      // setDescription('');
+      setSelectedEvent("");
+      setTitle("");
+      setDescription("");
+      setSelectedDate(null);
+      setImgs([]);
     }
     // Handle form submission
   };
   const handleToggle = () => {
     if (showYoutubeEmbed) {
-      // Clear Youtube Embed data when switching to image upload
       setYoutubeEmbedUrl("");
     } else {
       // Clear Image data when switching to Youtube embed
@@ -64,9 +66,7 @@ const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "
   return (
     <div className="mb-8 max-w-3xl">
       <h2 className="text-xl font-semibold mb-2">Add Event</h2>
-      {/* <button className="mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={handleToggle}>
-        {showYoutubeEmbed ? "Show Image Upload" : "Show Youtube Embed"}
-      </button> */}
+
       <div className="flex items-center space-x-4 mb-4">
         <span className="text-sm font-medium text-gray-700">Youtube Embed</span>
         <div className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer ${showYoutubeEmbed ? "bg-blue-500" : "bg-gray-300"}`} onClick={handleToggle}>
@@ -87,7 +87,7 @@ const AdminAddActivity = ({ imgs_arr = [], title_edit = "", description_edit = "
             ))}
           </select>
         </div>
-
+        <input type="date" className="form-control  mb-4 border border-gray-300  rounded-md px-4 py-2" id="inputDate4" placeholder="dd-mm-yyyy" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} max={moment().format("YYYY-MM-DD")} />
         <FormInput placeholder="Event Title" value={title} onChange={(e) => setTitle(e)} />
 
         <FormDescriptionInput label="Description" placeholder="Event Detail..." value={description} onChange={(e) => setDescription(e)} />

@@ -1,37 +1,41 @@
 "use client";
-import { useRouter } from "next/router";
-import { FC, ComponentType, useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { NextPage } from "next";
+import api from "@/app/api";
 
-interface WithAuthProps {
-  [key: string]: any;
-}
-
-const withAuth = <P extends WithAuthProps>(WrappedComponent: ComponentType<P>) => {
-  const WithAuth: React.FC<P> = (props) => {
+export function withAuth<P extends object>(WrappedComponent: NextPage<P>): NextPage<P> {
+  const Auth = (props: P) => {
     const router = useRouter();
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
     useEffect(() => {
-      const authToken = localStorage.getItem("authToken");
-      setIsAuthenticated(!!authToken);
+      const checkAuth = async () => {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          router.replace("/admin/login");
+          return;
+        }
 
-      if (!authToken) {
-        router.replace("/admin/login");
-      }
-    }, [router]);
+        try {
+          const res = await api("/validate-token", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        } catch (error) {
+          console.error("Authentication error:", error);
+          localStorage.removeItem("authToken");
+          router.replace("/admin/login");
+        }
+      };
 
-    if (isAuthenticated === null) {
-      return <div>Loading...</div>;
-    }
-
-    if (!isAuthenticated) {
-      return null;
-    }
+      checkAuth();
+    }, []);
 
     return <WrappedComponent {...props} />;
   };
 
-  return WithAuth;
-};
-
-export default withAuth;
+  return Auth;
+}

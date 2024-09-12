@@ -72,7 +72,7 @@ const index: FC = async () => {
           </video>
         </AnimationWrap>
         <AnimationWrap delay={0.4}>
-          <div className="text-base font-medium leading-7 mb-5 text-black" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
+          <div className="text-base font-light leading-7 mb-5 text-black" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
         </AnimationWrap>
         {researchTopic.map((topic, id) => (
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>
@@ -80,7 +80,7 @@ const index: FC = async () => {
               {/* <h3 className="text-xl font-medium mb-1">{research.title}</h3> */}
               <div className="flex flex-col md:flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string, id) => <img src={url} alt="Topic Img" className={`rounded w-full md:w-3/12 mb-4 ${id > 0 && "hidden"}`} />)}</div>
 
-              <div className="font-medium text-base  text-black leading-7" dangerouslySetInnerHTML={{ __html: topic.description }} />
+              <div className="font-light text-base  text-black leading-7" dangerouslySetInnerHTML={{ __html: topic.description }} />
               {topic.ResearchBranches &&
                 topic.ResearchBranches.map((branch) => (
                   <>
@@ -102,7 +102,7 @@ const index: FC = async () => {
                         <source src={"/vdo/placeholder/intelligent.mp4"} type="video/mp4" />
                       </video>
                     </div> */}
-                    <div className="text-black font-medium leading-7" dangerouslySetInnerHTML={{ __html: branch.description }} />
+                    <div className="text-black font-light leading-7" dangerouslySetInnerHTML={{ __html: branch.description }} />
                   </>
                 ))}
             </ResearchTopicAccordion>

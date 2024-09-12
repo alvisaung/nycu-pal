@@ -9,6 +9,7 @@ import AdminResearch from "@/app/components/Research/AdminResearch";
 import { ActivityData } from "@/app/components/Activities";
 import { fetchData } from "@/src/services/dataService";
 import AdminGeneral from "../components/AdminGeneral/AdminGeneral";
+import { withAuth } from "../components/HOC/withAuth";
 
 const Dashboard = () => {
   const [currentNav, setCurrentNav] = useState("General");
@@ -47,4 +48,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);

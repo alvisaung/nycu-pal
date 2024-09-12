@@ -25,7 +25,8 @@ export const useImageUpload = (imgs: string[], setImages: SetValueType, multiple
       //   setImages(res.data.image.url);
       // } else if (res && Boolean(multiple)) {
       // }
-      setImages([...imgs, res.data.image.url]);
+      console.log(imgs);
+      imgs.length > 0 && Boolean(imgs[0]) ? setImages([...imgs, res.data.image.url]) : setImages([res.data.image.url]);
     } catch (err) {
       console.log(err);
     }
@@ -35,13 +36,17 @@ export const useImageUpload = (imgs: string[], setImages: SetValueType, multiple
     const split = url.split("/");
     const filename = split[split.length - 1];
     const leftImg: string[] = imgs.filter((_, i) => i !== index);
+    console.log(leftImg);
     setImages(leftImg);
-    const res = await api.delete("upload-img", {
-      data: {
-        filename: filename,
-      },
-    });
-    console.log(res);
+    try {
+      const res = await api.delete("upload-img", {
+        data: {
+          filename: filename,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleMove = (index: number, direction: "left" | "right") => {

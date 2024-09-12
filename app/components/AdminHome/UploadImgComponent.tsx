@@ -10,20 +10,31 @@ interface UploadImgComponentProps {
   setImages: (updater: string[]) => void;
 
   multiple?: boolean;
+  editor?: boolean;
 }
 
-const UploadImgComponent: FC<UploadImgComponentProps> = ({ initialImages = [], addButtonLabel = "+ Add Image", setImages, multiple }) => {
+const UploadImgComponent: FC<UploadImgComponentProps> = ({ initialImages = [], addButtonLabel = "+ Add Image", setImages, multiple, editor }) => {
   const { handleUpload, handleDelete, handleMove } = useImageUpload(initialImages, setImages, multiple);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log({ multiple, initialImages });
     if (!Boolean(multiple) && initialImages.length > 0 && initialImages[0]) {
       const url = initialImages[0];
-      await handleDelete(url, 0);
+      try {
+        await handleDelete(url, 0);
+      } catch (error) {}
     }
     if (file) {
       handleUpload(file);
+    }
+  };
+  const handleCopy = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      window.alert("Copy Done");
+    } catch (err) {
+      console.error("Failed to copy the URL:", err);
+      // Optionally, show an error message to the user
     }
   };
 
@@ -43,14 +54,18 @@ const UploadImgComponent: FC<UploadImgComponentProps> = ({ initialImages = [], a
                 <button onClick={() => handleDelete(url, index)} className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full">
                   <GoTrash />
                 </button>
-                <div className="flex justify-between mt-1">
-                  <button onClick={() => handleMove(index, "left")} disabled={index === 0} className="disabled:opacity-50">
-                    ⬅️
-                  </button>
-                  <button onClick={() => handleMove(index, "right")} disabled={index === initialImages.length - 1} className="disabled:opacity-50">
-                    ➡️
-                  </button>
-                </div>
+                {editor ? (
+                  <button onClick={() => handleCopy(url)}>Copy URL</button>
+                ) : (
+                  <div className="flex justify-between mt-1">
+                    <button onClick={() => handleMove(index, "left")} disabled={index === 0} className="disabled:opacity-50">
+                      ⬅️
+                    </button>
+                    <button onClick={() => handleMove(index, "right")} disabled={index === initialImages.length - 1} className="disabled:opacity-50">
+                      ➡️
+                    </button>
+                  </div>
+                )}
               </div>
             )
         )}

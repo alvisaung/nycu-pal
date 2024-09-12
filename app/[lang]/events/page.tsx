@@ -12,15 +12,15 @@ const index: FC = async () => {
     <div>
       <HeaderBond title="Activities" bg_img="/imgs/title-bond/activity.png" />
       <div className=" w-10/12 md:w-9/12 flex m-auto py-8 flex flex-row justify-between items-start">
-        <div className="md:w-44">
-          <ActivityFilter />
-        </div>
         <div className="md:w-9/12">
           {activitiesData.map((activity, idx) => (
             <AnimationWrap delay={0.4 * (idx / 2)} key={idx}>
               <Activity {...activity} lastItem={idx == activitiesData.length - 1} />
             </AnimationWrap>
           ))}
+        </div>
+        <div className="md:w-44">
+          <ActivityFilter />
         </div>
       </div>
     </div>
