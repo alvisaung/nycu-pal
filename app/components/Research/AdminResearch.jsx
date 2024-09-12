@@ -35,7 +35,14 @@ const AdminResearch = () => {
 
   useEffect(() => {
     if (research_topic.length > 0) {
-      let _new_topic = research_topic.map((t, id) => ({ ...t, tempId: id }));
+      let _new_topic = research_topic.map((t, id) => ({
+        ...t,
+        tempId: id,
+        ResearchBranches: t.ResearchBranches.map((branch, branchId) => ({
+          ...branch,
+          tempId: `${id}_${branchId}`,
+        })),
+      }));
       setTopics(_new_topic);
     }
   }, [research_topic]);
@@ -86,23 +93,20 @@ const AdminResearch = () => {
     }
     setTopics(_topics);
   };
-
   const updateBranchForm = (value, name, branchId, topicId) => {
     setTopics((prevTopics) =>
-      prevTopics.map((topic) => {
-        if (topic.tempId === topicId) {
-          return {
-            ...topic,
-            ResearchBranches: topic.ResearchBranches?.map((branch) => (branch.tempId == branchId ? { ...branch, [name]: value } : branch)) || [],
-          };
-        }
-        return topic;
-      })
+      prevTopics.map((topic) =>
+        topic.tempId === topicId
+          ? {
+              ...topic,
+              ResearchBranches: topic.ResearchBranches?.map((branch) => (branch.tempId === branchId ? { ...branch, [name]: value } : branch)) || [],
+            }
+          : topic
+      )
     );
   };
 
   const onUpdateTopicForm = (val, name, id) => {
-    console.log(topics);
     setTopics((prevTopics) => prevTopics.map((t) => (t.tempId === id ? { ...t, [name]: val } : t)));
   };
   // const myUpdater = ;
