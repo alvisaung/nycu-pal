@@ -25,7 +25,7 @@ const AdminGeneral = () => {
         address: data.address || "",
       });
       if (data.banner_urls) {
-        setBannerUrls(JSON.parse(data.banner_urls) ?? []);
+        setBannerUrls(data.banner_urls ?? []);
       }
     }
   }, [data]);

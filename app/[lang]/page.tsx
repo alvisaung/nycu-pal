@@ -10,10 +10,11 @@ const Home = async () => {
   const data = await fetchData("/about-lab");
   const activitiesData: ActivityData[] = await fetchData("/events?q=3");
   const t = await getTranslations("Layout");
-
+  console.log(data);
+  const bannerUrls = data.banner_urls.map((url: string) => ({ url: url }));
   return (
     <div className="bg-gradient-custom min-h-screen text-custom-text-white">
-      <Carousel images={[{ url: "/imgs/placeholder/banner.jpg" }, { url: "/imgs/placeholder/banner-2.jpg" }]} />
+      <Carousel images={bannerUrls} />
       <div className=" w-full py-8 relative  ">
         <div className="relative z-10 text-white w-11/12 md:pt-6 pt-2 pb-8  md:w-5/6 flex flex-row m-auto justify-between ">
           <div className="md:w-7/12  w-full ">

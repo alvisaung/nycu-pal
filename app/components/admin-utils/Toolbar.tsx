@@ -13,13 +13,29 @@ type Props = {
 };
 
 const Toolbar = ({ editor, content }: Props) => {
-  const addImage = useCallback(() => {
+  const [height, setHeight] = React.useState("480");
+  const [width, setWidth] = React.useState("640");
+  if (!editor) {
+    return null;
+  }
+  const addYoutubeVideo = () => {
+    const url = prompt("Enter YouTube URL");
+
+    if (url) {
+      editor.commands.setYoutubeVideo({
+        src: url,
+        width: Math.max(320, parseInt(width, 10)) || 640,
+        height: Math.max(180, parseInt(height, 10)) || 480,
+      });
+    }
+  };
+  const addImage = () => {
     const url = window.prompt("URL");
 
     if (url) {
       editor && editor.chain().focus().setImage({ src: url }).run();
     }
-  }, [editor]);
+  };
 
   if (!editor) {
     return null;
@@ -113,6 +129,12 @@ const Toolbar = ({ editor, content }: Props) => {
         {renderBtn("image", <Image className={commonIconStyle} />)}
         {renderBtn("link", <Link className={commonIconStyle} />)}
         <ColorPicker editor={editor} />
+
+        <input id="width" type="number" min="320" max="1024" placeholder="width" value={width} onChange={(event) => setWidth(event.target.value)} />
+        <input id="height" type="number" min="180" max="720" placeholder="height" value={height} onChange={(event) => setHeight(event.target.value)} />
+        <button id="add" onClick={addYoutubeVideo}>
+          Add YouTube video
+        </button>
       </div>
     </div>
   );

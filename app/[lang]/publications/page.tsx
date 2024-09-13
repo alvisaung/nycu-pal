@@ -29,12 +29,14 @@ const index: FC = async () => {
         <div className="md:w-9/12 w-full">
           {publications.map((pub, id) => (
             <div key={id}>
-              <h3 className="font-medium text-2xl text-header-purple mb-4">{pub.type}</h3>
+              <h3 className="font-medium text-2xl text-header-purple mb-6 pb-4 " style={{ borderBottom: "1px solid #e1e1e1" }}>
+                {pub.type}
+              </h3>
               {pub.publication_list.map((pub_yr, idj) => (
-                <div id={`${pub.type}-${pub_yr.year}`} key={idj}>
+                <div id={`${pub.type}-${pub_yr.year}`} className="mb-4" key={idj}>
                   <h5 className="font-medium text-xl text-header-purple mb-2">{pub_yr.year}</h5>
                   {pub_yr.publications.map((paper, idx) => (
-                    <Publication {...paper} key={idx} />
+                    <Publication {...paper} key={idx} index={idx} />
                   ))}
                 </div>
               ))}

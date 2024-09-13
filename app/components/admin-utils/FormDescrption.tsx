@@ -14,6 +14,8 @@ import Link from "@tiptap/extension-link";
 import { Color } from "@tiptap/extension-color";
 import TextStyle from "@tiptap/extension-text-style";
 import UploadImgComponent from "../AdminHome/UploadImgComponent";
+import Youtube from "@tiptap/extension-youtube";
+import HardBreak from "@tiptap/extension-hard-break";
 
 interface FormDescProps {
   value: string;
@@ -33,6 +35,17 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
     extensions: [
       StarterKit,
       Underline,
+      HardBreak.extend({
+        addKeyboardShortcuts() {
+          return {
+            Enter: () => this.editor.commands.setHardBreak(),
+          };
+        },
+      }),
+      Youtube.configure({
+        controls: false,
+        nocookie: true,
+      }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),

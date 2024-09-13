@@ -58,6 +58,7 @@ const index: FC = async () => {
   //   desc: "在自然界中，物理系統往往會向最低能量狀態演化，例如：物體從山上滑下來，熱的東西冷卻下來等等...。這種行為也適用於量子系統。想像一下，有一個旅行者透過尋找代表問題的能源景觀中的最低谷來尋找最佳解決方案。在自然界中，物理系統往往會向最低能量狀態演化，例如：物體從山上滑下來，熱的東西冷卻下來等等...。這種行為也適用於量子系統。 在自然界中，物理系統往往會向最低能量狀態演化，例如：物體從山上滑下來，熱的東西冷卻下來等等...。這種行為也適用於量子系統。<br /> <li>Metalens</li> <li>ILT</li> <li>Quantum Annealing</li>",
   //   vdo_url: "/vdo/bg-loop-lab.mp4",
   // };
+
   return (
     <div className="flex-grow bg-read-bg text-black">
       <HeaderBond title="Research Themes" bg_img="/imgs/title-bond/research.png" />
@@ -67,9 +68,10 @@ const index: FC = async () => {
         </AnimationWrap>
 
         <AnimationWrap delay={0.2}>
-          <video loop autoPlay muted preload="auto" className="rounded w-5/12 mb-4">
+          {/* <video loop autoPlay muted preload="auto" className="">
             <source src={"/vdo/bg-loop-lab.mp4"} type="video/mp4" />
-          </video>
+          </video> */}
+          <div className="flex flex-col md:flex-wrap gap-x-8">{researchStatement[0].media_url && researchStatement[0].media_url.map((url: string, id: number) => <img src={url} alt="Statement Img" className={`rounded w-full rounded md:w-5/12 mb-4   ${id > 0 && "hidden"}`} />)}</div>
         </AnimationWrap>
         <AnimationWrap delay={0.4}>
           <div className="text-base font-light leading-7 mb-5 text-black" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />

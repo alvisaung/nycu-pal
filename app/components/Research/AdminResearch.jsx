@@ -17,7 +17,7 @@ import { useFetchData } from "@/src/hooks/useFetchData";
 // }
 
 const AdminResearch = () => {
-  const [statementImg, setStatementMedia] = useState("");
+  const [statementImg, setStatementMedia] = useState([]);
   const [statement, setStatement] = useState("");
   const [topics, setTopics] = useState([]);
   const { data: research_statement, putData } = useFetchData("research");
@@ -63,7 +63,7 @@ const AdminResearch = () => {
       return;
     }
     const id = research_statement.length > 0 ? research_statement[0].id : null;
-    const res = await putData({ statement: statement, media_url: statementImg ?? "", id: id });
+    const res = await putData({ statement: statement, media_url: statementImg, id: id });
     if (res) {
       window.alert("Add Statement Success.");
     }
@@ -79,7 +79,7 @@ const AdminResearch = () => {
   };
   const deleteForm = async (topicTempId, branchId, topicID) => {
     const _topics = JSON.parse(JSON.stringify(topics));
-    // const targetTopicIndex = _topics.findIndex((topic) => topic.tempId == topicTempId);
+    const targetTopicIndex = _topics.findIndex((topic) => topic.tempId == topicTempId);
     // if (targetTopicIndex === -1) return; // Exit if topic not found
 
     if (branchId) {
@@ -125,7 +125,7 @@ const AdminResearch = () => {
     <div>
       <FormBox title="Edit Research Statement">
         <div className="mb-4">
-          <UploadImgComponent initialImages={[statementImg]} setImages={(img) => setStatementMedia(img[0])} />
+          <UploadImgComponent multiple initialImages={statementImg} setImages={setStatementMedia} />{" "}
         </div>
 
         <form onSubmit={onPublicStatement} className="">
@@ -151,10 +151,10 @@ const AdminResearch = () => {
           <form onSubmit={(e) => onPublicTopic(e, topic.tempId)} className="mt-4">
             <FormInput required placeholder="Title" name="title" value={topic.title} id={topic.tempId} onChange={onUpdateTopicForm} />
             <FormDescriptionInput required placeholder="Research Topic" value={topic.description} onChange={(val, name) => onUpdateTopicForm(val, "description", topic.tempId)} />
-            <button className="underline mb-8 font-medium" onClick={() => addBranch(topic.tempId)}>
+            {/* <button className="underline mb-8 font-medium" onClick={() => addBranch(topic.tempId)}>
               Add Branch
-            </button>
-            {topic.ResearchBranches &&
+            </button> */}
+            {/* {topic.ResearchBranches &&
               topic.ResearchBranches.map((branch) => (
                 <FormBox title={branch.title} key={branch.tempId}>
                   <button onClick={() => deleteForm(topic.tempId, branch.tempId)} className="absolute top-2 right-2  bg-red-500 text-white rounded-full p-1 ">
@@ -166,7 +166,7 @@ const AdminResearch = () => {
                     <FormDescriptionInput required placeholder="Detail" value={branch.description} onChange={(val, name) => updateBranchForm(val, "description", branch.tempId, topic.tempId)} />
                   </div>
                 </FormBox>
-              ))}
+              ))} */}
             <FormSubmit title="Publish" />
           </form>
         </FormBox>

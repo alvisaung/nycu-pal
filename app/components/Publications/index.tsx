@@ -11,9 +11,10 @@ export interface PublicationProps {
   paper_type: string;
   id?: string;
   handleEdit?: (id: string) => void;
+  index: number;
 }
 
-const Publication: React.FC<PublicationProps> = ({ title, author, conference_name, lastItem, publish_yr, img_url, id, handleEdit }) => {
+const Publication: React.FC<PublicationProps> = ({ title, author, conference_name, lastItem, publish_yr, img_url, id, handleEdit, index }) => {
   const handleClick = () => {
     if (id && handleEdit) {
       handleEdit(id);
@@ -23,17 +24,20 @@ const Publication: React.FC<PublicationProps> = ({ title, author, conference_nam
   };
 
   return (
-    <button onClick={handleClick} className="cursor-pointer flex flex-row pb-5 rounded mb-5 items-start" style={{ borderBottom: lastItem ? "" : "1px solid rgba(221, 221, 221,0.7)" }}>
-      <img src={"/imgs/placeholder/publication.png"} alt="Nature Communications Logo" className="hidden md:block w-32  object-contain" />
+    <button onClick={handleClick} className="cursor-pointer flex flex-row pb-2 rounded mb-0 items-start">
+      {/* <img src={"/imgs/placeholder/publication.png"} alt="Nature Communications Logo" className="hidden md:block w-32  object-contain" /> */}
 
-      <div className=" pl-0 md:pl-3 text-left">
-        <h2 className=" mb-4 text-base font-medium ">{title}</h2>
-        <p className="text-sm mb-3 font-medium opacity-85" style={{ color: "#464646" }}>
-          {author}
-        </p>
-        <p className="text-sm font-medium" style={{ color: "#0088CC" }}>
+      <div className=" pl-0  text-left mb-3 text-base">
+        <span className="font-light">
+          {index + 1}. {author},
+        </span>
+        <span className="font-bold" style={{ color: "#0070a8", fontWeight: 500 }}>
+          {" "}
+          "{title}",{" "}
+        </span>
+        <span>
           {conference_name}, {publish_yr}
-        </p>
+        </span>
       </div>
     </button>
   );
