@@ -35,13 +35,7 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
     extensions: [
       StarterKit,
       Underline,
-      HardBreak.extend({
-        addKeyboardShortcuts() {
-          return {
-            Enter: () => this.editor.commands.setHardBreak(),
-          };
-        },
-      }),
+
       Youtube.configure({
         controls: false,
         nocookie: true,
@@ -89,17 +83,11 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
 
   return (
     <div className="mb-6">
-      {/* <label htmlFor="title" className="block text-sm mb-1">
-        {label}
-      </label> */}
-      {/* <textarea name={name} id="description" value={value} onChange={(e) => onChange(e.target.value)} rows={4} placeholder={`${placeholder}${isRequired ? "*" : ""}`} className="shadow font-sans  border rounded w-full py-2 px-3  tracking-wide  focus:shadow-outline" /> */}
-      {/* <div className=""> */}
       <UploadImgComponent multiple editor initialImages={imgs} setImages={setImgs} />
 
       <Toolbar editor={editor} content={value} />
 
       <EditorContent editor={editor} className=" focus:outline-none focus:shadow-outline" />
-      {/* </div> */}
     </div>
   );
 };

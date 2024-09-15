@@ -84,7 +84,7 @@ const Page: FC = async () => {
             </AnimationWrap>
             <AnimationWrap delay={0.8}>
               <h5 className=" mb-1">Experiences</h5>
-              <div className="font-normal leading-7 text-[#363636]">{professor?.experiences && <div dangerouslySetInnerHTML={{ __html: professor.experiences }} />}</div>
+              <div className="font-normal leading-7 text-[#363636] ">{professor?.experiences && <div className="tiptap" dangerouslySetInnerHTML={{ __html: professor.experiences }} />}</div>
             </AnimationWrap>
           </div>
           <AnimationWrap delay={0.4} className="md:w-3/12 w-7/12 md:mt-0 m-auto">

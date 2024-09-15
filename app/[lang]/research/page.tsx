@@ -74,7 +74,7 @@ const index: FC = async () => {
           <div className="flex flex-col md:flex-wrap gap-x-8">{researchStatement[0].media_url && researchStatement[0].media_url.map((url: string, id: number) => <img src={url} alt="Statement Img" className={`rounded w-full rounded md:w-5/12 mb-4   ${id > 0 && "hidden"}`} />)}</div>
         </AnimationWrap>
         <AnimationWrap delay={0.4}>
-          <div className="text-base font-light leading-7 mb-5 text-black" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
+          <div className="text-base font-light leading-7 mb-5 text-black tiptap" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
         </AnimationWrap>
         {researchTopic.map((topic, id) => (
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>
@@ -83,7 +83,7 @@ const index: FC = async () => {
 
               <div className="flex flex-row md:flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string, id) => <img src={url} alt="Topic Img" className={`rounded w-full md:w-3/12 mb-4 ${id > 0 && " hidden md:flex"}`} />)}</div>
 
-              <div className="font-light text-base  text-black leading-7" dangerouslySetInnerHTML={{ __html: topic.description }} />
+              <div className="font-light text-base  text-black leading-7 tiptap" dangerouslySetInnerHTML={{ __html: topic.description }} />
               {topic.ResearchBranches &&
                 topic.ResearchBranches.map((branch) => (
                   <>

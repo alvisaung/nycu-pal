@@ -20,7 +20,6 @@ const Toolbar = ({ editor, content }: Props) => {
   }
   const addYoutubeVideo = () => {
     const url = prompt("Enter YouTube URL");
-
     if (url) {
       editor.commands.setYoutubeVideo({
         src: url,
@@ -80,6 +79,8 @@ const Toolbar = ({ editor, content }: Props) => {
         return;
       }
       editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+    } else if (type == "break") {
+      editor.chain().focus().setHardBreak().run();
     }
   };
 
@@ -100,7 +101,7 @@ const Toolbar = ({ editor, content }: Props) => {
     };
 
     return (
-      <button onClick={() => handleClick(type)} className={getIsActive() ? "bg-sky-700 text-white p-0.5 rounded" : " hover:bg-sky-700 hover text-blue-500 hover:text-white p-0.5 hover:rounded"}>
+      <button onClick={() => handleClick(type)} type="button" className={getIsActive() ? "bg-sky-700 text-white p-0.5 rounded" : " hover:bg-sky-700 hover text-blue-500 hover:text-white p-0.5 hover:rounded"}>
         {icon}
       </button>
     );
@@ -108,10 +109,7 @@ const Toolbar = ({ editor, content }: Props) => {
 
   const commonIconStyle = "w-5 h-5  ";
   return (
-    <div
-      className="border px-2 py-2 rounded-tl-md rounded-tr-md flex justify-between items-start
-    gap-5 w-full flex-wrap "
-    >
+    <div className="border px-2 py-2 rounded-tl-md rounded-tr-md flex justify-between items-start gap-5 w-full flex-wrap ">
       <div className="flex justify-start items-center gap-5 w-full lg:w-10/12 flex-wrap ">
         {renderBtn("bold", <Bold className={commonIconStyle} />)}
         {renderBtn("italic", <Italic className={commonIconStyle} />)}
@@ -129,6 +127,7 @@ const Toolbar = ({ editor, content }: Props) => {
         {renderBtn("image", <Image className={commonIconStyle} />)}
         {renderBtn("link", <Link className={commonIconStyle} />)}
         <ColorPicker editor={editor} />
+        {renderBtn("break", "Hard Break")}
 
         <input id="width" type="number" min="320" max="1024" placeholder="width" value={width} onChange={(event) => setWidth(event.target.value)} />
         <input id="height" type="number" min="180" max="720" placeholder="height" value={height} onChange={(event) => setHeight(event.target.value)} />

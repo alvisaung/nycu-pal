@@ -40,6 +40,7 @@ const AdminGeneral = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     putData({ ...generalData, banner_urls: JSON.stringify(banner_urls) });
+    window.alert("添加成功！");
   };
 
   return (

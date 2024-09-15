@@ -37,6 +37,7 @@ html,
 .tiptap p {
   list-style: auto;
 }
+
 .tiptap ul {
   list-style: inherit;
   padding: unset;
@@ -58,13 +59,17 @@ html,
   color: #333;
 }
 .tiptap h3 {
-  font-size: 1.875rem;
+  font-size: 1.4rem;
 }
+
 .tiptap h4 {
-  font-size: 1.5rem;
+  font-size: 1.15rem !important;
 }
 .tiptap h5 {
-  font-size: 1.25rem;
+  font-size: 0.9rem;
+}
+.tiptap strong {
+  font-weight: 500;
 }
 
 .tiptap li {

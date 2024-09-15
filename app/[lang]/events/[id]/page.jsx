@@ -54,14 +54,14 @@ const Page = () => {
         <h3 className="text-xs font-medium mb-2 " style={{ color: "#565555" }}>
           {formatDate(createdAt)}
         </h3>
-        {youtube_embed_url && <div dangerouslySetInnerHTML={{ __html: youtube_embed_url }} />}
+        {youtube_embed_url && <div className="tiptap" dangerouslySetInnerHTML={{ __html: youtube_embed_url }} />}
         {img_url_trans.length > 0 && (
           <div className=" max-h-[28rem] w-5/6 rounded-md overflow-hidden">
             <Carousel removeDot images={img_url_trans} />
           </div>
         )}
 
-        <div className="text-base md:text-lg mt-4 leading-8 tracking-wide	" dangerouslySetInnerHTML={{ __html: desc }} />
+        <div className="text-base md:text-lg mt-4 leading-8 tracking-wide tiptap	" dangerouslySetInnerHTML={{ __html: desc }} />
       </div>
     </div>
   );
