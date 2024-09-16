@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     path: "/",
   },
+  output: "standalone",
 };
 
 export default withNextIntl(nextConfig);
