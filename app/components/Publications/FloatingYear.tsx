@@ -21,11 +21,6 @@ const FloatingYear: React.FC = () => {
 
   const [openSections, setOpenSections] = useState<string[]>([]);
 
-  // const sections: YearSection[] = [
-  //   { title: "High IF Paper", years: [2024, 2023, 2022] },
-  //   { title: "Conference", years: [2023, 2022] },
-  // ];
-
   const [currentYear, setCurrentYear] = useState<number | null>(null);
   const toggleSection = (title: string) => {
     setOpenSections((prevSections) => {
@@ -46,8 +41,8 @@ const FloatingYear: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-      let foundYear = null;
+      const scrollPosition = window.innerHeight / 2;
+      let foundYear: number | null = null;
       let sec = null;
 
       // Flatten all years from all sections
@@ -56,7 +51,7 @@ const FloatingYear: React.FC = () => {
           const element = document.getElementById(`${section.title}-${year}`);
           if (element) {
             const { top, bottom } = element.getBoundingClientRect();
-            if (top <= scrollPosition && bottom >= scrollPosition) {
+            if (bottom >= scrollPosition) {
               foundYear = year;
               sec = section.title;
               break;
@@ -66,7 +61,6 @@ const FloatingYear: React.FC = () => {
       });
 
       // Find the year whose section is currently in view
-
       setCurrentYear(foundYear);
     };
     window.addEventListener("scroll", handleScroll);

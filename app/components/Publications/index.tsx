@@ -25,8 +25,6 @@ const Publication: React.FC<PublicationProps> = ({ title, author, conference_nam
 
   return (
     <button onClick={handleClick} className="cursor-pointer flex flex-row pb-2 rounded mb-0 items-start">
-      {/* <img src={"/imgs/placeholder/publication.png"} alt="Nature Communications Logo" className="hidden md:block w-32  object-contain" /> */}
-
       <div className=" pl-0  text-left mb-3 text-base">
         <span className="font-light">
           {index + 1}. {author},

@@ -34,9 +34,9 @@ const Home = async () => {
           </AnimationWrap>
         </div>
 
-        {/* <video loop autoPlay muted preload="auto" className="w-full h-full top-0 bottom-0 absolute object-cover opacity-30">
+        <video loop autoPlay muted preload="auto" className="w-full h-full top-0 bottom-0 absolute object-cover opacity-30">
           <source src="/vdo/bg-loop.mp4" type="video/mp4" />
-        </video> */}
+        </video>
       </div>
       <div className="bg-white font-medium rounded-t-md  text-black">
         <div className="w-11/12 md:w-10/12 flex m-auto py-8 flex flex-row justify-between items-start">

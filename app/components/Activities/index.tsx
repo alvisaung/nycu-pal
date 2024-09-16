@@ -63,7 +63,6 @@ const Activity = ({ id, title, desc, img_url, event_date, type, lastItem, admin,
             </div>
           </div>
           {hasImg && <img src={img_url && img_url[0]} alt="img" className="w-48 h-40 object-cover rounded md:block hidden " />}
-          {/* <img src={"/imgs/placeholder/activity.jpg"} alt="img" className="md:block hidden w-48 h-40 object-cover rounded object-center " /> */}
         </div>
       </Link>
       {admin && (
