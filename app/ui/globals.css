@@ -22,6 +22,11 @@ html,
   padding: 0;
   margin: 0;
 }
+@font-face {
+  font-family: myFirstFont;
+  src: url("./fonts/SofadiOne-Regular.ttf");
+  font-weight: normal;
+}
 
 .tiptap p.is-editor-empty:first-child::before {
   color: #adb5bd;

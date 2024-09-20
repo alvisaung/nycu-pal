@@ -81,6 +81,8 @@ const Toolbar = ({ editor, content }: Props) => {
       editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
     } else if (type == "break") {
       editor.chain().focus().setHardBreak().run();
+    } else if (type == "first-font") {
+      editor.chain().focus().setFontFamily("myFirstFont").run();
     }
   };
 
@@ -111,6 +113,8 @@ const Toolbar = ({ editor, content }: Props) => {
   return (
     <div className="border px-2 py-2 rounded-tl-md rounded-tr-md flex justify-between items-start gap-5 w-full flex-wrap ">
       <div className="flex justify-start items-center gap-5 w-full lg:w-10/12 flex-wrap ">
+        {renderBtn("first-font", "First Font")}
+
         {renderBtn("bold", <Bold className={commonIconStyle} />)}
         {renderBtn("italic", <Italic className={commonIconStyle} />)}
         {renderBtn("underline", <Underline className={commonIconStyle} />)}

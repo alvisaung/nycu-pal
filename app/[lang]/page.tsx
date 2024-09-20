@@ -10,7 +10,6 @@ const Home = async () => {
   const data = await fetchData("/about-lab");
   const activitiesData: ActivityData[] = await fetchData("/events?q=3");
   const t = await getTranslations("Layout");
-  console.log(data);
   const bannerUrls = data.banner_urls.map((url: string) => ({ url: url }));
   return (
     <div className="bg-gradient-custom min-h-screen text-custom-text-white">

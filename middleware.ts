@@ -1,17 +1,24 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
+const locales = ["zh", "en"];
+const defaultLocale = "zh";
+
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
-  locales: ["zh", "en"],
-
-  // Used when no locale matches
-  defaultLocale: "zh",
+  locales,
+  defaultLocale,
+  localePrefix: "always", // This will ensure the locale is always in the URL
 });
 
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   console.log(pathname);
+
+  // Handle root path
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url));
+  }
   if (
     // pathname.startsWith("/_next") ||
     pathname.includes("/imgs/") ||
@@ -30,3 +37,4 @@ export const config = {
   // Match only internationalized pathnames
   matcher: "/((?!api|_next/static|_next/image|favicon.ico).*)",
 };
+// http://nycu-pal.com

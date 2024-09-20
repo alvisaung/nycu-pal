@@ -13,6 +13,7 @@
     "@formatjs/intl-localematcher": "^0.5.4",
     "@next/font": "^14.2.5",
     "@tiptap/extension-color": "^2.6.6",
+    "@tiptap/extension-font-family": "^2.7.2",
     "@tiptap/extension-hard-break": "^2.6.6",
     "@tiptap/extension-image": "^2.5.8",
     "@tiptap/extension-link": "^2.6.6",

@@ -11,7 +11,12 @@ const ColorPicker = ({ editor }: Props) => {
 
   return (
     <div className="flexRow center stretchSelf">
-      <input type="color" onInput={handleInput} value={editor.getAttributes("textStyle").color} />
+      <input type="color" list="presetColors" onInput={handleInput} value={editor.getAttributes("textStyle").color} />
+      <datalist id="presetColors">
+        <option>#ff0000</option>
+        <option>#00ff00</option>
+        <option>#0000ff</option>
+      </datalist>
     </div>
   );
 };
