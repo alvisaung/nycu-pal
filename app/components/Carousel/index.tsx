@@ -65,7 +65,7 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any }> = ({ images, remov
         {images.map((img, id) => {
           return (
             <div key={id}>
-              <img src={img.url} alt={"Banner"} className={`keen-slider__slide object-contain ${styles.slide_img} max-h-[450px] md:max-h-[450px] sm:max-h-[600px]`} />
+              <img src={img.url} alt={"Banner"} className={`keen-slider__slide object-contain ${styles.slide_img} max-h-[450px] 2xl:max-h-[600px] md:max-h-[450px] sm:max-h-[600px]`} />
             </div>
           );
         })}

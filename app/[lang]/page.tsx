@@ -22,7 +22,7 @@ const Home = async () => {
             </AnimationWrap>
             <AnimationWrap delay={0.5}>
               <h5 className="text-base font-light leading-6 indent-3	">
-                <div className="tiptap" dangerouslySetInnerHTML={{ __html: data.about }} />
+                <div className="tiptap 2xl:text-xl" dangerouslySetInnerHTML={{ __html: data.about }} />
               </h5>
             </AnimationWrap>
           </div>

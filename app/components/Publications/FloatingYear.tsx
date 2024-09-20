@@ -9,6 +9,7 @@ interface YearSection {
 
 const FloatingYear: React.FC = () => {
   const [sections, setSections] = useState<YearSection[]>([]);
+
   const getData = async () => {
     const sections_: YearSection[] = await fetchData("/publication-type");
     setSections(sections_);
@@ -44,22 +45,24 @@ const FloatingYear: React.FC = () => {
       const scrollPosition = window.innerHeight / 2;
       let foundYear: number | null = null;
       let sec = null;
-
       // Flatten all years from all sections
       sections.forEach((section) => {
         for (const year of section.Publications) {
           const element = document.getElementById(`${section.title}-${year}`);
+
           if (element) {
             const { top, bottom } = element.getBoundingClientRect();
-            if (bottom >= scrollPosition) {
+
+            if (top <= scrollPosition && bottom >= scrollPosition) {
               foundYear = year;
               sec = section.title;
+
               break;
             }
           }
         }
       });
-
+      console.log(sec);
       // Find the year whose section is currently in view
       setCurrentYear(foundYear);
     };

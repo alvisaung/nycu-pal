@@ -1,10 +1,8 @@
-import TopicList from "@/app/components/Activities/TopicListAdmin";
-import AnimationWrap from "@/app/components/HOC/AnimationWrap";
 import HeaderBond from "@/app/components/HOC/HeaderBond";
 import Publication, { PublicationProps } from "@/app/components/Publications";
 import FloatingYear from "@/app/components/Publications/FloatingYear";
 import { fetchData } from "@/src/services/dataService";
-import React, { Component, FC } from "react";
+import React, { FC } from "react";
 
 interface PublicationGp {
   type: string;
@@ -17,7 +15,7 @@ interface PubYrGp {
 
 const index: FC = async () => {
   const publications: PublicationGp[] = await fetchData("/publication");
-
+  console.log(publications);
   return (
     <div className="bg-read-bg flex-grow">
       <HeaderBond title="Publications" bg_img="/imgs/title-bond/research.png" />
