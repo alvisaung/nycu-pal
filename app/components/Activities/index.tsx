@@ -67,11 +67,11 @@ const Activity = ({ id, title, desc, img_url, event_date, type, lastItem, admin,
       </Link>
       {admin && (
         <div className="gap-y-4">
-          <button onClick={() => onDelete && onDelete(id)}>
-            <GoTrash size={"1.5em"} />
-          </button>
           <button onClick={() => router.push(`/admin/add-activity/${id}`)}>
             <MdEdit size={"1.5em"} />
+          </button>
+          <button onClick={() => onDelete && onDelete(id)}>
+            <GoTrash size={"1.5em"} />
           </button>
         </div>
       )}

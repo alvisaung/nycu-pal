@@ -59,7 +59,7 @@ const Page: FC = async () => {
         <div className="mx-auto w-10/12 flex md:flex-row flex-col flex-col-reverse  justify-around pb-20">
           <div className="font-medium md:w-7/12 w-full md:mt-0 mt-8 ">
             <AnimationWrap>
-              <h3 className="md:text-2xl text-xl  font-medium mb-4 font-helvetica text-header-purple">Founder Professor, {professor?.name}</h3>
+              <h3 className="md:text-2xl text-xl  font-medium mb-4 font-helvetica-neue text-header-purple">Founder Professor, {professor?.name}</h3>
             </AnimationWrap>
             <AnimationWrap delay={0.4}>
               <div className="flex flex-row text-base items-center gap-x-2 mb-2">

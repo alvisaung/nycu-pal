@@ -6,7 +6,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         "space-grotesk": ["Space Grotesk", "sans-serif"],
-        helvetica: ["var(--font-helvetica)"],
+        "helvetica-neue": ["var(--font-helvetica)"],
       },
       backgroundImage: {
         "gradient-custom": "radial-gradient(circle, #000000, #09245B)",

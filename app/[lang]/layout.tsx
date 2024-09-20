@@ -13,16 +13,15 @@ export const metadata: Metadata = {
   title: "NYCU PAL",
   description: "Photonics Lab",
 };
-
 export default async function RootLayout({ children, params: { locale } }: { children: React.ReactNode; params: { locale: string } }) {
   const messages = await getMessages();
   // const pathname = usePathname();
   return (
-    <html lang={locale} className={helveticaNeue.className}>
+    <html lang={locale}>
       <body className="flex flex-col min-h-screen">
         <NextIntlClientProvider messages={messages}>
           <PHeader />
-          <main className={`flex-grow flex flex-col  ${helveticaNeue.className}`}>{children}</main>
+          <main className={`flex-grow flex flex-col  ${helveticaNeue.variable}  font-helvetica-neue`}>{children}</main>
 
           <Footer />
         </NextIntlClientProvider>
