@@ -17,11 +17,11 @@ export default async function RootLayout({ children, params: { locale } }: { chi
   const messages = await getMessages();
   // const pathname = usePathname();
   return (
-    <html lang={locale}>
+    <html lang={locale} className={helveticaNeue.className}>
       <body className="flex flex-col min-h-screen">
         <NextIntlClientProvider messages={messages}>
           <PHeader />
-          <main className={`flex-grow flex flex-col  ${helveticaNeue.variable}  font-helvetica-neue`}>{children}</main>
+          <main className={`flex-grow flex flex-col  ${helveticaNeue.className}  font-helvetica-neue`}>{children}</main>
 
           <Footer />
         </NextIntlClientProvider>
