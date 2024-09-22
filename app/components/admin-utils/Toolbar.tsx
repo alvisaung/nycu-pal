@@ -135,7 +135,7 @@ const Toolbar = ({ editor, content }: Props) => {
 
         <input id="width" type="number" min="320" max="1024" placeholder="width" value={width} onChange={(event) => setWidth(event.target.value)} />
         <input id="height" type="number" min="180" max="720" placeholder="height" value={height} onChange={(event) => setHeight(event.target.value)} />
-        <button id="add" onClick={addYoutubeVideo}>
+        <button type="button" id="add" onClick={addYoutubeVideo}>
           Add YouTube video
         </button>
       </div>

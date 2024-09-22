@@ -58,10 +58,10 @@ const Page: FC = async () => {
       <div className="bg-white pt-8 ">
         <div className="mx-auto w-10/12 flex md:flex-row flex-col flex-col-reverse  justify-around pb-20">
           <div className="font-medium md:w-7/12 w-full md:mt-0 mt-8 ">
-            <AnimationWrap>
+            <AnimationWrap delay={0.3}>
               <h3 className="md:text-2xl text-xl  font-medium mb-4 font-helvetica-neue text-header-purple">Founder Professor, {professor?.name}</h3>
             </AnimationWrap>
-            <AnimationWrap delay={0.4}>
+            <AnimationWrap delay={0.6}>
               <div className="flex flex-row text-base items-center gap-x-2 mb-2">
                 <FiMail />
                 <h5 className="">{professor?.email}</h5>
@@ -82,12 +82,12 @@ const Page: FC = async () => {
                 ))}
               </div>
             </AnimationWrap>
-            <AnimationWrap delay={0.8}>
+            <AnimationWrap delay={1}>
               <h5 className=" mb-1">Experiences</h5>
               <div className="font-normal leading-7 text-[#363636] ">{professor?.experiences && <div className="tiptap" dangerouslySetInnerHTML={{ __html: professor.experiences }} />}</div>
             </AnimationWrap>
           </div>
-          <AnimationWrap delay={0.4} className="md:w-3/12 w-7/12 md:mt-0 m-auto">
+          <AnimationWrap delay={1.2} className="md:w-3/12 w-7/12 md:mt-0 m-auto">
             <img src={professor?.img_url} className=" rounded self-center" />
           </AnimationWrap>
         </div>
@@ -97,13 +97,13 @@ const Page: FC = async () => {
           .filter((memberGp) => memberGp.role !== role.professor.key)
           .map((memberGp, id) => (
             <div key={id} className="w-full  mb-8 mt-12 flex flex-col justify-center">
-              <AnimationWrap>
+              <AnimationWrap delay={0.2}>
                 <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{role[memberGp.role].value}</h4>
               </AnimationWrap>
 
               <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
-                  <AnimationWrap threshold={0.6} key={idm} delay={0.4 * (idm / 2)} initial={{ opacity: 0 }}>
+                  <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }}>
                     <Member {...member} />
                   </AnimationWrap>
                 ))}

@@ -36,7 +36,9 @@ const FloatingYear: React.FC = () => {
   const scrollToYear = (sec: string, year: number) => {
     const element = document.getElementById(`${sec}-${year}`);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const y = element.getBoundingClientRect().top + window.scrollY - 400;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 

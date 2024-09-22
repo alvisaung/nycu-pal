@@ -33,9 +33,8 @@ const index: FC = async () => {
         <AnimationWrap>
           <h3 className="font-bold text-2xl text-header-purple mb-2">Research Statement</h3>
         </AnimationWrap>
-
         <AnimationWrap delay={0.2}>
-          <div className="flex flex-col md:flex-wrap gap-x-8">{researchStatement[0].media_url && researchStatement[0].media_url.map((url: string, id: number) => <img src={url} alt="Statement Img" className={`rounded w-full rounded md:w-5/12 mb-4   ${id > 0 && "hidden"}`} />)}</div>
+          <div className="flex flex-row md:flex-wrap gap-x-8">{researchStatement[0].media_url && researchStatement[0].media_url.map((url: string, id: number) => <img src={url} alt="Statement Img" className={`rounded  rounded md:w-5/12 h-fit mb-4  `} />)}</div>
         </AnimationWrap>
         <AnimationWrap delay={0.4}>
           <div className="text-base  leading-7 mb-5 text-black tiptap" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
