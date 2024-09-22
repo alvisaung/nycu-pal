@@ -1,11 +1,12 @@
+"use client";
 import { useEffect, useState } from "react";
 import { fetchData } from "../services/dataService";
 
 export const useFetchData = (endpoint) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const getData = async () => {
-    let _data = await fetchData(endpoint);
+  const getData = async (EndPoint = endpoint) => {
+    let _data = await fetchData(EndPoint);
     setData(_data);
     setIsLoading(false);
   };

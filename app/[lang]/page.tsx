@@ -1,14 +1,12 @@
 import Carousel from "components/Carousel";
-import Activity, { ActivityData, ActivityType } from "../components/Activities";
-import ActivityFilter from "../components/Activities/Filter";
-import Link from "next/link";
+
 import { fetchData } from "@/src/services/dataService";
 import AnimationWrap from "../components/HOC/AnimationWrap";
 import { getTranslations } from "next-intl/server";
+import ActivityGp from "../components/Activities/ActivityGp";
 
 const Home = async () => {
   const data = await fetchData("/about-lab");
-  const activitiesData: ActivityData[] = await fetchData("/events?q=3");
   const t = await getTranslations("Layout");
   const bannerUrls = data.banner_urls.map((url: string) => ({ url: url }));
   return (
@@ -37,26 +35,7 @@ const Home = async () => {
           <source src="/vdo/bg-loop.mp4" type="video/mp4" />
         </video>
       </div>
-      <div className="bg-white font-medium rounded-t-md  text-black">
-        <div className="w-11/12 md:w-10/12 flex m-auto py-8 flex flex-row justify-between items-start">
-          <div className="md:w-9/12">
-            <div className="flex flow-row w-full justify-between items-center mb-6">
-              <div className="text-2xl font-bold  text-header-purple">💡{t("Events")}</div>
-              <div className="text-base  cursor-pointer  text-header-purple underline">
-                <Link href="/events">All</Link>
-              </div>
-            </div>
-            {activitiesData.map((activity, idx) => (
-              <AnimationWrap delay={0.4 * (idx / 2)} key={idx}>
-                <Activity {...activity} lastItem={idx == activitiesData.length - 1} />
-              </AnimationWrap>
-            ))}
-          </div>
-          <div className="md:w-2/12">
-            <ActivityFilter />
-          </div>
-        </div>
-      </div>
+      <ActivityGp q={3} />
     </div>
   );
 };
