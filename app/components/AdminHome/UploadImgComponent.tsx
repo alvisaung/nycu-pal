@@ -18,6 +18,7 @@ const UploadImgComponent: FC<UploadImgComponentProps> = ({ initialImages = [], a
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    console.log(initialImages);
     if (!Boolean(multiple) && initialImages.length > 0 && initialImages[0]) {
       const url = initialImages[0];
       try {

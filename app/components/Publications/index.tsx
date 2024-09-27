@@ -24,18 +24,16 @@ const Publication: React.FC<PublicationProps> = ({ title, author, conference_nam
   };
 
   return (
-    <button onClick={handleClick} className="cursor-pointer flex flex-row pb-2 rounded mb-0 items-start">
-      <div className=" pl-0  text-left mb-3 text-base">
-        <span className="font-light">
-          {index + 1}. {author},
-        </span>
-        <span className="font-bold" style={{ color: "#0070a8", fontWeight: 500 }}>
-          {" "}
-          "{title}",{" "}
-        </span>
-        <span>
+    <button onClick={handleClick} className="cursor-pointer flex flex-row pb-4 rounded mb-0 items-start gap-x-2">
+      {img_url && <img src={img_url} className="w-32 h-fit" />}
+      <div className=" pl-0  text-left mb-3 ">
+        <div className="font-medium text-lg mb-2">
+          {index + 1}. {title}
+        </div>
+        <div className="text-base mb-2">{author}</div>
+        <div className="text-sm" style={{ color: "#0070a8" }}>
           {conference_name}, {publish_yr}
-        </span>
+        </div>
       </div>
     </button>
   );

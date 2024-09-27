@@ -37,7 +37,7 @@ const index: FC = async () => {
           <div className="flex flex-row md:flex-wrap gap-x-8">{researchStatement[0].media_url && researchStatement[0].media_url.map((url: string, id: number) => <img src={url} alt="Statement Img" className={`rounded  rounded md:w-5/12 h-fit mb-4  `} />)}</div>
         </AnimationWrap>
         <AnimationWrap delay={0.4}>
-          <div className="text-base  leading-7 mb-5 text-black tiptap" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
+          <div className="text-base  leading-7 tracking-wide mb-5  tiptap" dangerouslySetInnerHTML={{ __html: researchStatement[0].statement }} />
         </AnimationWrap>
         {researchTopic.map((topic, id) => (
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>

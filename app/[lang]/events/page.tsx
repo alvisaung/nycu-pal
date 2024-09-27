@@ -3,7 +3,6 @@ import ActivityGp from "@/app/components/Activities/ActivityGp";
 import ActivityFilter from "@/app/components/Activities/Filter";
 import AnimationWrap from "@/app/components/HOC/AnimationWrap";
 import HeaderBond from "@/app/components/HOC/HeaderBond";
-import { fetchData } from "@/src/services/dataService";
 import React, { FC } from "react";
 
 const index: FC = async () => {
