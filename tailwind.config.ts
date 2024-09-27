@@ -9,7 +9,8 @@ const config: Config = {
         "helvetica-neue": ["var(--font-helvetica)"],
       },
       backgroundImage: {
-        "gradient-custom": "radial-gradient(circle, #000000, #09245B)",
+        // "gradient-custom": "radial-gradient(circle, #000000, #09245B)",
+        // "gradient-custom": "radial-gradient(circle, #000000, #09245B)",
       },
       colors: {
         "mobile-header": "#2A2753",

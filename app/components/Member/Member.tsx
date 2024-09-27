@@ -12,8 +12,9 @@ export interface MemberType {
   handleDelete?: () => void;
   phone?: string;
   experiences?: string;
+  isAlumni?: boolean;
 }
-const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClick, handleDelete }) => {
+const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClick, handleDelete, isAlumni }) => {
   return (
     <div style={{ boxShadow: "2px 2px 4px 1px rgba(0,0,0,0.25)" }} onClick={handleClick} className="bg-white py-4 px-7 w-fit relative flex flex-col items-center font-space-grotesk w-[220px] hover:rounded-lg hover:bg-slate-50 cursor-pointer">
       {handleDelete && (
@@ -27,7 +28,10 @@ const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClic
       )}
       <img src={img_url} alt="Member Img" className="w-36 rounded-full h-36 object-cover " />
       <h4 className=" text-xl font-medium mt-2  text-[#07182B]">{name}</h4>
-      <h5 className="text-[#F8895D] text-base font-medium tracking-wide mt-2 ">Thesis: {research_dir} </h5>
+      <h5 className="text-sm text-[#F8895D] font-medium tracking-wide mt-2 ">
+        {isAlumni ? "畢業去向: " : "Thesis: "}
+        {research_dir}
+      </h5>
 
       <div className="flex  flex-row text-base items-center gap-x-1 my-2">
         <FiMail />

@@ -7,7 +7,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "style/globals.css";
 import { Noto_Sans_TC } from "next/font/google";
-import { helveticaNeue } from "style/fonts";
 
 export const metadata: Metadata = {
   title: "NYCU PAL",
@@ -24,11 +23,10 @@ export default async function RootLayout({ children, params: { locale } }: { chi
   // const pathname = usePathname();
   return (
     <html lang={locale} className={notosan_tc.variable}>
-      <body className="flex flex-col min-h-screen">
+      <body className="flex flex-col min-h-screen bg-black">
         <NextIntlClientProvider messages={messages}>
           <PHeader />
           <main className={`flex-grow flex flex-col  ${notosan_tc.variable}  `}>{children}</main>
-
           <Footer />
         </NextIntlClientProvider>
       </body>

@@ -61,21 +61,26 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any }> = ({ images, remov
 
   return (
     <div className={styles.img_carousal_gp}>
-      <div ref={sliderRef} className={`keen-slider `}>
+      <div ref={sliderRef} className="keen-slider ">
         {images.map((img, id) => {
           return (
-            <div key={id}>
-              <img src={img.url} alt={"Banner"} className={`keen-slider__slide object-contain ${styles.slide_img} max-h-[450px] 2xl:max-h-[600px] md:max-h-[450px] sm:max-h-[600px]`} />
+            <div key={id} className="keen-slider__slide w-full h-[400px] md:h-[500px] lg:h-[600px]">
+              <img
+                // style={{ aspectRatio: "16/9" }} // Keeping a 16:9 ratio
+                src={img.url}
+                alt={"Banner"}
+                className="w-full h-full object-cover"
+              />
             </div>
           );
         })}
       </div>
-      {loaded && instanceRef.current && (
+      {/* {loaded && instanceRef.current && (
         <div className="md:block hidden">
           <Arrow left onClick={() => instanceRef.current?.prev()} disabled={currentSlide === 0} />
           <Arrow onClick={() => instanceRef.current?.next()} disabled={currentSlide === instanceRef.current.track.details.slides.length - 1} />
         </div>
-      )}
+      )} */}
 
       {!Boolean(removeDot) && loaded && instanceRef.current && (
         <div className={`${styles.dots} `}>

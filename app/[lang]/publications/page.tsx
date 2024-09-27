@@ -3,6 +3,7 @@ import Publication, { PublicationProps } from "@/app/components/Publications";
 import FloatingYear from "@/app/components/Publications/FloatingYear";
 import { fetchData } from "@/src/services/dataService";
 import React, { FC } from "react";
+import { helveticaNeue } from "style/fonts";
 
 interface PublicationGp {
   type: string;
@@ -17,7 +18,7 @@ const index: FC = async () => {
   const publications: PublicationGp[] = await fetchData("/publication");
   console.log(publications);
   return (
-    <div className="bg-read-bg flex-grow">
+    <div className={`bg-read-bg flex-grow ${helveticaNeue.className}`}>
       <HeaderBond title="Publications" bg_img="/imgs/title-bond/research.png" />
       {/* <div style={{ height: "1000px", width: "100px" }}></div> */}
       <div className="m-auto w-11/12 md:w-10/12 mb-24 mt-8 flex flex-row justify-between gap-x-16 relative">
@@ -27,7 +28,7 @@ const index: FC = async () => {
         <div className="md:w-9/12 w-full">
           {publications.map((pub, id) => (
             <div key={id}>
-              <h3 className="font-medium text-2xl text-header-purple mb-6 pb-4 " style={{ borderBottom: "1px solid #e1e1e1" }}>
+              <h3 className="font-bold text-2xl text-header-purple mb-6 pb-4 " style={{ borderBottom: "1px solid #e1e1e1" }}>
                 {pub.type}
               </h3>
               {pub.publication_list.map((pub_yr, idj) => (

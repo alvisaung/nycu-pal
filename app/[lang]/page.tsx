@@ -10,24 +10,26 @@ const Home = async () => {
   const t = await getTranslations("Layout");
   const bannerUrls = data.banner_urls.map((url: string) => ({ url: url }));
   return (
-    <div className="bg-gradient-custom min-h-screen text-custom-text-white">
-      <Carousel images={bannerUrls} />
-      <div className=" w-full py-8 relative  ">
+    <div className="bg-black min-h-screen text-custom-text-white">
+      <div className="mx-auto max-w-[1200px]">
+        <Carousel images={bannerUrls} />
+      </div>
+      <div className=" w-full py-6 relative  ">
         <div className="relative z-10 text-white w-11/12 md:pt-6 pt-2 pb-8  md:w-5/6 flex flex-row m-auto justify-between ">
           <div className="md:w-7/12  w-full ">
             <AnimationWrap>
               <h3 className="text-2xl mb-3 font-bold ">👏🏻 關於實驗室</h3>
             </AnimationWrap>
             <AnimationWrap delay={0.5}>
-              <h5 className="text-base font-light leading-6 indent-3	">
-                <div className="tiptap 2xl:text-xl" dangerouslySetInnerHTML={{ __html: data.about }} />
+              <h5 className="text-base font-light 	">
+                <div className="tiptap 2xl:text-xl text-lg tracking-wide leading-7 indent-5 " dangerouslySetInnerHTML={{ __html: data.about }} />
               </h5>
             </AnimationWrap>
           </div>
 
-          <AnimationWrap className="hidden md:flex w-5/12 flex-col mt-11 items-center">
-            <img src="/imgs/photonic-1.png" alt="Photonic" className="w-8/12" />
-            <img src="/imgs/photonic-2-circle.png" alt="Photonic" className="w-2/6 self-end -mt-14 mr-4 " />
+          <AnimationWrap className="hidden md:flex w-5/12 flex-col items-center justify-center">
+            <img src="/imgs/photonic-1.jpg" alt="Photonic" className="w-6/12 flip-animation " style={{ borderRadius: 5 }} />
+            {/* <img src="/imgs/photonic-111.png" alt="Photonic" className="w-2/6 self-end -mt-28 mr-4 " /> */}
           </AnimationWrap>
         </div>
 

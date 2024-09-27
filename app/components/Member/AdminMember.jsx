@@ -98,7 +98,7 @@ const AdminMember = () => {
           <form onSubmit={(e) => onPublic(e, true)} className="w-10/12 ">
             <FormInput name="name" required placeholder="Name" value={professor.name} onChange={onChange("professor")} />
             <FormInput name="email" required placeholder="Email" value={professor.email} onChange={onChange("professor")} />
-            <FormInput isNumeric name="phone" required placeholder="Phone" value={professor.phone} onChange={onChange("professor")} />
+            <FormInput name="phone" required placeholder="Phone" value={professor.phone} onChange={onChange("professor")} />
             <FormDescriptionInput name="experiences" required placeholder="Experience" value={professor.experiences} onChange={onChange("professor")} />
 
             <FormSubmit title="Publish" />

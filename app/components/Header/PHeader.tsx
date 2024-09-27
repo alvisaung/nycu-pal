@@ -51,9 +51,10 @@ export default function Header() {
   };
 
   return (
-    <div className="font-space-grotesk">
+    <div className="">
       <div className="hidden sm:flex bg-black text-white ">
-        <div className="w-5/6  py-5 flex flex-row justify-between m-auto text-base">
+        <div className="w-5/6  py-7 flex flex-row justify-between m-auto text-base">
+          {/* <div className="w-full py-4 flex flex-row justify-between m-auto text-base" style={{ fontSize: "0.95rem" }}> */}
           <div className=" cursor-pointer font-bold ">
             <Link href={"/"}>Photonics and Lithography Lab</Link>
           </div>
@@ -69,7 +70,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <div className="flex sm:hidden bg-mobile-header px-6 py-4  items-center justify-between">
+      <div className="flex sm:hidden bg-mobile-header px-6 py-6  items-center justify-between">
         <img src={"/imgs/menu.png"} alt="Menu" width={22} height={22} onClick={toggleMenu} />
         <h1 className="text-lg font-semibold text-white ">{getCurrentNavName()}</h1>
         <div className="w-[22px]"></div>

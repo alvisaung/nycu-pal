@@ -23,6 +23,7 @@ const FloatingYear: React.FC = () => {
   const [openSections, setOpenSections] = useState<string[]>([]);
 
   const [currentYear, setCurrentYear] = useState<number | null>(null);
+  const [currTitle, setCurrTitle] = useState<string | null>(null);
   const toggleSection = (title: string) => {
     setOpenSections((prevSections) => {
       if (prevSections.includes(title)) {
@@ -46,6 +47,7 @@ const FloatingYear: React.FC = () => {
     const handleScroll = () => {
       const scrollPosition = window.innerHeight / 2;
       let foundYear: number | null = null;
+      let foundTitle: string | null = null;
       let sec = null;
       // Flatten all years from all sections
       sections.forEach((section) => {
@@ -58,15 +60,15 @@ const FloatingYear: React.FC = () => {
             if (top <= scrollPosition && bottom >= scrollPosition) {
               foundYear = year;
               sec = section.title;
-
+              foundTitle = section.title;
               break;
             }
           }
         }
       });
-      console.log(sec);
       // Find the year whose section is currently in view
       setCurrentYear(foundYear);
+      setCurrTitle(foundTitle);
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Call once to set initial state
@@ -86,7 +88,7 @@ const FloatingYear: React.FC = () => {
           <div className="transition-all duration-1000 ease-in-out">
             {openSections.includes(section.title) &&
               section.Publications.map((year) => (
-                <button key={year} style={{ borderBottom: "1px solid #DDDDDD" }} onClick={() => scrollToYear(section.title, year)} className={`w-full pl-8 py-2 pt-3 text-sm text-left hover:bg-gray-200 ${currentYear === year ? "bg-[#6F808D] font-bold text-white" : ""}`}>
+                <button key={year} style={{ borderBottom: "1px solid #DDDDDD" }} onClick={() => scrollToYear(section.title, year)} className={`w-full pl-8 py-2 pt-3 text-sm text-left hover:bg-gray-200 ${currentYear === year && currTitle == section.title ? "bg-[#6F808D] font-bold text-white" : ""}`}>
                   {year}
                 </button>
               ))}

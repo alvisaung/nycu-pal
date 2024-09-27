@@ -50,10 +50,8 @@ const Page: FC = async () => {
     { name: "National Chiao-Tung University, Taiwan", url: "https://facebook.com/" },
   ];
 
-  console.log(professor);
-
   return (
-    <div className="flex-grow bg-read-bg pb-20 font-space-grotesk ">
+    <div className="flex-grow bg-read-bg pb-20  ">
       <HeaderBond title="Our Amazing Team" bg_img="/imgs/title-bond/blog-detail.png" />
       <div className="bg-white pt-8 ">
         <div className="mx-auto w-10/12 flex md:flex-row flex-col flex-col-reverse  justify-around pb-20">
@@ -64,27 +62,29 @@ const Page: FC = async () => {
             <AnimationWrap delay={0.6}>
               <div className="flex flex-row text-base items-center gap-x-2 mb-2">
                 <FiMail />
-                <h5 className="">{professor?.email}</h5>
+                <h5 className="font-medium">{professor?.email}</h5>
               </div>
               <div className="flex flex-row  text-base items-center gap-x-2 mb-2">
                 <FiPhoneCall />
-                <h5>{professor?.phone}</h5>
+                <h5 className="font-medium">{professor?.phone}</h5>
               </div>
               <div className="flex flex-row  text-base items-center gap-x-2 mb-1">
                 <HiOutlineAcademicCap size={20} />
-                <h5 className=" ">Education</h5>
+                <h5 className="font-medium">Education</h5>
               </div>
               <div className="ml-7 mb-6">
                 {education.map((edu, id) => (
-                  <a target="_blank" key={id} href={edu.url} className="underline text-sm text-[#0088CC] mb-2 block">
+                  <a key={id} className=" text-sm  mb-2 block">
                     {edu.name}
                   </a>
                 ))}
               </div>
             </AnimationWrap>
             <AnimationWrap delay={1}>
-              <h5 className=" mb-1">Experiences</h5>
-              <div className="font-normal leading-7 text-[#363636] ">{professor?.experiences && <div className="tiptap" dangerouslySetInnerHTML={{ __html: professor.experiences }} />}</div>
+              <h5 className="text-lg mb-1">Experiences</h5>
+              <div className="font-normal leading-7 text-[#363636] " style={{ fontSize: "1.1rem" }}>
+                {professor?.experiences && <div className="tiptap" dangerouslySetInnerHTML={{ __html: professor.experiences }} />}
+              </div>
             </AnimationWrap>
           </div>
           <AnimationWrap delay={1.2} className="md:w-3/12 w-7/12 md:mt-0 m-auto">
@@ -104,7 +104,7 @@ const Page: FC = async () => {
               <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
                   <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }}>
-                    <Member {...member} />
+                    <Member {...member} isAlumni={role[memberGp.role].key == "alumni"} />
                   </AnimationWrap>
                 ))}
               </div>

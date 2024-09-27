@@ -47,11 +47,11 @@ const Activity = ({ id, title, desc, img_url, event_date, type, lastItem, admin,
   const hasImg = Boolean(img_url && img_url[0]);
   return (
     <div className=" flex flex-row items-start">
-      <Link href={`/events/${id}`} style={{ borderBottom: lastItem ? "" : "1px solid rgba(221, 221, 221,0.7)" }} className="mb-6 border-custom-light-grey cursor-pointer">
-        <div className="flex flex-row justify-between items-start mb-6 gap-x-4">
+      <Link href={`/events/${id}`} style={{ borderBottom: lastItem ? "" : "1px solid rgba(221, 221, 221,0.7)" }} className="mb-6 border-custom-light-grey cursor-pointer w-full">
+        <div className="flex flex-row justify-between items-start mb-6 gap-x-4 w-full">
           <div className={`w-full md:w-9/12 ${!hasImg && "md:w-full"}`}>
-            <h3 className="font-medium text-lg mb-1.5">{title}</h3>
-            <h5 className="text-base font-light mb-2 overflow-hidden text-ellipsis line-clamp-2" style={{ color: "#555555" }}>
+            <h3 className="font-medium text-base mb-1.5">{title}</h3>
+            <h5 className="text-sm font-light mb-2 overflow-hidden text-ellipsis line-clamp-2" style={{ color: "#555555" }}>
               {plainDesc}
             </h5>
             <div className="flex text-xs font-medium items-center   flex-row gap-x-4 mb-1 ">
