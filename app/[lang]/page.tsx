@@ -11,7 +11,8 @@ const Home = async () => {
   const bannerUrls = data.banner_urls.map((url: string) => ({ url: url }));
   return (
     <div className="bg-black min-h-screen text-custom-text-white">
-      <div className="mx-auto max-w-[1200px]">
+      {/**/}
+      <div className="mx-auto  max-w-[1200px] ">
         <Carousel images={bannerUrls} />
       </div>
       <div className=" w-full py-6 relative  ">

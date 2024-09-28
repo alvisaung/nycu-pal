@@ -64,9 +64,10 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any }> = ({ images, remov
       <div ref={sliderRef} className="keen-slider ">
         {images.map((img, id) => {
           return (
-            <div key={id} className="keen-slider__slide w-full h-[400px] md:h-[500px] lg:h-[600px]">
+            //
+            <div key={id} className="keen-slider__slide w-full h-[400px] md:h-[500px] lg:h-[600px] ">
               <img
-                // style={{ aspectRatio: "16/9" }} // Keeping a 16:9 ratio
+                // // Keeping a 16:9 ratio
                 src={img.url}
                 alt={"Banner"}
                 className="w-full h-full object-cover"

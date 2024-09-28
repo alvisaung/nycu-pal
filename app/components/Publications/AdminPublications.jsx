@@ -71,7 +71,7 @@ const AdminPublications = () => {
     setPublication(conference_name);
     setYr(publish_yr);
     setPaperType(PublicationTypeId);
-    setImages(img_url ?? []);
+    setImages([img_url] ?? []);
     setId(id);
   };
   return (

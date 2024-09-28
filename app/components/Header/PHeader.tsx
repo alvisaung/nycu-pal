@@ -53,7 +53,7 @@ export default function Header() {
   return (
     <div className="">
       <div className="hidden sm:flex bg-black text-white ">
-        <div className="w-5/6  py-7 flex flex-row justify-between m-auto text-base">
+        <div className="w-5/6  py-4 flex flex-row justify-between m-auto text-base">
           {/* <div className="w-full py-4 flex flex-row justify-between m-auto text-base" style={{ fontSize: "0.95rem" }}> */}
           <div className=" cursor-pointer font-bold ">
             <Link href={"/"}>Photonics and Lithography Lab</Link>
