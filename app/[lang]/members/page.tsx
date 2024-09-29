@@ -103,7 +103,7 @@ const Page: FC = async () => {
 
               <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
-                  <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }}>
+                  <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }} style={{ height: "auto" }}>
                     <Member {...member} isAlumni={role[memberGp.role].key == "alumni"} />
                   </AnimationWrap>
                 ))}

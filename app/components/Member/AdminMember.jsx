@@ -8,6 +8,7 @@ import { useFetchData } from "@/src/hooks/useFetchData";
 import { ImgType } from "@/src/hooks/useImageUpload";
 import Member, { MemberType } from "./Member";
 import { role } from "@/src/types/constants";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const AdminMember = () => {
   const { data, putData, delData } = useFetchData("member");
@@ -15,6 +16,19 @@ const AdminMember = () => {
   const [selectedRole, setSelectedRole] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [memberImg, setMemberImg] = useState([]);
+
+  // Swap members function that calls the backend
+  const handleSwap = async (id, swipe_type) => {
+    try {
+      const response = await putData({ member_id: id, swipe_type }, "post");
+      if (response.status === 200) {
+        console.log("Members swapped successfully");
+        // Refresh or handle success as needed
+      }
+    } catch (error) {
+      console.error("Error swapping members:", error);
+    }
+  };
 
   const [professor, setProfessor] = useState({
     name: "",
@@ -144,12 +158,21 @@ const AdminMember = () => {
       <div className="w-11/12 mx-auto">
         {data
           .filter((memberGp) => memberGp.role !== role.professor.key)
-          .map((memberGp, id) => (
-            <div key={id} className="w-full  mb-8 mt-12 flex flex-col justify-center">
+          .map((memberGp, groupId) => (
+            <div key={groupId} className="w-full  mb-8 mt-12 flex flex-col justify-center">
               <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{role[memberGp.role].value}</h4>
               <div className=" flex flex-wrap justify-center max-w-[calc(4*(220px+20px))] gap-8 mx-auto" style={{ columnGap: 30 }}>
-                {memberGp.members_list.map((member, idm) => (
-                  <Member {...member} key={idm} handleClick={() => onEdit(member)} handleDelete={() => onDelete(member.id)} />
+                {memberGp.members_list.map((member, memberId) => (
+                  <div>
+                    <Member {...member} key={memberId} handleClick={() => onEdit(member)} handleDelete={() => onDelete(member.id)} />
+                    <button onClick={() => handleSwap(member.id, "left")} className="">
+                      <ArrowLeft />
+                    </button>
+
+                    <button onClick={() => handleSwap(member.id, "right")} className="">
+                      <ArrowRight />
+                    </button>
+                  </div>
                 ))}
               </div>
             </div>
