@@ -15,6 +15,7 @@ const AdminPublications = () => {
   const [img, setImages] = useState([]);
   const [publication, setPublication] = useState("");
   const [year, setYr] = useState("");
+  const [url, setUrl] = useState("");
   const [paperType, setPaperType] = useState("");
   const { data: pubType } = useFetchData("publication-type");
   const { data: publications, putData } = useFetchData("publication");
@@ -33,8 +34,8 @@ const AdminPublications = () => {
       PublicationTypeId: paperType,
       img_url: img_url,
       id: id,
+      url: url,
     });
-    console.log(res);
     if (res) {
       onCancelEdit();
       window.alert("添加成功。");
@@ -45,6 +46,7 @@ const AdminPublications = () => {
     setAuthor("");
     setPublication("");
     setYr("");
+    setUrl("");
     setPaperType("");
     setImages([]);
     setId(null);
@@ -65,9 +67,10 @@ const AdminPublications = () => {
       }
     }
     if (!publication) return;
-    const { title, author, conference_name, publish_yr, PublicationTypeId, img_url } = publication;
+    const { title, author, conference_name, publish_yr, PublicationTypeId, img_url, url } = publication;
     setTitle(title);
     setAuthor(author);
+    setUrl(url);
     setPublication(conference_name);
     setYr(publish_yr);
     setPaperType(PublicationTypeId);
@@ -87,6 +90,7 @@ const AdminPublications = () => {
             <FormInput required placeholder="Author" value={author} onChange={setAuthor} />
             <FormInput required placeholder="Publication, Conference name" value={publication} onChange={setPublication} />
             <FormInput isNumeric placeholder="Publish Year" value={year} onChange={setYr} />
+            <FormInput placeholder="Url" value={url} onChange={setUrl} />
             <div className="mb-6">
               <select id="eventType" value={paperType} onChange={(e) => setPaperType(e.target.value)} className="shadow border rounded text-sm  py-2 pl-2 pr-12  pt-3    focus:shadow-outline">
                 <option value="" disabled className="text-left text-sm">
