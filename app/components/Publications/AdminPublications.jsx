@@ -18,7 +18,7 @@ const AdminPublications = () => {
   const [url, setUrl] = useState("");
   const [paperType, setPaperType] = useState("");
   const { data: pubType } = useFetchData("publication-type");
-  const { data: publications, putData } = useFetchData("publication");
+  const { data: publications, delData, putData } = useFetchData("publication");
 
   const onPublic = async (e) => {
     e.preventDefault();
@@ -40,6 +40,13 @@ const AdminPublications = () => {
       onCancelEdit();
       window.alert("添加成功。");
     }
+  };
+  const onDelete = async () => {
+    const isConfirmed = window.confirm("確定刪除嗎？");
+    if (!isConfirmed) return;
+    if (!id) return;
+    await delData({ id });
+    onCancelEdit();
   };
   const onCancelEdit = () => {
     setTitle("");
@@ -105,9 +112,14 @@ const AdminPublications = () => {
             </div>
             <div className="flex flex-row items-center gap-x-4">
               {id && (
-                <button type="submit" className=" text-base   focus:shadow-outline " onClick={onCancelEdit}>
-                  ❌ Cancel Edit
-                </button>
+                <div className="flex flex-col">
+                  <button type="submit" className=" text-base   focus:shadow-outline " onClick={onCancelEdit}>
+                    Cancel Edit
+                  </button>
+                  <button type="button" className="mt-4 text-base   focus:shadow-outline " onClick={onDelete}>
+                    ❌ Delete
+                  </button>
+                </div>
               )}
               <FormSubmit title={id ? "Update" : "Publish"} />
             </div>
