@@ -10,7 +10,7 @@ interface BannerType {
   is_video?: boolean;
 }
 
-const Carousel: FC<{ images: BannerType[]; removeDot?: any }> = ({ images, removeDot }) => {
+const Carousel: FC<{ images: BannerType[]; removeDot?: any; is_banner?: boolean }> = ({ images, removeDot, is_banner }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider(
@@ -65,7 +65,7 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any }> = ({ images, remov
         {images.map((img, id) => {
           return (
             //
-            <div key={id} className="keen-slider__slide w-full h-[400px] md:h-[500px] lg:h-[600px] ">
+            <div key={id} className={`keen-slider__slide w-full ${is_banner && "h-[400px] md:h-[500px] lg:h-[600px]"} `}>
               <img
                 // // Keeping a 16:9 ratio
                 src={img.url}

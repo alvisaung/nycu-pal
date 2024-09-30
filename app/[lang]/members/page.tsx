@@ -8,28 +8,13 @@ import { FiMail } from "react-icons/fi";
 import { FiPhoneCall } from "react-icons/fi";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { role } from "@/src/types/constants";
+import { getTranslations } from "next-intl/server";
 
-interface MemberGpType {
-  role: string;
-  members_list: MemberType[];
-}
 interface ProfEduType {
   name: string;
   url: string;
 }
 type RoleKey = "professor" | "phd" | "master_1";
-
-// Define the structure of each role entry
-interface RoleEntry {
-  key: RoleKey;
-  value: string;
-}
-
-// Define the structure of the role object
-type Role = {
-  [K in RoleKey]: RoleEntry;
-};
-
 interface MemberProfType {
   name: string;
   email?: string;
@@ -44,15 +29,17 @@ const Page: FC = async () => {
   const memberGpData: MemberProfType[] = await fetchData("/member");
   const prof = memberGpData.filter((memberGp) => memberGp.role == role.professor.key);
   const professor: MemberType | null = prof.length > 0 ? prof[0].members_list[0] : null;
+  const t = await getTranslations("Member");
+
   const education = [
-    { name: "University of Michigan, Ann Arbor, USA", url: "https://facebook.com/" },
-    { name: "National Chiao-Tung University, Taiwan", url: "https://facebook.com/" },
-    { name: "National Chiao-Tung University, Taiwan", url: "https://facebook.com/" },
+    { name: "1999~2004: University of Michigan, Electrical Engineering", url: "https://facebook.com/" },
+    { name: "1996~1998: National Chiao-Tung University, Electro-optical Engineering", url: "https://facebook.com/" },
+    { name: "1992~1996: National Chiao-Tung University, Electrophysics", url: "https://facebook.com/" },
   ];
 
   return (
     <div className="flex-grow bg-read-bg pb-20  ">
-      <HeaderBond title="Our Amazing Team" bg_img="/imgs/title-bond/blog-detail.png" />
+      <HeaderBond title="PAL Team" bg_img="/imgs/title-bond/blog-detail.png" />
       <div className="bg-white pt-8 ">
         <div className="mx-auto w-10/12 flex md:flex-row flex-col flex-col-reverse  justify-around pb-20">
           <div className="font-medium md:w-7/12 w-full md:mt-0 mt-8 ">

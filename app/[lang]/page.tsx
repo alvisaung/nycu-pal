@@ -13,7 +13,7 @@ const Home = async () => {
     <div className="bg-black min-h-screen text-custom-text-white">
       {/**/}
       <div className="mx-auto  max-w-[1200px] ">
-        <Carousel images={bannerUrls} />
+        <Carousel images={bannerUrls} is_banner />
       </div>
       <div className=" w-full py-6 relative  ">
         <div className="relative z-10 text-white w-11/12 md:pt-6 pt-2 pb-8  md:w-5/6 flex flex-row m-auto justify-between ">

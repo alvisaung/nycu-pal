@@ -88,6 +88,9 @@ const AdminMember = () => {
 
     setSelectedRole(member.role);
     setIsEditing(true);
+    const element = document.getElementById(`admin-edit-member`);
+    const offsetTop = element.getBoundingClientRect().top + window.scrollY - 200;
+    window.scrollTo({ top: offsetTop, behavior: "smooth" });
   };
   const onDelete = (id) => {
     delData({ id: id });
@@ -120,7 +123,7 @@ const AdminMember = () => {
         </div>
       </FormBox>
       {/* <div className="max-w-3xl"> */}
-      <FormBox title="Add Member">
+      <FormBox title="Add Member" id="admin-edit-member">
         <div className="flex flex-row  gap-x-8  ">
           <div className="w-2/12">
             <UploadImgComponent initialImages={memberImg} setImages={setMemberImg} />

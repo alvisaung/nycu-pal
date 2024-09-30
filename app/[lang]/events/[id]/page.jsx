@@ -47,7 +47,7 @@ const Page = () => {
         </h3>
         {youtube_embed_url && <div className="tiptap" dangerouslySetInnerHTML={{ __html: youtube_embed_url }} />}
         {img_url_trans.length > 0 && (
-          <div className="  w-5/6 rounded-md">
+          <div className=" w-4/6 rounded-md">
             <Carousel removeDot images={img_url_trans} />
           </div>
         )}
