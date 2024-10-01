@@ -56,7 +56,7 @@ export default function Header() {
         <div className="w-5/6  py-4 flex flex-row justify-between m-auto text-base">
           {/* <div className="w-full py-4 flex flex-row justify-between m-auto text-base" style={{ fontSize: "0.95rem" }}> */}
           <div className=" cursor-pointer font-bold ">
-            <Link href={"/"}>Photonics and Lithography Lab</Link>
+            <Link href={"/"}>Photonics and Lithography (PAL) Lab</Link>
           </div>
           <div className="gap-x-8 flex-row flex font-medium ">
             {navItems.map((item) => (

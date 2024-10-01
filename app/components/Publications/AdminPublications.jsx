@@ -22,10 +22,11 @@ const AdminPublications = () => {
 
   const onPublic = async (e) => {
     e.preventDefault();
-    let img_url;
-    if (img) {
+    let img_url = null;
+    if (img.length > 0) {
       img_url = img[0];
     }
+
     const res = await putData({
       author: author,
       title: title,

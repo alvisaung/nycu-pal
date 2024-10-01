@@ -7,27 +7,27 @@ import React, { Component, FC } from "react";
 import { FiMail } from "react-icons/fi";
 import { FiPhoneCall } from "react-icons/fi";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
-import { role } from "@/src/types/constants";
 import { getTranslations } from "next-intl/server";
 
 interface ProfEduType {
   name: string;
   url: string;
 }
-type RoleKey = "professor" | "phd" | "master_1";
+
 interface MemberProfType {
   name: string;
   email?: string;
   phone?: string;
-  role: RoleKey;
+  MemberTypeId: number;
   education?: ProfEduType[];
   experiences?: string;
+  role: string;
   members_list: MemberType[];
 }
 
 const Page: FC = async () => {
   const memberGpData: MemberProfType[] = await fetchData("/member");
-  const prof = memberGpData.filter((memberGp) => memberGp.role == role.professor.key);
+  const prof = memberGpData.filter((memberGp) => !Boolean(memberGp.MemberTypeId));
   const professor: MemberType | null = prof.length > 0 ? prof[0].members_list[0] : null;
   const t = await getTranslations("Member");
 
@@ -81,17 +81,18 @@ const Page: FC = async () => {
       </div>
       <div className="w-11/12 mx-auto">
         {memberGpData
-          .filter((memberGp) => memberGp.role !== role.professor.key)
+          .filter((memberGp) => memberGp.MemberTypeId)
           .map((memberGp, id) => (
             <div key={id} className="w-full  mb-8 mt-12 flex flex-col justify-center">
               <AnimationWrap delay={0.2}>
-                <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{role[memberGp.role].value}</h4>
+                <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{memberGp.role}</h4>
               </AnimationWrap>
 
-              <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}>
+              {/* <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}> */}
+              <div className="flex flex-wrap justify-center gap-8 mx-auto" style={{ maxWidth: "1200px", columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
                   <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }} style={{ height: "auto" }}>
-                    <Member {...member} isAlumni={role[memberGp.role].key == "alumni"} />
+                    <Member {...member} isAlumni={memberGp.MemberTypeId > 2} />
                   </AnimationWrap>
                 ))}
               </div>

@@ -33,10 +33,11 @@ export const useImageUpload = (imgs: string[], setImages: SetValueType, multiple
   };
 
   const handleDelete = async (url: string, index: number) => {
+    let isConfirm = window.confirm("確定要刪除圖片嗎？");
+    if (!isConfirm) return;
     const split = url.split("/");
     const filename = split[split.length - 1];
     const leftImg: string[] = imgs.filter((_, i) => i !== index);
-    console.log(leftImg);
     setImages(leftImg);
     try {
       const res = await api.delete("upload-img", {

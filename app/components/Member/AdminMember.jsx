@@ -7,16 +7,22 @@ import FormBox from "../HOC/FormBox";
 import { useFetchData } from "@/src/hooks/useFetchData";
 import { ImgType } from "@/src/hooks/useImageUpload";
 import Member, { MemberType } from "./Member";
-import { role } from "@/src/types/constants";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import TopicList, { TopicType } from "../Activities/TopicListAdmin";
 
 const AdminMember = () => {
   const { data, putData, delData } = useFetchData("member");
+  const { data: memberType } = useFetchData("member-type");
   const [profImg, setProfImages] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [memberImg, setMemberImg] = useState([]);
-
+  const [professor, setProfessor] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    experiences: "",
+  });
   // Swap members function that calls the backend
   const handleSwap = async (id, swipe_type) => {
     try {
@@ -30,15 +36,9 @@ const AdminMember = () => {
     }
   };
 
-  const [professor, setProfessor] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    experiences: "",
-  });
   useEffect(() => {
     if (data.length == 0) return;
-    const _prof = data.filter((d) => d.role == role.professor.key);
+    const _prof = data.filter((d) => !Boolean(d.MemberTypeId));
     if (_prof.length > 0) {
       let _prof_data = _prof[0].members_list[0];
       setProfessor(_prof_data);
@@ -60,17 +60,10 @@ const AdminMember = () => {
       img_url = isProfessor ? profImg[0] : memberImg[0];
     }
     let spreadData = isProfessor ? professor : member;
-    const res = await putData({ ...spreadData, img_url: img_url, role: isProfessor ? role.professor.key : selectedRole });
+    const res = await putData({ ...spreadData, img_url: img_url, role_id: selectedRole });
     if (res) {
       window.alert("添加成功！");
-      setMemberImg([]);
-      setMember({
-        name: "",
-        research_dir: "",
-        email: "",
-        role: "",
-      });
-      setIsEditing(false);
+      onCancelEdit();
     }
   };
 
@@ -83,10 +76,16 @@ const AdminMember = () => {
     }
   };
   const onEdit = (member) => {
+    if (isEditing) {
+      const confirmLeave = window.confirm("正在編輯，確定離開嗎？");
+      if (!confirmLeave) {
+        return;
+      }
+    }
     setMember(member);
     setMemberImg([member.img_url]);
 
-    setSelectedRole(member.role);
+    setSelectedRole(member.MemberTypeId);
     setIsEditing(true);
     const element = document.getElementById(`admin-edit-member`);
     const offsetTop = element.getBoundingClientRect().top + window.scrollY - 200;
@@ -102,6 +101,7 @@ const AdminMember = () => {
       email: "",
       role: "",
     });
+    setSelectedRole("");
     setMemberImg([]);
     setIsEditing(false);
   };
@@ -137,14 +137,11 @@ const AdminMember = () => {
                 <option value="" disabled className="text-left text-sm">
                   Role
                 </option>
-                {Object.keys(role).map(
-                  (roleKey, id) =>
-                    roleKey != "professor" && (
-                      <option value={role[roleKey].key} key={id}>
-                        {role[roleKey].value}
-                      </option>
-                    )
-                )}
+                {memberType.map((member, id) => (
+                  <option value={member.id} key={id}>
+                    {member.title}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-row items-center gap-x-4">
@@ -158,12 +155,15 @@ const AdminMember = () => {
           </form>
         </div>
       </FormBox>
+      <div className="max-w-lg">
+        <TopicList topic_type={TopicType.MEMBER} />
+      </div>
       <div className="w-11/12 mx-auto">
         {data
-          .filter((memberGp) => memberGp.role !== role.professor.key)
+          .filter((memberGp) => memberGp.MemberTypeId)
           .map((memberGp, groupId) => (
             <div key={groupId} className="w-full  mb-8 mt-12 flex flex-col justify-center">
-              <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{role[memberGp.role].value}</h4>
+              <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{memberGp.role}</h4>
               <div className=" flex flex-wrap justify-center max-w-[calc(4*(220px+20px))] gap-8 mx-auto" style={{ columnGap: 30 }}>
                 {memberGp.members_list.map((member, memberId) => (
                   <div>

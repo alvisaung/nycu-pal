@@ -10,6 +10,7 @@ interface Topic {
 export enum TopicType {
   PUBLICATION = "Publication",
   EVENT = "Event",
+  MEMBER = "Member",
 }
 interface TopicListAdminProps {
   topic_type: TopicType;
@@ -17,7 +18,14 @@ interface TopicListAdminProps {
 
 const TopicList: React.FC<TopicListAdminProps> = ({ topic_type }) => {
   const [topics, setTopics] = useState<Topic[]>([]);
-  const endpoint = topic_type == TopicType.EVENT ? "events-type" : "publication-type";
+  let endpoint;
+  if (TopicType.EVENT == topic_type) {
+    endpoint = "events-type";
+  } else if (TopicType.PUBLICATION == topic_type) {
+    endpoint = "publication-type";
+  } else {
+    endpoint = "member-type";
+  }
   const { data, putData, delData } = useFetchData(endpoint);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,7 +87,7 @@ const TopicList: React.FC<TopicListAdminProps> = ({ topic_type }) => {
       </button>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ">
+        <div className="fixed z-10 inset-0 bg-black bg-opacity-50 flex items-center justify-center ">
           <div className="bg-white p-4 px-8 rounded shadow-lg">
             <h3 className="text-lg font-bold mb-4">Add New Topic</h3>
             <input type="text" value={newTopic} onChange={(e) => setNewTopic(e.target.value)} className="w-full px-3 py-2 border rounded mb-4 text-lg" placeholder="Enter topic name" />
