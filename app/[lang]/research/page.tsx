@@ -3,6 +3,8 @@ import HeaderBond from "@/app/components/HOC/HeaderBond";
 import ResearchTopicAccordion from "@/app/components/Research/ResearchTopicAccordion";
 import { fetchData } from "@/src/services/dataService";
 import React, { FC } from "react";
+import parse from "html-react-parser";
+import Link from "next/link";
 
 export interface researchBranch {
   id?: number;
@@ -25,6 +27,13 @@ export interface researchTopicType {
 const index: FC = async () => {
   const researchTopic: researchTopicType[] = await fetchData("research-topic", "get");
   const researchStatement = await fetchData("research", "get");
+  const truncateHTML = (html: string, maxLength: number) => {
+    const plainText = html.replace(/<[^>]+>/g, ""); // Strip HTML tags
+    if (plainText.length <= maxLength) {
+      return html;
+    }
+    return `${plainText.substring(0, maxLength)}...`;
+  };
 
   return (
     <div className="flex-grow bg-read-bg text-black">
@@ -42,20 +51,11 @@ const index: FC = async () => {
         {researchTopic.map((topic, id) => (
           <AnimationWrap threshold={0.4} key={id} delay={id * 0.2}>
             <ResearchTopicAccordion trigger={`${id + 1}. ${topic.title}`}>
-              {/* <h3 className="text-xl font-medium mb-1">{research.title}</h3> */}
-
               <div className="flex flex-row md:flex-wrap gap-x-8">{topic.media_url && topic.media_url.map((url: string, id) => <img src={url} alt="Topic Img" className={`rounded w-full md:w-3/12 mb-4 ${id > 0 && " hidden md:flex"}`} />)}</div>
-
-              <div className=" text-base  text-black leading-7 tiptap" dangerouslySetInnerHTML={{ __html: topic.description }} />
-              {/* {topic.ResearchBranches &&
-                topic.ResearchBranches.map((branch) => (
-                  <>
-                    <h3 className="text-lg font-medium mb-1 mt-3">{branch.title}</h3>
-                    <div className="flex flex-col md:flex-wrap gap-x-8">{branch.media_url && branch.media_url.map((url, id) => <img src={url} alt="Statement Img" className={`rounded w-full md:w-3/12 mb-4  ${id > 0 && "hidden"}`} />)}</div>
-
-                    <div className="text-black font-medium  leading-7" dangerouslySetInnerHTML={{ __html: branch.description }} />
-                  </>
-                ))} */}
+              <div className="text-base text-black leading-7 tiptap">
+                <span className=" text-base  text-black leading-7 tiptap" dangerouslySetInnerHTML={{ __html: truncateHTML(topic.description, 300) }} />
+                {topic.description.length > 300 && <Link href={`/research/${topic.id}`}>Read More</Link>}
+              </div>
             </ResearchTopicAccordion>
           </AnimationWrap>
         ))}
@@ -64,3 +64,13 @@ const index: FC = async () => {
   );
 };
 export default index;
+
+/* {topic.ResearchBranches &&
+                topic.ResearchBranches.map((branch) => (
+                  <>
+                    <h3 className="text-lg font-medium mb-1 mt-3">{branch.title}</h3>
+                    <div className="flex flex-col md:flex-wrap gap-x-8">{branch.media_url && branch.media_url.map((url, id) => <img src={url} alt="Statement Img" className={`rounded w-full md:w-3/12 mb-4  ${id > 0 && "hidden"}`} />)}</div>
+
+                    <div className="text-black font-medium  leading-7" dangerouslySetInnerHTML={{ __html: branch.description }} />
+                  </>
+                ))} */

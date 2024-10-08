@@ -54,11 +54,10 @@ const UploadImgComponent: FC<UploadImgComponentProps> = ({ initialImages = [], a
                 <button type="button" onClick={() => handleDelete(url, index)} className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full">
                   <GoTrash />
                 </button>
-                {editor ? (
-                  <button type="button" onClick={() => handleCopy(url)}>
-                    Copy URL
-                  </button>
-                ) : (
+                <button type="button" onClick={() => handleCopy(url)}>
+                  Copy URL
+                </button>
+                {!editor && (
                   <div className="flex justify-between mt-1">
                     <button type="button" onClick={() => handleMove(index, "left")} disabled={index === 0} className="disabled:opacity-50">
                       ⬅️

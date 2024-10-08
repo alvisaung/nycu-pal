@@ -7,7 +7,6 @@ import React, { Component, FC } from "react";
 import { FiMail } from "react-icons/fi";
 import { FiPhoneCall } from "react-icons/fi";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
-import { getTranslations } from "next-intl/server";
 
 interface ProfEduType {
   name: string;
@@ -29,7 +28,6 @@ const Page: FC = async () => {
   const memberGpData: MemberProfType[] = await fetchData("/member");
   const prof = memberGpData.filter((memberGp) => !Boolean(memberGp.MemberTypeId));
   const professor: MemberType | null = prof.length > 0 ? prof[0].members_list[0] : null;
-  const t = await getTranslations("Member");
 
   const education = [
     { name: "1999~2004: University of Michigan, Electrical Engineering", url: "https://facebook.com/" },

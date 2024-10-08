@@ -26,6 +26,7 @@
     "@tiptap/starter-kit": "^2.5.8",
     "axios": "^1.7.4",
     "framer-motion": "^11.3.30",
+    "html-react-parser": "^5.1.18",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.424.0",
     "moment": "^2.30.1",
