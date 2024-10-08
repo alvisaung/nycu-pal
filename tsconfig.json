@@ -41,7 +41,7 @@
     "app/[lang]/page.tsx",
     "app/components/Activities/ActivityGp.jsx",
     "app/components/Activities/Filter.jsx",
-    "app/[lang]/research/[id]/page.jsxx
+    "app/[lang]/research/[id]/page.js"
   ],
   "exclude": ["node_modules"]
 }
