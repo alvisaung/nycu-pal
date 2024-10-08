@@ -1,7 +1,7 @@
 "use client";
 import { useFetchData } from "@/src/hooks/useFetchData";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 const AdminHeader = () => {
   const router = useRouter();
@@ -10,8 +10,15 @@ const AdminHeader = () => {
     let currentPath = pathname;
     return currentPath == "/admin" || currentPath == "/admin/login";
   };
+  useEffect(() => {
+    if (!localStorage) return;
+    if (localStorage.getItem("authToken")) {
+      router.replace("/admin");
+    }
+  }, []);
   const handleLogout = () => {
-    router.push("/login");
+    localStorage.removeItem("authToken");
+    router.replace("/admin/login");
   };
   return (
     <div className="flex justify-between items-center mb-4">

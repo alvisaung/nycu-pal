@@ -40,7 +40,8 @@
     "app/components/Research/AdminResearch.jsx",
     "app/[lang]/page.tsx",
     "app/components/Activities/ActivityGp.jsx",
-    "app/components/Activities/Filter.jsx"
+    "app/components/Activities/Filter.jsx",
+    "app/[lang]/research/[id]/page.jsxx
   ],
   "exclude": ["node_modules"]
 }

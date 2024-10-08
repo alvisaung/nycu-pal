@@ -110,6 +110,22 @@ html,
   padding: unset;
   margin: auto;
 }
+.nav_menu_item_black {
+  position: relative;
+}
+.nav_menu_item_black::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width 0.4s ease-out;
+}
+.nav_menu_item_black:hover::before {
+  width: 100%;
+}
 
 .nav_menu_item {
   position: relative;

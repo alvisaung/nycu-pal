@@ -1,7 +1,6 @@
 "use client";
 
 import AdminAddActivity from "@/app/components/Activities/AdminAddActivity";
-import { fetchData } from "@/src/services/dataService";
 import React, { useEffect, useState } from "react";
 import { withAuth } from "../../components/HOC/withAuth";
 
