@@ -51,6 +51,8 @@ const AdminMember = () => {
     research_dir: "",
     email: "",
     role: "",
+    graduate_paper: "",
+    is_graduated: false,
   });
 
   const onPublic = async (e, isProfessor) => {
@@ -75,6 +77,7 @@ const AdminMember = () => {
       setMember({ ...member, [name]: val });
     }
   };
+
   const onEdit = (member) => {
     if (isEditing) {
       const confirmLeave = window.confirm("正在編輯，確定離開嗎？");
@@ -84,22 +87,24 @@ const AdminMember = () => {
     }
     setMember(member);
     setMemberImg([member.img_url]);
-
     setSelectedRole(member.MemberTypeId);
     setIsEditing(true);
     const element = document.getElementById(`admin-edit-member`);
     const offsetTop = element.getBoundingClientRect().top + window.scrollY - 200;
     window.scrollTo({ top: offsetTop, behavior: "smooth" });
   };
+
   const onDelete = (id) => {
     delData({ id: id });
   };
+  const handleGraduate = () => {};
   const onCancelEdit = () => {
     setMember({
       name: "",
       research_dir: "",
       email: "",
       role: "",
+      graduate_paper: "",
     });
     setSelectedRole("");
     setMemberImg([]);
@@ -131,7 +136,15 @@ const AdminMember = () => {
           <form onSubmit={(e) => onPublic(e, false)} className="w-10/12 ">
             <FormInput required placeholder="Name" name={"name"} value={member.name} onChange={onChange("member")} />
             <FormInput required placeholder="Research Direction" name={"research_dir"} value={member.research_dir} onChange={onChange("member")} />
+
+            {member.is_graduated && <FormInput name="graduate_paper" placeholder="畢業論文 鏈接" value={member.graduate_paper} onChange={onChange("member")} />}
             <FormInput required placeholder="Email" value={member.email} name="email" onChange={onChange("member")} />
+            <div className="flex flex-row gap-x-2 pb-2">
+              Is Graduated:
+              <div className={`w-12 h-6 flex items-center rounded-full p-1 cursor-pointer  ${member.is_graduated ? "bg-blue-500" : "bg-gray-300"}`} onClick={() => onChange("member")(!member.is_graduated, "is_graduated")}>
+                <div className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform duration-300 ${member.is_graduated ? "translate-x-6" : "translate-x-0"}`}></div>
+              </div>
+            </div>
             <div className="mb-6">
               <select id="eventType" value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)} className="shadow border rounded text-sm  py-2 pl-2 pr-12  pt-3    focus:shadow-outline">
                 <option value="" disabled className="text-left text-sm">
