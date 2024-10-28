@@ -2,11 +2,11 @@ import AnimationWrap from "@/app/components/HOC/AnimationWrap";
 import HeaderBond from "@/app/components/HOC/HeaderBond";
 import Member, { MemberType } from "@/app/components/Member/Member";
 import { fetchData } from "@/src/services/dataService";
-import Link from "next/link";
-import React, { Component, FC } from "react";
+import React, { FC } from "react";
 import { FiMail } from "react-icons/fi";
 import { FiPhoneCall } from "react-icons/fi";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
+import Image from "next/image";
 
 interface ProfEduType {
   name: string;
@@ -73,7 +73,7 @@ const Page: FC = async () => {
             </AnimationWrap>
           </div>
           <AnimationWrap delay={1.2} className="md:w-3/12 w-7/12 md:mt-0 m-auto">
-            <img src={professor?.img_url} className=" rounded self-center" />
+            {professor && <Image src={professor.img_url} alt="Professor" width={300} height={300} layout="responsive" className="rounded self-center" />}
           </AnimationWrap>
         </div>
       </div>
@@ -89,9 +89,11 @@ const Page: FC = async () => {
               {/* <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}> */}
               <div className="flex flex-wrap justify-center gap-8 mx-auto" style={{ maxWidth: "1200px", columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
-                  <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }} style={{ height: "auto" }}>
+                  // <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }} style={{ height: "auto" }}>
+                  <div key={idm} style={{ height: "auto" }}>
                     <Member {...member} isAlumni={member.is_graduated} />
-                  </AnimationWrap>
+                  </div>
+                  // </AnimationWrap>
                 ))}
               </div>
             </div>

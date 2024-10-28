@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { Component, FC } from "react";
 import { GoTrash } from "react-icons/go";
@@ -63,7 +64,7 @@ const Activity = ({ id, title, desc, img_url, event_date, type, lastItem, admin,
               <p className="font-normal text-custom-activity-award ">{`Learn more > `}</p>
             </div>
           </div>
-          {hasImg && <img src={img_url && img_url[0]} alt="img" className="w-48 h-40 object-cover rounded md:block hidden " />}
+          {img_url && img_url[0] && <Image src={img_url[0]} alt="img" width={192} height={160} className=" object-cover rounded md:block hidden " />}
         </div>
       </Link>
       {admin && (

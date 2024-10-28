@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useState } from "react";
 import "keen-slider/keen-slider.min.css";
-import KeenSlider from "keen-slider";
+import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 import styles from "style/banner.module.css";
 
@@ -65,13 +65,14 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any; is_banner?: boolean 
         {images.map((img, id) => {
           return (
             //
-            <div key={id} className={`keen-slider__slide w-full ${is_banner && "h-[400px] md:h-[500px] lg:h-[600px]"} `}>
-              <img
-                // // Keeping a 16:9 ratio
-                src={img.url}
-                alt={"Banner"}
-                className="w-full h-full object-cover"
-              />
+            <div
+              key={id}
+              className={`keen-slider__slide relative w-full ${
+                is_banner ? "h-[400px] md:h-[500px] lg:h-[600px]" : "h-full" // Default height when is_banner is false
+              }`}
+              // className="keen-slider__slide relative w-full h-full"
+            >
+              <Image src={img.url} alt="Banner" layout="responsive" width={1} height={1} objectFit="cover" className="object-cover w-full h-auto" />
             </div>
           );
         })}

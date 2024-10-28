@@ -4,7 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   images: {
-    path: "/",
+    domains: ["api.nycu-pal.com"],
   },
 };
 

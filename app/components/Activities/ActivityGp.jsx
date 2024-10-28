@@ -29,7 +29,7 @@ const ActivityGp = ({ q }) => {
           </div>
           {activitiesData &&
             activitiesData.map((activity, idx) => (
-              <AnimationWrap delay={0.4 * (idx / 2)} key={idx}>
+              <AnimationWrap delay={0.1 * (idx / 2)} threshold={0.2} key={idx}>
                 <Activity {...activity} lastItem={idx == activitiesData.length - 1} />
               </AnimationWrap>
             ))}

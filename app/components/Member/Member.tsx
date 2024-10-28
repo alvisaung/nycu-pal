@@ -1,10 +1,11 @@
 "use client";
 import { TrashIcon } from "lucide-react";
 import React, { FC } from "react";
+import Image from "next/image";
 
 export interface MemberType {
   id: number;
-  img_url?: string;
+  img_url: string;
   name: string;
   research_dir?: string;
   email?: string;
@@ -19,9 +20,7 @@ export interface MemberType {
 
 const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClick, handleDelete, isAlumni, graduate_paper }) => {
   const handleDir = (e: React.MouseEvent<HTMLHeadingElement, MouseEvent>) => {
-    console.log("hi");
     e.stopPropagation();
-
     if (!isAlumni) return;
     window.open(graduate_paper, "_blank");
   };
@@ -36,7 +35,9 @@ const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClic
           }}
         />
       )}
-      {!isAlumni && <img src={img_url} alt="Member Img" className="w-40 rounded-full h-40 object-cover " />}
+      {/* {!isAlumni && <img src={img_url} alt="Member Img" className="w-40 rounded-full h-40 object-cover " />} */}
+      {!isAlumni && <Image src={img_url} width={160} alt="Member Img" height={160} className="w-40 h-40 rounded-full object-cover" />}
+
       <h4 className="text-xl font-medium mt-2  text-[#07182B]">{name}</h4>
       <h5 className={`text-sm text-[#F8895D] font-medium tracking-wide mt-2 text-center ${isAlumni && "nav_menu_item_black"}`} onClick={handleDir}>
         {research_dir}
