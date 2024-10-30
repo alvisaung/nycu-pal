@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 export interface PublicationProps {
   title: string;
@@ -28,7 +29,17 @@ const Publication: React.FC<PublicationProps> = ({ title, author, conference_nam
 
   return (
     <button onClick={handleClick} className="cursor-pointer flex flex-row pb-6 rounded mb-0 items-start gap-x-2">
-      {img_url && <img src={img_url} style={{ transform: "scale(1)", transition: "transform 0.3s" }} onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(2)")} onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")} className="w-32 h-auto transform transition-transform  hover:z-50 " />}
+      {img_url && (
+        <div className="w-[140px] flex-shrink-0 flex items-center">
+          <Image
+            alt="Your alt text"
+            src={img_url}
+            width={140}
+            height={0} // Only set width, let height adjust automatically
+            className="transition-transform duration-300 hover:scale-150 object-contain"
+          />
+        </div>
+      )}
       <div className=" pl-0  text-left mb-4 ">
         <div className="font-medium text-base mb-1" style={{ fontSize: "1rem" }}>
           {title}

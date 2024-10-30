@@ -68,13 +68,3 @@ const index: FC = async () => {
   );
 };
 export default index;
-
-/* {topic.ResearchBranches &&
-                topic.ResearchBranches.map((branch) => (
-                  <>
-                    <h3 className="text-lg font-medium mb-1 mt-3">{branch.title}</h3>
-                    <div className="flex flex-col md:flex-wrap gap-x-8">{branch.media_url && branch.media_url.map((url, id) => <img src={url} alt="Statement Img" className={`rounded w-full md:w-3/12 mb-4  ${id > 0 && "hidden"}`} />)}</div>
-
-                    <div className="text-black font-medium  leading-7" dangerouslySetInnerHTML={{ __html: branch.description }} />
-                  </>
-                ))} */

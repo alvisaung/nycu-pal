@@ -82,18 +82,14 @@ const Page: FC = async () => {
           .filter((memberGp) => memberGp.MemberTypeId)
           .map((memberGp, id) => (
             <div key={id} className="w-full  mb-8 mt-12 flex flex-col justify-center">
-              <AnimationWrap delay={0.2}>
-                <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{memberGp.role}</h4>
-              </AnimationWrap>
+              <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{memberGp.role}</h4>
 
               {/* <div className=" flex md:flex-row flex-col flex-wrap justify-center  gap-8 mx-auto" style={{ columnGap: 30 }}> */}
               <div className="flex flex-wrap justify-center gap-8 mx-auto" style={{ maxWidth: "1200px", columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
-                  // <AnimationWrap threshold={0.6} key={idm} delay={0.8 * (idm / 2)} initial={{ opacity: 0 }} style={{ height: "auto" }}>
                   <div key={idm} style={{ height: "auto" }}>
                     <Member {...member} isAlumni={member.is_graduated} />
                   </div>
-                  // </AnimationWrap>
                 ))}
               </div>
             </div>
