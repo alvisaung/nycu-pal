@@ -179,8 +179,8 @@ const AdminMember = () => {
               <h4 className="text-center text-2xl font-bold text-header-purple mb-4 ">{memberGp.role}</h4>
               <div className=" flex flex-wrap justify-center max-w-[calc(4*(220px+20px))] gap-8 mx-auto" style={{ columnGap: 30 }}>
                 {memberGp.members_list.map((member, memberId) => (
-                  <div>
-                    <Member {...member} key={memberId} handleClick={() => onEdit(member)} handleDelete={() => onDelete(member.id)} />
+                  <div  key={memberId}>
+                    <Member {...member} handleClick={() => onEdit(member)} handleDelete={() => onDelete(member.id)} />
                     <button onClick={() => handleSwap(member.id, "left")} className="">
                       <ArrowLeft />
                     </button>

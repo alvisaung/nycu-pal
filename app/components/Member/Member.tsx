@@ -13,12 +13,12 @@ export interface MemberType {
   handleDelete?: () => void;
   phone?: string;
   experiences?: string;
-  isAlumni?: boolean;
   is_graduated: boolean;
   graduate_paper?: string;
 }
 
-const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClick, handleDelete, isAlumni, graduate_paper }) => {
+const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClick, handleDelete, graduate_paper  ,is_graduated }) => {
+  const isAlumni = is_graduated;
   const handleDir = (e: React.MouseEvent<HTMLHeadingElement, MouseEvent>) => {
     e.stopPropagation();
     if (!isAlumni) return;
@@ -36,7 +36,7 @@ const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClic
         />
       )}
       {/* {!isAlumni && <img src={img_url} alt="Member Img" className="w-40 rounded-full h-40 object-cover " />} */}
-      {!isAlumni && <Image src={img_url} width={160} alt="Member Img" height={160} className="w-40 h-40 rounded-full object-cover" />}
+      {!isAlumni && img_url && <Image src={img_url} width={160} alt="Member Img" height={160} className="w-40 h-40 rounded-full object-cover" />}
 
       <h4 className="text-xl font-medium mt-2  text-[#07182B]">{name}</h4>
       <h5 className={`text-sm text-[#F8895D] font-medium tracking-wide mt-2 text-center ${isAlumni && "nav_menu_item_black"}`} onClick={handleDir}>
@@ -47,10 +47,3 @@ const Member: FC<MemberType> = ({ img_url, name, research_dir, email, handleClic
 };
 
 export default Member;
-{
-  /* {!isAlumni && (
-        <>
-          <div className="flex text-sm text-[#07182B]  flex-row  items-center gap-x-1 my-2">{email}</div>
-        </>
-      )} */
-}
