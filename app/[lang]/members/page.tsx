@@ -88,7 +88,7 @@ const Page: FC = async () => {
               <div className="flex flex-wrap justify-center gap-8 mx-auto" style={{ maxWidth: "1200px", columnGap: 30 }}>
                 {memberGp.members_list.map((member, idm) => (
                   <div key={idm} style={{ height: "auto" }}>
-                    <Member {...member} isAlumni={member.is_graduated} />
+                    <Member {...member} />
                   </div>
                 ))}
               </div>
