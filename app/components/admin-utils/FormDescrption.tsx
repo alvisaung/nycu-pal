@@ -1,3 +1,5 @@
+// FormDescription.tsx
+
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -14,6 +16,7 @@ import Link from "@tiptap/extension-link";
 import { Color } from "@tiptap/extension-color";
 import TextStyle from "@tiptap/extension-text-style";
 import FontFamily from "@tiptap/extension-font-family";
+import FontSize from "tiptap-extension-font-size";
 
 import UploadImgComponent from "../AdminHome/UploadImgComponent";
 import Youtube from "@tiptap/extension-youtube";
@@ -26,7 +29,6 @@ interface FormDescProps {
   required?: boolean;
   name?: string;
 }
-// <img src="https://i.ibb.co/Wn08j9p/image-gallery.png" alt="image-gallery" border="0"/>
 
 const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder, required, name }) => {
   const isRequired = Boolean(required);
@@ -53,7 +55,8 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
         levels: [1, 2, 3, 4, 5, 6],
       }),
       ImageResize,
-      Image,
+      FontSize,
+      Image.configure({inline: true}),
       Link.configure({
         openOnClick: false,
         autolink: true,
@@ -61,10 +64,11 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
       }),
       Color,
       TextStyle,
+      HardBreak,
     ],
     editorProps: {
       attributes: {
-        class: "shadow font-sans  border border-t-0 rounded-b w-full py-2 px-3   focus:shadow-outline focus:outline-none",
+        class: "shadow font-sans border border-t-0 rounded-b w-full py-2 px-3 focus:shadow-outline focus:outline-none",
       },
     },
     content: `${value} <br/> <br/> <br/>`,
@@ -72,6 +76,7 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
       onChange(editor.getHTML(), name);
     },
   });
+
   useEffect(() => {
     if (editor && !isInitialContentSet && value) {
       editor.commands.setContent(value);
@@ -84,12 +89,12 @@ const FormDescriptionInput: FC<FormDescProps> = ({ value, onChange, placeholder,
   }, [editor, value, isInitialContentSet]);
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 relative">
       <UploadImgComponent multiple editor initialImages={imgs} setImages={setImgs} />
-
-      <Toolbar editor={editor} content={value} />
-
-      <EditorContent editor={editor} className=" focus:outline-none focus:shadow-outline" />
+      <div className="sticky top-0 z-10">
+        <Toolbar editor={editor} content={value} />
+      </div>
+      <EditorContent editor={editor} className="focus:outline-none focus:shadow-outline mt-2" />
     </div>
   );
 };

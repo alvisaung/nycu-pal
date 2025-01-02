@@ -12,6 +12,29 @@
 @import "@fontsource/space-grotesk/500.css";
 @import "@fontsource/space-grotesk/700.css";
 
+/* styles.css or a relevant CSS file */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust spacing between images */
+}
+
+.gallery-row {
+  flex-direction: row;
+}
+
+.gallery-column {
+  flex-direction: column;
+}
+
+.gallery img {
+  max-width: 100%;
+  height: auto;
+  cursor: move; /* Indicate draggable items */
+}
+
+
 html,
 * {
   padding: 0;
@@ -104,7 +127,7 @@ html,
   font-size: 0.9rem;
 }
 .tiptap strong {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .tiptap li {
