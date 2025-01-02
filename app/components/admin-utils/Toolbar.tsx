@@ -43,7 +43,9 @@ const Toolbar = ({ editor, content }: Props) => {
     } else if (type === "heading4") {
       headLvl = 18;
     } else if (type === "heading5") {
-      headLvl = 14;
+      headLvl = 10;
+    } else if (type === "normal") {
+      headLvl = 12; // Default font size for normal text
     }
 
     switch (type) {
@@ -62,6 +64,7 @@ const Toolbar = ({ editor, content }: Props) => {
       case "heading3":
       case "heading4":
       case "heading5":
+      case "normal":
         editor.chain().focus().setFontSize(`${headLvl}pt`).run();
         break;
       case "bulletList":
@@ -109,13 +112,7 @@ const Toolbar = ({ editor, content }: Props) => {
     }
 
     const getIsActive = () => {
-      if (type === "heading3") {
-        return editor.isActive("heading", { level: 3 });
-      } else if (type === "heading4") {
-        return editor.isActive("heading", { level: 4 });
-      } else if (type === "heading5") {
-        return editor.isActive("heading", { level: 5 });
-      }
+    
       return editor.isActive(_type);
     };
 
@@ -147,6 +144,7 @@ const Toolbar = ({ editor, content }: Props) => {
         {renderBtn("heading3", <Heading3 className={commonIconStyle} />)}
         {renderBtn("heading4", <Heading4 className={commonIconStyle} />)}
         {renderBtn("heading5", <Heading5 className={commonIconStyle} />)}
+        {renderBtn("normal", "Normal")}
         {renderBtn("bulletList", <List className={commonIconStyle} />)}
         {renderBtn("orderedList", <ListOrdered className={commonIconStyle} />)}
         {renderBtn("blockquote", <Quote className={commonIconStyle} />)}
