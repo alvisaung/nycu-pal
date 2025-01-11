@@ -68,7 +68,7 @@ const Carousel: FC<CarouselProps> = ({ images, removeDot, is_banner }) => {
 
   // If it's a banner, use fixed heights; if not, use aspect ratio
   const slideClass = is_banner
-    ? "relative w-full h-[300px] md:h-[500px] lg:h-[600px]"
+    ? "relative w-[100%] h-[300px] md:w-[80%] md:h-[400px] lg:w-[70%] lg:h-[550px] 2xl:w-[55%] 2xl:h-[680px]"
     : "relative w-full aspect-[4/3]";
 
   return (
@@ -76,19 +76,26 @@ const Carousel: FC<CarouselProps> = ({ images, removeDot, is_banner }) => {
       {/* The Keen Slider wrapper: remove 'relative' here if you like */}
       <div ref={sliderRef} className="keen-slider">
         {images.map((img, idx) => (
-          <div key={idx} className={`keen-slider__slide ${slideClass}`}>
-            <Image
-              src={img.url}
-              alt="Banner"
-              layout="fill"         // or "fill" + style={{objectFit:'contain'}} in Next.js 13
-              objectFit="contain"
-              objectPosition="top"
-              quality={90}
-              priority={idx === 0}
-            />
+          <div
+            key={idx}
+            className={`keen-slider__slide flex justify-center`} 
+            // ^ flex + justify-center to horizontally center the container
+          >
+            
+            <div 
+              className= {slideClass}
+            >
+              <Image
+                src={img.url}
+                alt="Banner"
+                layout="fill"      // or "fill" in Next 13
+                // objectFit="cover"  // or className="object-cover"
+                priority={idx === 0}
+                className="object-cover object-center"
+              />
+            </div>
           </div>
         ))}
-        
         {/* Dots */}
         {!removeDot && loaded && instanceRef.current && (
           <div
