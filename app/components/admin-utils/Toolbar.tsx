@@ -14,114 +14,88 @@ const Toolbar = ({ editor, content }: Props) => {
   const [height, setHeight] = React.useState("480");
   const [width, setWidth] = React.useState("640");
 
-  if (!editor) {
-    return null;
-  }
+  if (!editor) return null;
 
   const addYoutubeVideo = () => {
     const url = prompt("Enter YouTube URL");
-    if (url) {
-      editor.commands.setYoutubeVideo({
-        src: url,
-        width: Math.max(320, parseInt(width, 10)) || 640,
-        height: Math.max(180, parseInt(height, 10)) || 480,
-      });
-    }
+    if (!url) return;
+
+    editor.commands.setYoutubeVideo({
+      src: url,
+      width: Math.max(320, parseInt(width, 10)) || 640,
+      height: Math.max(180, parseInt(height, 10)) || 480,
+    });
   };
 
   const addImage = () => {
     const url = window.prompt("URL");
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
+    if (!url) return;
+    editor.chain().focus().setImage({ src: url }).run();
+  };
+
+  const handleLink = () => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
+    
+    if (url === null) return;
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
     }
+    
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  };
+
+  const handleFontSize = (type: string) => {
+    const fontSizes = {
+      heading3: 20,
+      heading4: 18,
+      heading5: 10,
+      normal: 12,
+    };
+    
+    const size = fontSizes[type as keyof typeof fontSizes] || 12;
+    editor.chain().focus().setFontSize(`${size}pt`).run();
   };
 
   const handleClick = (type: string) => {
-    let headLvl = 2;
-    if (type === "heading3") {
-      headLvl = 20;
-    } else if (type === "heading4") {
-      headLvl = 18;
-    } else if (type === "heading5") {
-      headLvl = 10;
-    } else if (type === "normal") {
-      headLvl = 12; // Default font size for normal text
+    const actions = {
+      bold: () => editor.chain().focus().toggleBold().run(),
+      italic: () => editor.chain().focus().toggleItalic().run(),
+      underline: () => editor.chain().focus().toggleUnderline().run(),
+      strike: () => editor.chain().focus().toggleStrike().run(),
+      bulletList: () => editor.chain().focus().toggleBulletList().run(),
+      orderedList: () => editor.chain().focus().toggleOrderedList().run(),
+      blockquote: () => editor.chain().focus().toggleBlockquote().run(),
+      left: () => editor.chain().focus().setTextAlign('left').run(),
+      center: () => editor.chain().focus().setTextAlign('center').run(),
+      right: () => editor.chain().focus().setTextAlign('right').run(),
+      image: () => addImage(),
+      link: () => handleLink(),
+      break: () => editor.chain().focus().setHardBreak().run(),
+      "first-font": () => editor.chain().focus().setFontFamily("myFirstFont").run(),
+    };
+
+    if (['heading3', 'heading4', 'heading5', 'normal'].includes(type)) {
+      handleFontSize(type);
+      return;
     }
 
-    switch (type) {
-      case "bold":
-        editor.chain().focus().toggleBold().run();
-        break;
-      case "italic":
-        editor.chain().focus().toggleItalic().run();
-        break;
-      case "underline":
-        editor.chain().focus().toggleUnderline().run();
-        break;
-      case "strike":
-        editor.chain().focus().toggleStrike().run();
-        break;
-      case "heading3":
-      case "heading4":
-      case "heading5":
-      case "normal":
-        editor.chain().focus().setFontSize(`${headLvl}pt`).run();
-        break;
-      case "bulletList":
-        editor.chain().focus().toggleBulletList().run();
-        break;
-      case "orderedList":
-        editor.chain().focus().toggleOrderedList().run();
-        break;
-      case "blockquote":
-        editor.chain().focus().toggleBlockquote().run();
-        break;
-      case "left":
-      case "center":
-      case "right":
-        editor.chain().focus().setTextAlign(type).run();
-        break;
-      case "image":
-        addImage();
-        break;
-      case "link":
-        const previousUrl = editor.getAttributes("link").href;
-        const url = window.prompt("URL", previousUrl);
-        if (url === null) return;
-        if (url === "") {
-          editor.chain().focus().extendMarkRange("link").unsetLink().run();
-          return;
-        }
-        editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
-        break;
-      case "break":
-        editor.chain().focus().setHardBreak().run();
-        break;
-      case "first-font":
-        editor.chain().focus().setFontFamily("myFirstFont").run();
-        break;
-      default:
-        break;
-    }
+    actions[type as keyof typeof actions]?.();
   };
 
   const renderBtn = (type: string, icon: ReactNode) => {
     let _type: string | object = type;
-    if (type === "left" || type === "center" || type === "right") {
+    if (['left', 'center', 'right'].includes(type)) {
       _type = { textAlign: type };
     }
-
-    const getIsActive = () => {
-    
-      return editor.isActive(_type);
-    };
 
     return (
       <button
         onClick={() => handleClick(type)}
         type="button"
         className={
-          getIsActive()
+          editor.isActive(_type)
             ? "bg-sky-700 text-white p-0.5 rounded"
             : "hover:bg-sky-700 hover:text-white text-blue-500 p-0.5 rounded"
         }

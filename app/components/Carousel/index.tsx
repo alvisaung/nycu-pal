@@ -10,16 +10,22 @@ interface BannerType {
   is_video?: boolean;
 }
 
-const Carousel: FC<{ images: BannerType[]; removeDot?: any; is_banner?: boolean }> = ({ images, removeDot, is_banner }) => {
+interface CarouselProps {
+  images: BannerType[];
+  removeDot?: boolean;
+  is_banner?: boolean;
+}
+
+const Carousel: FC<CarouselProps> = ({ images, removeDot, is_banner }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+
+  // Initialize Keen Slider
   const [sliderRef, instanceRef] = useKeenSlider(
     {
       initial: 0,
       loop: true,
-      defaultAnimation: {
-        duration: 1200,
-      },
+      defaultAnimation: { duration: 1200 },
       slideChanged(slider) {
         setCurrentSlide(slider.track.details.rel);
       },
@@ -28,19 +34,19 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any; is_banner?: boolean 
       },
     },
     [
+      // Autoplay plugin
       (slider) => {
         let timeout: ReturnType<typeof setTimeout>;
         let mouseOver = false;
-        function clearNextTimeout() {
-          clearTimeout(timeout);
-        }
-        function nextTimeout() {
+
+        const clearNextTimeout = () => clearTimeout(timeout);
+
+        const nextTimeout = () => {
           clearTimeout(timeout);
           if (mouseOver) return;
-          timeout = setTimeout(() => {
-            slider.next();
-          }, 2000);
-        }
+          timeout = setTimeout(() => slider.next(), 2000);
+        };
+
         slider.on("created", () => {
           slider.container.addEventListener("mouseover", () => {
             mouseOver = true;
@@ -52,6 +58,7 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any; is_banner?: boolean 
           });
           nextTimeout();
         });
+
         slider.on("dragStarted", clearNextTimeout);
         slider.on("animationEnded", nextTimeout);
         slider.on("updated", nextTimeout);
@@ -59,56 +66,51 @@ const Carousel: FC<{ images: BannerType[]; removeDot?: any; is_banner?: boolean 
     ]
   );
 
+  // If it's a banner, use fixed heights; if not, use aspect ratio
+  const slideClass = is_banner
+    ? "relative w-full h-[300px] md:h-[500px] lg:h-[600px]"
+    : "relative w-full aspect-[4/3]";
+
   return (
     <div className={styles.img_carousal_gp}>
-      <div ref={sliderRef} className="keen-slider ">
-        {images.map((img, id) => {
-          return (
-            //
-            <div
-              key={id}
-              className={`keen-slider__slide relative w-full ${
-                is_banner ? "h-[400px] md:h-[500px] lg:h-[600px]" : "h-full" // Default height when is_banner is false
-              }`}
-              // className="keen-slider__slide relative w-full h-full"
-            >
-              <Image src={img.url} alt="Banner" layout="responsive" width={1} height={1} objectFit="cover" className="object-cover w-full h-auto" />
-            </div>
-          );
-        })}
+      {/* The Keen Slider wrapper: remove 'relative' here if you like */}
+      <div ref={sliderRef} className="keen-slider">
+        {images.map((img, idx) => (
+          <div key={idx} className={`keen-slider__slide ${slideClass}`}>
+            <Image
+              src={img.url}
+              alt="Banner"
+              layout="fill"         // or "fill" + style={{objectFit:'contain'}} in Next.js 13
+              objectFit="contain"
+              objectPosition="top"
+              quality={90}
+              priority={idx === 0}
+            />
+          </div>
+        ))}
+        
+        {/* Dots */}
+        {!removeDot && loaded && instanceRef.current && (
+          <div
+            className={`${styles.dots} absolute bottom-0 md:bottom-0 left-0 right-0`}
+          >
+            {[...Array(instanceRef.current.track.details.slides.length)].map(
+              (_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => instanceRef.current?.moveToIdx(idx)}
+                  className={`${styles.dot} ${
+                    currentSlide === idx ? styles.active : ""
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              )
+            )}
+          </div>
+        )}
       </div>
-      {/* {loaded && instanceRef.current && (
-        <div className="md:block hidden">
-          <Arrow left onClick={() => instanceRef.current?.prev()} disabled={currentSlide === 0} />
-          <Arrow onClick={() => instanceRef.current?.next()} disabled={currentSlide === instanceRef.current.track.details.slides.length - 1} />
-        </div>
-      )} */}
-
-      {!Boolean(removeDot) && loaded && instanceRef.current && (
-        <div className={`${styles.dots} `}>
-          {[...Array(instanceRef.current.track.details.slides.length)].map((m, idx) => {
-            return (
-              <button
-                key={idx}
-                onClick={() => {
-                  instanceRef.current?.moveToIdx(idx);
-                }}
-                className={`${styles.dot} ${currentSlide === idx ? styles.active : ""} `}
-              ></button>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 };
-function Arrow(props: any) {
-  if (props.disabled) return <></>;
-  return (
-    <div onClick={props.onClick} className={`${styles.arrow_box}   ${props.left ? "arrow--left" : styles.arrow_right} `}>
-      {props.left && <img src="/imgs/chevron.png" alt="Arrow Left" className="w-5 -scale-100" />}
-      {!props.left && <img src="/imgs/chevron.png" alt="Arrow Right" className="w-5" />}
-    </div>
-  );
-}
+
 export default Carousel;

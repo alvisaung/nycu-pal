@@ -12,7 +12,7 @@ const Home = async () => {
   return (
     <div className="bg-black min-h-screen text-custom-text-white">
       {/**/}
-      <div className="mx-auto  max-w-[1200px] ">
+      <div className="mx-auto  ">
         <Carousel images={bannerUrls} is_banner />
       </div>
       <div className=" w-full py-6 relative  ">
