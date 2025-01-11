@@ -91,7 +91,7 @@ const Carousel: FC<CarouselProps> = ({ images, removeDot, is_banner }) => {
                 layout="fill"      // or "fill" in Next 13
                 // objectFit="cover"  // or className="object-cover"
                 priority={idx === 0}
-                className="object-cover object-center"
+                className={`  ${is_banner ?" object-cover": "object-contain"} object-center `}
               />
             </div>
           </div>
