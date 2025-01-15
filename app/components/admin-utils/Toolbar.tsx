@@ -74,6 +74,9 @@ const Toolbar = ({ editor, content }: Props) => {
       link: () => handleLink(),
       break: () => editor.chain().focus().setHardBreak().run(),
       "first-font": () => editor.chain().focus().setFontFamily("myFirstFont").run(),
+      tab: () => editor.chain().focus().insertContent("\u00A0\u00A0\u00A0\u00A0").run()     ,
+      
+
     };
 
     if (['heading3', 'heading4', 'heading5', 'normal'].includes(type)) {
@@ -129,6 +132,8 @@ const Toolbar = ({ editor, content }: Props) => {
         {renderBtn("link", <Link className={commonIconStyle} />)}
         <ColorPicker editor={editor} />
         {renderBtn("break", "Hard Break")}
+        {renderBtn("tab", "Tab")}
+
         <input
           id="width"
           type="number"
